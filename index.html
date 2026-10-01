@@ -131,6 +131,10 @@
                         <input type="text" id="memberRole" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: সভাপতি / সাধারণ সদস্য / অনুদান গ্রহীতা">
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">মাসিক অনুদান / চাঁদার পরিমাণ (টাকা)</label>
+                        <input type="number" id="memberMonthlyAmount" value="0" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="টাকার পরিমাণ লিখুন (যেমন: ৫০০)">
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
                         <input type="text" id="memberPhone" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="মোবাইল নম্বর লিখুন">
                     </div>
@@ -151,6 +155,7 @@
                             <th class="p-3">ক্রঃ নং</th>
                             <th class="p-3">নাম</th>
                             <th class="p-3">পদবী</th>
+                            <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
                         </tr>
@@ -170,6 +175,7 @@
                             <th class="p-3">ক্রঃ নং</th>
                             <th class="p-3">নাম</th>
                             <th class="p-3">পদবী</th>
+                            <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
                         </tr>
@@ -189,6 +195,7 @@
                             <th class="p-3">ক্রঃ নং</th>
                             <th class="p-3">নাম</th>
                             <th class="p-3">পদবী</th>
+                            <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
                         </tr>
@@ -208,6 +215,7 @@
                             <th class="p-3">ক্রঃ নং</th>
                             <th class="p-3">নাম</th>
                             <th class="p-3">পদবী / বিবরণ</th>
+                            <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
                         </tr>
@@ -227,6 +235,7 @@
                             <th class="p-3">ক্রঃ নং</th>
                             <th class="p-3">নাম</th>
                             <th class="p-3">সাহায্যের বিবরণ</th>
+                            <th class="p-3">সহায়তার পরিমাণ</th>
                             <th class="p-3">মোবাইল নম্বর</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
                         </tr>
@@ -320,16 +329,7 @@
                             <th class="p-3">বকেয়া (Due)</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y text-sm">
-                        <tr>
-                            <td class="p-3 font-medium">মোঃ আব্দুর রহিম</td>
-                            <td class="p-3">সভাপতি</td>
-                            <td class="p-3">সেপ্টেম্বর ২০২৬</td>
-                            <td class="p-3">৳ ১,০০০</td>
-                            <td class="p-3 text-green-600 font-semibold">৳ ১,০০০</td>
-                            <td class="p-3 text-gray-500 font-semibold">৳ ০</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="dueTrackingTableBody" class="divide-y text-sm"></tbody>
                 </table>
             </div>
         </section>
@@ -565,20 +565,20 @@
         // LocalStorage Management
         let allData = JSON.parse(localStorage.getItem('alkhidmahAllData')) || {
             committee: [
-                { name: "মোঃ আব্দুর রহিম", role: "সভাপতি", phone: "০১৭০০০০০০০০" },
-                { name: "মোঃ শফিকুল ইসলাম", role: "সাধারণ সম্পাদক", phone: "০১৮০০০০০০০০" }
+                { name: "মোঃ আব্দুর রহিম", role: "সভাপতি", amount: 1000, phone: "০১৭০০০০০০০০" },
+                { name: "মোঃ শফিকুল ইসলাম", role: "সাধারণ সম্পাদক", amount: 500, phone: "০১৮০০০০০০০০" }
             ],
             advisors: [
-                { name: "অধ্যাপক ড. মোঃ নজরুল ইসলাম", role: "প্রধান উপদেষ্টা", phone: "০১৯০০০০০০০০" }
+                { name: "অধ্যাপক ড. মোঃ নজরুল ইসলাম", role: "প্রধান উপদেষ্টা", amount: 2000, phone: "০১৯০০০০০০০০" }
             ],
             members: [
-                { name: "মোঃ রফিকুল ইসলাম", role: "সাধারণ সদস্য", phone: "০১৫০০০০০০০০" }
+                { name: "মোঃ রফিকুল ইসলাম", role: "সাধারণ সদস্য", amount: 200, phone: "০১৫০০০০০০০০" }
             ],
             donors: [
-                { name: "আলহাজ্ব আব্দুল লতিফ", role: "আজীবন দাতা", phone: "০১৭১১০০০০০০" }
+                { name: "আলহাজ্ব আব্দুল লতিফ", role: "আজীবন দাতা", amount: 5000, phone: "০১৭১১০০০০০০" }
             ],
             beneficiaries: [
-                { name: "মোছাঃ ফাতেমা খাতুন", role: "শিক্ষা সহায়তা", phone: "০১৮১১০০০০০০" }
+                { name: "মোছাঃ ফাতেমা খাতুন", role: "শিক্ষা সহায়তা", amount: 1500, phone: "০১৮১১০০০০০০" }
             ],
             transactions: [
                 { date: "2026-10-01", donor: "মোঃ রফিকুল ইসলাম", sector: "সদস্যদের মাসিক অনুদান", type: "income", amount: 5000 },
@@ -611,7 +611,8 @@
             renderTableSection('advisors', 'advisorsTableBody');
             renderTableSection('members', 'membersTableBody');
             renderTableSection('donors', 'donorsTableBody');
-            renderTableSection('beneficiaries', 'beneficiariesTableBody');
+            renderBeneficiariesTable();
+            renderDueTracking();
             renderTransactions();
             updateDashboardStats();
             updateSectorDropdown();
@@ -644,19 +645,97 @@
             tbody.innerHTML = '';
             const items = allData[category];
             if (!items || items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
+                let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
                         <td class="p-3 font-medium">${item.name}</td>
                         <td class="p-3">${item.role}</td>
+                        <td class="p-3 font-semibold text-emerald-700">${amt}</td>
                         <td class="p-3">${item.phone}</td>
                         <td class="p-3 text-center">
                             <button onclick="deleteItem('${category}', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
                         </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderBeneficiariesTable() {
+            const tbody = document.getElementById('beneficiariesTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            const items = allData.beneficiaries;
+            if (!items || items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                return;
+            }
+            items.forEach((item, index) => {
+                let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3">${index + 1}</td>
+                        <td class="p-3 font-medium">${item.name}</td>
+                        <td class="p-3">${item.role}</td>
+                        <td class="p-3 font-semibold text-purple-700">${amt}</td>
+                        <td class="p-3">${item.phone}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="deleteItem('beneficiaries', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderDueTracking() {
+            const tbody = document.getElementById('dueTrackingTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            // সব ক্যাটাগরি থেকে সদস্য সংগ্রহ করা যাদের মাসিক অনুদান নির্ধারিত আছে
+            let trackedMembers = [];
+            ['committee', 'advisors', 'members', 'donors'].forEach(cat => {
+                if(allData[cat]) {
+                    allData[cat].forEach(m => {
+                        if(Number(m.amount) > 0) {
+                            trackedMembers.push(m);
+                        }
+                    });
+                }
+            });
+
+            if(trackedMembers.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো সদস্যের মাসিক অনুদান নির্ধারিত নেই</td></tr>`;
+                return;
+            }
+
+            // চলতি মাসের নাম
+            const currentMonthName = "অক্টোবর ২০২৬";
+
+            trackedMembers.forEach((m) => {
+                // লেনদেন থেকে চেক করা এই সদস্য চলতি মাসে কত টাকা জমা দিয়েছে
+                let paidAmount = 0;
+                (allData.transactions || []).forEach(t => {
+                    if(t.type === 'income' && t.donor === m.name) {
+                        paidAmount += Number(t.amount);
+                    }
+                });
+
+                let due = Number(m.amount) - paidAmount;
+                if(due < 0) due = 0;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 font-medium">${m.name}</td>
+                        <td class="p-3">${m.role}</td>
+                        <td class="p-3">${currentMonthName}</td>
+                        <td class="p-3 font-semibold">৳ ${Number(m.amount).toLocaleString()}</td>
+                        <td class="p-3 text-green-600 font-semibold">৳ ${paidAmount.toLocaleString()}</td>
+                        <td class="p-3 font-semibold ${due > 0 ? 'text-rose-600' : 'text-gray-500'}">৳ ${due.toLocaleString()}</td>
                     </tr>
                 `;
             });
@@ -667,13 +746,15 @@
             const category = document.getElementById('categorySelect').value;
             const name = document.getElementById('memberName').value;
             const role = document.getElementById('memberRole').value;
+            const amount = parseFloat(document.getElementById('memberMonthlyAmount').value) || 0;
             const phone = document.getElementById('memberPhone').value;
 
             if(!allData[category]) allData[category] = [];
-            allData[category].push({ name, role, phone });
+            allData[category].push({ name, role, amount, phone });
             localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
 
             document.getElementById('globalMemberForm').reset();
+            document.getElementById('memberMonthlyAmount').value = "0";
             renderAllTables();
             alert('সফলভাবে সংশ্লিষ্ট তালিকায় যুক্ত হয়েছে!');
             showSection(category);
@@ -701,6 +782,7 @@
 
             document.getElementById('transactionForm').reset();
             renderTransactions();
+            renderDueTracking();
             updateDashboardStats();
             alert('হিসাব সফলভাবে সংরক্ষিত হয়েছে!');
         }
@@ -735,6 +817,7 @@
                 allData.transactions.splice(index, 1);
                 localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
                 renderTransactions();
+                renderDueTracking();
                 updateDashboardStats();
             }
         }
