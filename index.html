@@ -45,7 +45,7 @@
                     <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         পরিচিতি <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0">
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0 border border-gray-100">
                         <a href="#committee" onclick="showSection('committee')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পরিচালনা পরিষদ</a>
                         <a href="#advisors" onclick="showSection('advisors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">উপদেষ্টা পরিষদ</a>
                         <a href="#members" onclick="showSection('members')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">সদস্য তালিকা</a>
@@ -62,7 +62,7 @@
                     <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         কার্যক্রম <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0">
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0 border border-gray-100">
                         <a href="#running-activities" onclick="showSection('running-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">চলমান কর্মসূচি</a>
                         <a href="#past-activities" onclick="showSection('past-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পূর্ববর্তী কর্মসূচি</a>
                     </div>
@@ -73,7 +73,7 @@
                     <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         হিসাব-নিকাশ <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-64 py-2 z-50 left-0">
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-64 py-2 z-50 left-0 border border-gray-100">
                         <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয় ও ব্যয়ের খাত</a>
                         <a href="#due-tracking" onclick="showSection('due-tracking')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">ডিউ ট্র্যাকিং (সদস্য অনুদান)</a>
                         <a href="#reports" onclick="showSection('reports')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক)</a>
@@ -92,7 +92,7 @@
     <main class="container mx-auto px-4 py-6 min-h-[70vh]">
 
         <!-- ১. হোম পেজ -->
-        <section id="home" class="space-y-6">
+        <section id="home" class="page-section space-y-6">
             <div class="bg-white rounded-xl shadow-md p-6 md:p-10 border-t-4 border-emerald-600 text-center">
                 <h2 class="text-2xl font-bold text-emerald-800 mb-2">আল খিদমাহ্ ফাউন্ডেশন-এ আপনাকে স্বাগতম</h2>
                 <p class="text-lg text-emerald-700 font-semibold mb-4">"মানুষের জন্য, মানুষের পাশে"</p>
@@ -120,7 +120,7 @@
         </section>
 
         <!-- ২.১ পরিচালনা পরিষদ -->
-        <section id="committee" class="hidden space-y-4">
+        <section id="committee" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">পরিচালনা পরিষদ</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -151,7 +151,7 @@
         </section>
 
         <!-- ২.২ উপদেষ্টা পরিষদ -->
-        <section id="advisors" class="hidden space-y-4">
+        <section id="advisors" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">উপদেষ্টা পরিষদ</h2>
             <div class="bg-white rounded-xl shadow p-6">
                 <p class="text-gray-600 mb-4">ফাউন্ডেশনের সম্মানিত উপদেষ্টাবৃন্দের তালিকা:</p>
@@ -163,7 +163,7 @@
         </section>
 
         <!-- ২.৩ সদস্য তালিকা -->
-        <section id="members" class="hidden space-y-4">
+        <section id="members" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">সাধারণ ও আজীবন সদস্য তালিকা</h2>
             <div class="bg-white rounded-xl shadow p-6">
                 <p class="text-gray-600">এখানে ফাউন্ডেশনের সকল সাধারণ ও আজীবন সদস্যদের নাম ও তথ্য প্রদর্শিত হবে।</p>
@@ -171,7 +171,7 @@
         </section>
 
         <!-- ২.৪ দাতা সদস্যদের তালিকা -->
-        <section id="donors" class="hidden space-y-4">
+        <section id="donors" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">দাতা সদস্যদের তালিকা</h2>
             <div class="bg-white rounded-xl shadow p-6">
                 <p class="text-gray-600">যাঁরা নিয়মিত বা এককালীন বড় অংকের অনুদান দিয়ে ফাউন্ডেশনকে সহযোগিতা করেছেন তাঁদের তালিকা।</p>
@@ -179,7 +179,7 @@
         </section>
 
         <!-- ২.৫ সুবিধাভোগীদের তালিকা -->
-        <section id="beneficiaries" class="hidden space-y-4">
+        <section id="beneficiaries" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">সুবিধাভোগীদের তালিকা</h2>
             <div class="bg-white rounded-xl shadow p-6">
                 <p class="text-gray-600">সাহায্যপ্রাপ্ত বা অনুদান গ্রহণকারী দুস্থ ও মেধাবী শিক্ষার্থীদের তালিকা।</p>
@@ -187,7 +187,7 @@
         </section>
 
         <!-- ৩. লক্ষ্য ও উদ্দেশ্য -->
-        <section id="about-us" class="hidden space-y-4">
+        <section id="about-us" class="page-section hidden space-y-4">
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-emerald-700 mb-3 border-b pb-2">লক্ষ্য ও উদ্দেশ্য</h2>
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
@@ -200,7 +200,7 @@
         </section>
 
         <!-- ৪. ড্যাশবোর্ড -->
-        <section id="dashboard" class="hidden space-y-6">
+        <section id="dashboard" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">ফাউন্ডেশন ড্যাশবোর্ড ও সারসংক্ষেপ</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
@@ -219,7 +219,7 @@
         </section>
 
         <!-- ৫.১ চলমান কর্মসূচি -->
-        <section id="running-activities" class="hidden space-y-4">
+        <section id="running-activities" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি তালিকা</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -244,7 +244,7 @@
         </section>
 
         <!-- ৫.২ পূর্ববর্তী কর্মসূচি -->
-        <section id="past-activities" class="hidden space-y-4">
+        <section id="past-activities" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -269,7 +269,7 @@
         </section>
 
         <!-- ৬.১ আয় ও ব্যয়ের খাত -->
-        <section id="income-expense-sectors" class="hidden space-y-4">
+        <section id="income-expense-sectors" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাতসমূহ</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-5 rounded-xl shadow border-t-4 border-emerald-600">
@@ -294,7 +294,7 @@
         </section>
 
         <!-- ৬.২ ডিউ ট্র্যাকিং (সদস্যের অনুদান) -->
-        <section id="due-tracking" class="hidden space-y-4">
+        <section id="due-tracking" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">সদস্য ডিউ ট্র্যাকিং (সদস্যের অনুদান বকেয়া হিসাব)</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -331,7 +331,7 @@
         </section>
 
         <!-- ৬.৩ আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক) -->
-        <section id="reports" class="hidden space-y-4">
+        <section id="reports" class="page-section hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব (মাসিক ও বাৎসরিক রিপোর্ট)</h2>
             <div class="bg-white rounded-xl shadow p-6">
                 <p class="text-gray-600 mb-4">চলতি বছরের খাতভিত্তিক ও মাসিক স্টেটমেন্ট এখানে দেখা যাবে।</p>
@@ -342,7 +342,7 @@
         </section>
 
         <!-- ৬.৪ আয় ও ব্যয়ের রশিদ (অটো সিরিয়াল) -->
-        <section id="receipts" class="hidden space-y-4">
+        <section id="receipts" class="page-section hidden space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় আয় ও ব্যয়ের রশিদ জেনারেটর</h2>
                 <button onclick="generateNewReceipt()" class="bg-emerald-600 text-white px-4 py-2 rounded shadow hover:bg-emerald-700 text-sm font-medium">
@@ -385,19 +385,19 @@
         </section>
 
         <!-- ৭. ক্যালেন্ডার -->
-        <section id="calendar" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+        <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow space-y-3">
             <h2 class="text-xl font-bold text-emerald-700">ইভেন্ট ক্যালেন্ডার</h2>
             <p class="text-gray-600">ফাউন্ডেশনের বিভিন্ন সভার তারিখ এবং কার্যক্রমের সূচি ক্যালেন্ডার আকারে এখানে প্রদর্শিত হবে।</p>
         </section>
 
         <!-- ৮. গ্যালারী -->
-        <section id="gallery" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+        <section id="gallery" class="page-section hidden bg-white p-6 rounded-xl shadow space-y-3">
             <h2 class="text-xl font-bold text-emerald-700">ফটো ও ভিডিও গ্যালারী</h2>
             <p class="text-gray-600">বিভিন্ন কর্মসূচির ছবি ও ভিডিও ক্লিপ এখানে আপলোড করা থাকবে।</p>
         </section>
 
         <!-- ৯. যোগাযোগ -->
-        <section id="contact" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+        <section id="contact" class="page-section hidden bg-white p-6 rounded-xl shadow space-y-3">
             <h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2>
             <p class="text-gray-600"><strong>ঠিকানা:</strong> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p>
             <p class="text-gray-600"><strong>মোবাইল:</strong> ০১৭০০০০০০০০</p>
@@ -412,14 +412,14 @@
         <p class="text-xs text-emerald-400 mt-1">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
     </footer>
 
-    <!-- JavaScript for Dynamic Section Switching -->
+    <!-- JavaScript for Accurate Section Switching -->
     <script>
         function showSection(sectionId) {
-            // Hide all sections inside main
-            const sections = document.querySelectorAll('main > section');
+            // সকল পেজ সেকশন থেকে 'hidden' ক্লাস যুক্ত করে লুকিয়ে ফেলা
+            const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.add('hidden'));
 
-            // Show target section
+            // শুধুমাত্র কাঙ্ক্ষিত সেকশন থেকে 'hidden' ক্লাস সরিয়ে দৃশ্যমান করা
             const target = document.getElementById(sectionId);
             if(target) {
                 target.classList.remove('hidden');
