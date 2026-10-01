@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=SolaimanLipi&display=swap');
+
+body {
+    font-family: 'SolaimanLipi', sans-serif;
+}
+
+/* ডেস্কটপে হোভার করলে ড্রপডাউন দেখাবে */
+@media (min-width: 768px) {
+    .group:hover .dropdown-content {
+        display: block !important;
+    }
+}
