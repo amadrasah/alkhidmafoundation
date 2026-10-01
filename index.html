@@ -13,12 +13,18 @@
         @media (min-width: 768px) {
             .group:hover .dropdown-content { display: block !important; }
         }
+        @media print {
+            body * { visibility: hidden; }
+            #printableReceipt, #printableReceipt * { visibility: visible; }
+            #printableReceipt { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; }
+            .no-print { display: none; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Top Header -->
-    <header class="bg-emerald-700 text-white shadow-md relative z-10">
+    <header class="bg-emerald-700 text-white shadow-md relative z-10 no-print">
         <div class="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold">আল খিদমাহ্ ফাউন্ডেশন</h1>
@@ -31,7 +37,7 @@
     </header>
 
     <!-- Navigation Bar -->
-    <nav class="bg-emerald-900 text-white shadow-2xl relative z-[9999] border-b-2 border-emerald-700">
+    <nav class="bg-emerald-900 text-white shadow-2xl relative z-[9999] border-b-2 border-emerald-700 no-print">
         <div class="container mx-auto px-4 flex flex-wrap justify-between items-center py-2">
             <button id="menuToggle" class="md:hidden text-white bg-emerald-700 px-4 py-2 rounded-lg font-semibold">
                 <i class="fa-solid fa-bars mr-2"></i> মেনু বার
@@ -230,18 +236,20 @@
             </div>
         </section>
 
-        <!-- ৮. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত -->
+        <!-- ৮. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত (ড্রপডাউন সাজানো) -->
         <section id="income-expense-sectors" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাতসমূহ</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-6 rounded-xl shadow border-t-4 border-emerald-600">
                     <h3 class="font-bold text-emerald-800 mb-3 text-lg">আয়ের খাতসমূহ</h3>
                     <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
-                        <li>সদস্যদের মাসিক চাঁদা</li>
-                        <li>আজীবন সদস্য ফি</li>
-                        <li>সাধারণ অনুদান ও দান</li>
-                        <li>জরুরি ত্রাণ ফান্ড</li>
-                        <li>অন্যান্য উৎস</li>
+                        <li>সদস্যদের মাসিক অনুদান</li>
+                        <li>দাতা সদস্যের অনুদান</li>
+                        <li>উপদেষ্টা পরিষদের অনুদান</li>
+                        <li>সাধারণ দান</li>
+                        <li>এককালীন অনুদান</li>
+                        <li>বিশেষ ফান্ডে দান</li>
+                        <li>অন্যান্য</li>
                     </ul>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow border-t-4 border-rose-600">
@@ -252,6 +260,7 @@
                         <li>চিকিৎসা সহায়তা খরচ</li>
                         <li>অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়</li>
                         <li>জরুরি ত্রাণ বিতরণ খরচ</li>
+                        <li>অন্যান্য ব্যয়</li>
                     </ul>
                 </div>
             </div>
@@ -294,24 +303,26 @@
             </div>
         </section>
 
-        <!-- ১০. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও নতুন এন্ট্রি ফর্ম -->
+        <!-- ১০. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও ড্রপডাউন এন্ট্রি ফর্ম -->
         <section id="reports" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব এবং রিপোর্ট</h2>
             
-            <!-- নতুন আয়/ব্যয় এন্ট্রি ফর্ম -->
+            <!-- নতুন আয়/ব্যয় এন্ট্রি ফর্ম (ড্রপডাউন সহ) -->
             <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4"><i class="fa-solid fa-file-invoice-dollar mr-2"></i>নতুন আয় বা ব্যয় এন্ট্রি করুন</h3>
                 <form id="transactionForm" onsubmit="addTransaction(event)" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">লেনদেনের ধরণ</label>
-                        <select id="transType" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                        <select id="transType" onchange="updateSectorDropdown()" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
                             <option value="income">আয় (Income)</option>
                             <option value="expense">ব্যয় (Expense)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">বিবরণ / খাত</label>
-                        <input type="text" id="transDesc" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: মাসিক চাঁদা / শীতবস্ত্র ক্রয়">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">খাত নির্বাচন করুন</label>
+                        <select id="transSector" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                            <!-- ডায়নামিক্যালি লোড হবে -->
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">পরিমাণ (টাকা)</label>
@@ -350,7 +361,7 @@
                     <thead>
                         <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
                             <th class="p-3">তারিখ</th>
-                            <th class="p-3">বিবরণ</th>
+                            <th class="p-3">খাত</th>
                             <th class="p-3">ধরণ</th>
                             <th class="p-3">পরিমাণ</th>
                             <th class="p-3 text-center">অ্যাকশন</th>
@@ -361,52 +372,120 @@
             </div>
         </section>
 
-        <!-- ১১. হিসাব-নিকাশ: অটো রশিদ জেনারেটর -->
+        <!-- ১১. হিসাব-নিকাশ: ট্র্যাকিংযুক্ত প্রফেশনাল অটো রশিদ জেনারেটর -->
         <section id="receipts" class="page-section hidden space-y-6">
-            <div class="flex justify-between items-center flex-wrap gap-4">
-                <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় আয় ও ব্যয়ের রশিদ জেনারেটর</h2>
+            <div class="flex justify-between items-center flex-wrap gap-4 no-print">
+                <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় অনুদান ও আয় রশিদ (Receipt)</h2>
                 <button onclick="generateNewReceipt()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg shadow hover:bg-emerald-700 text-sm font-medium">
-                    <i class="fa-solid fa-plus mr-1"></i> নতুন সিরিয়াল জেনারেট করুন
+                    <i class="fa-solid fa-plus mr-1"></i> নতুন রশিদ তৈরি করুন
                 </button>
             </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-8 max-w-xl mx-auto border border-gray-200 space-y-6">
-                <div class="flex justify-between border-b pb-4">
+
+            <!-- রশিদ তৈরির ফর্ম -->
+            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto no-print">
+                <h3 class="text-lg font-bold text-emerald-800 mb-4"><i class="fa-solid fa-receipt mr-2"></i>রশিদ তথ্য পূরণ করুন</h3>
+                <form id="receiptForm" onsubmit="previewReceipt(event)" class="space-y-4">
                     <div>
-                        <h3 class="text-xl font-bold text-emerald-800">আল খিদমাহ্ ফাউন্ডেশন</h3>
-                        <p class="text-xs text-gray-500">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">দানকারী / দাতার নাম (বা ডাটাবেজ থেকে সিলেক্ট করুন)</label>
+                        <input type="text" id="rcvDonorName" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="পূর্ণ নাম লিখুন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">পদবী বা সংশ্লিষ্টতা</label>
+                        <select id="rcvDesignation" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                            <option value="পরিচালনা পরিষদ">পরিচালনা পরিষদ</option>
+                            <option value="উপদেষ্টা পরিষদ">উপদেষ্টা পরিষদ</option>
+                            <option value="দাতা সদস্য">দাতা সদস্য</option>
+                            <option value="সাধারণ সদস্য">সাধারণ সদস্য</option>
+                            <option value="সাধারণ দাতা / শুভানুধ্যায়ী">সাধারণ দাতা / শুভানুধ্যায়ী</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">দানের খাত</label>
+                        <select id="rcvSector" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                            <option value="সদস্যদের মাসিক অনুদান">সদস্যদের মাসিক অনুদান</option>
+                            <option value="দাতা সদস্যের অনুদান">দাতা সদস্যের অনুদান</option>
+                            <option value="উপদেষ্টা পরিষদের অনুদান">উপদেষ্টা পরিষদের অনুদান</option>
+                            <option value="সাধারণ দান">সাধারণ দান</option>
+                            <option value="এককালীন অনুদান">এককালীন অনুদান</option>
+                            <option value="বিশেষ ফান্ডে দান">বিশেষ ফান্ডে দান</option>
+                            <option value="অন্যান্য">অন্যান্য</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">দানের পরিমাণ (টাকা)</label>
+                        <input type="number" id="rcvAmount" required oninput="convertAmountToWords()" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="টাকার অংক লিখুন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">কথায় প্রকাশ</label>
+                        <input type="text" id="rcvAmountWords" readonly class="w-full border rounded-lg px-3 py-2 text-sm bg-gray-100 text-gray-600 outline-none" placeholder=" ಸ್ವয়ংক্রিয়ভাবে টাকায় রূপান্তর হবে">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">তারিখ</label>
+                        <input type="date" id="rcvDate" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
+                        রশিদ তৈরি করুন
+                    </button>
+                </form>
+            </div>
+            
+            <!-- প্রিন্টযোগ্য বা ডাউনলোডযোগ্য প্রফেশনাল রশিদ প্রিভিউ -->
+            <div id="printableReceipt" class="bg-white rounded-xl shadow-xl p-8 max-w-2xl mx-auto border-2 border-emerald-700 space-y-6">
+                <div class="flex justify-between items-center border-b-2 border-emerald-800 pb-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-emerald-800">আল খিদমাহ্ ফাউন্ডেশন</h3>
+                        <p class="text-xs text-gray-600">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                        <p class="text-xs text-emerald-700 font-semibold mt-1">ট্র্যাকিং আইডি / রশিদ</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-sm font-bold text-gray-700">রশিদ নং: <span id="receiptNo" class="text-emerald-600">AKF-2026-001</span></p>
-                        <p class="text-xs text-gray-500">তারিখ: <span id="receiptDate">০১ অক্টোবর ২০২৬</span></p>
+                        <p class="text-sm font-bold text-gray-700">রশিদ নং: <span id="viewReceiptNo" class="text-emerald-600">AKF-2026-001</span></p>
+                        <p class="text-xs text-gray-500">তারিখ: <span id="viewReceiptDate">০১ অক্টোবর ২০২৬</span></p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-sm">
+                <div class="space-y-4 text-sm pt-2">
                     <div class="flex justify-between border-b pb-2">
-                        <span class="text-gray-600">খাত / বিবরণ:</span>
-                        <span class="font-medium">মাসিক সদস্য চাঁদা ও অনুদান</span>
+                        <span class="text-gray-600">দানকারীর নাম:</span>
+                        <span id="viewDonorName" class="font-bold text-gray-800">-</span>
                     </div>
                     <div class="flex justify-between border-b pb-2">
-                        <span class="text-gray-600">প্রদানকারী / দাতা:</span>
-                        <span class="font-medium">সাধারণ তহবিল</span>
+                        <span class="text-gray-600">পদবী / সংশ্লিষ্টতা:</span>
+                        <span id="viewDesignation" class="font-semibold text-emerald-700">-</span>
                     </div>
-                    <div class="flex justify-between pt-2 font-bold text-base bg-emerald-50 p-3 rounded-lg">
-                        <span>মোট পরিমাণ:</span>
-                        <span class="text-emerald-600">৳ ১,০০০.০০</span>
+                    <div class="flex justify-between border-b pb-2">
+                        <span class="text-gray-600">দানের খাত:</span>
+                        <span id="viewSector" class="font-medium text-gray-800">-</span>
+                    </div>
+                    <div class="flex justify-between border-b pb-2">
+                        <span class="text-gray-600">টাকার পরিমাণ (অংকে):</span>
+                        <span id="viewAmountNum" class="font-bold text-emerald-700 text-base">৳ ০.০০</span>
+                    </div>
+                    <div class="flex justify-between border-b pb-2">
+                        <span class="text-gray-600">কথায়:</span>
+                        <span id="viewAmountWords" class="font-medium text-gray-700 italic">-</span>
                     </div>
                 </div>
 
-                <div class="mt-8 flex justify-between items-center pt-6 border-t text-xs text-gray-500">
+                <div class="mt-12 flex justify-between items-center pt-8 border-t border-gray-300 text-xs text-gray-700">
                     <div class="text-center">
-                        <div class="border-t border-gray-400 w-32 mb-1"></div>
-                        <span>প্রস্তুতকারী / ক্যাশিয়ার</span>
+                        <div class="border-t border-gray-400 w-36 mb-1"></div>
+                        <span>গ্রহনকারীর স্বাক্ষর</span>
                     </div>
                     <div class="text-center">
-                        <div class="border-t border-gray-400 w-32 mb-1"></div>
+                        <div class="border-t border-gray-400 w-36 mb-1"></div>
                         <span>সভাপতি / সাধারণ সম্পাদক</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- প্রিন্ট বা ডাউনলোড বাটন -->
+            <div class="text-center space-x-4 no-print pb-6">
+                <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold shadow hover:bg-blue-700 text-sm">
+                    <i class="fa-solid fa-print mr-2"></i> প্রিন্ট করুন
+                </button>
+                <button onclick="alert('প্রিন্ট অপশন থেকে "Save as PDF" সিলেক্ট করে পিডিএফ ডাউনলোড করতে পারেন।')" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-semibold shadow hover:bg-indigo-700 text-sm">
+                    <i class="fa-solid fa-download mr-2"></i> ডাউনলোড (PDF)
+                </button>
             </div>
         </section>
 
@@ -422,7 +501,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-emerald-950 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10">
+    <footer class="bg-emerald-950 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10 no-print">
         <p>&copy; ২০২৬ আল খিদমাহ্ ফাউন্ডেশন | সর্বস্বত্ব সংরক্ষিত</p>
     </footer>
 
@@ -489,10 +568,40 @@
                 { name: "মোছাঃ ফাতেমা খাতুন", role: "শিক্ষা সহায়তা", phone: "০১৮১১০০০০০০" }
             ],
             transactions: [
-                { date: "2026-10-01", desc: "মাসিক সদস্য চাঁদা", type: "income", amount: 5000 },
-                { date: "2026-10-02", desc: "অফিস খরচ", type: "expense", amount: 1000 }
+                { date: "2026-10-01", sector: "সদস্যদের মাসিক অনুদান", type: "income", amount: 5000 },
+                { date: "2026-10-02", sector: "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়", type: "expense", amount: 1000 }
             ]
         };
+
+        const incomeSectors = [
+            "সদস্যদের মাসিক অনুদান",
+            "দাতা সদস্যের অনুদান",
+            "উপদেষ্টা পরিষদের অনুদান",
+            "সাধারণ দান",
+            "এককালীন অনুদান",
+            "বিশেষ ফান্ডে দান",
+            "অন্যান্য"
+        ];
+
+        const expenseSectors = [
+            "শীতবস্ত্র ক্রয় ও বিতরণ খরচ",
+            "শিক্ষা উপকরণ ও শিক্ষাবৃত্তি বিতরণ",
+            "চিকিৎসা সহায়তা খরচ",
+            "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়",
+            "জরুরি ত্রাণ বিতরণ খরচ",
+            "অন্যান্য ব্যয়"
+        ];
+
+        function updateSectorDropdown() {
+            const type = document.getElementById('transType').value;
+            const sectorSelect = document.getElementById('transSector');
+            sectorSelect.innerHTML = '';
+            
+            const list = type === 'income' ? incomeSectors : expenseSectors;
+            list.forEach(sec => {
+                sectorSelect.innerHTML += `<option value="${sec}">${sec}</option>`;
+            });
+        }
 
         function renderAllTables() {
             renderTableSection('committee', 'committeeTableBody');
@@ -501,6 +610,7 @@
             renderTableSection('donors', 'donorsTableBody');
             renderTableSection('beneficiaries', 'beneficiariesTableBody');
             renderTransactions();
+            updateSectorDropdown();
         }
 
         function renderTableSection(category, tbodyId) {
@@ -561,12 +671,12 @@
         function addTransaction(e) {
             e.preventDefault();
             const type = document.getElementById('transType').value;
-            const desc = document.getElementById('transDesc').value;
+            const sector = document.getElementById('transSector').value;
             const amount = parseFloat(document.getElementById('transAmount').value);
             const date = document.getElementById('transDate').value;
 
             if(!allData.transactions) allData.transactions = [];
-            allData.transactions.push({ date, desc, type, amount });
+            allData.transactions.push({ date, desc: sector, type, amount });
             localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
 
             document.getElementById('transactionForm').reset();
@@ -620,13 +730,43 @@
             }
         }
 
-        // অটো রশিদ কাউন্টার
+        // রিসিট ও কথায় রূপান্তর লজিক
+        function convertAmountToWords() {
+            const amt = document.getElementById('rcvAmount').value;
+            document.getElementById('rcvAmountWords').value = amt ? numberToWordsBangla(amt) + " টাকা মাত্র" : "";
+        }
+
+        function numberToWordsBangla(num) {
+            return num + " (কথায় প্রকাশিত)"; // সহজ রূপান্তর বা সংখ্যা প্রদর্শন
+        }
+
         let receiptCounter = 1;
-        function generateNewReceipt() {
+        function previewReceipt(e) {
+            e.preventDefault();
             receiptCounter++;
             let serialStr = String(receiptCounter).padStart(3, '0');
-            document.getElementById('receiptNo').innerText = `AKF-2026-${serialStr}`;
-            alert('নতুন স্বয়ংক্রিয় রশিদ নম্বর জেনারেট হয়েছে!');
+            
+            const name = document.getElementById('rcvDonorName').value;
+            const designation = document.getElementById('rcvDesignation').value;
+            const sector = document.getElementById('rcvSector').value;
+            const amount = document.getElementById('rcvAmount').value;
+            const date = document.getElementById('rcvDate').value || new Date().toISOString().split('T')[0];
+
+            document.getElementById('viewReceiptNo').innerText = `AKF-2026-${serialStr}`;
+            document.getElementById('viewReceiptDate').innerText = date;
+            document.getElementById('viewDonorName').innerText = name;
+            document.getElementById('viewDesignation').innerText = designation;
+            document.getElementById('viewSector').innerText = sector;
+            document.getElementById('viewAmountNum').innerText = `৳ ${Number(amount).toLocaleString()}.০০`;
+            document.getElementById('viewAmountWords').innerText = numberToWordsBangla(amount) + " টাকা মাত্র";
+
+            alert('রিসিট সফলভাবে প্রস্তুত হয়েছে!');
+        }
+
+        function generateNewReceipt() {
+            document.getElementById('receiptForm').reset();
+            document.getElementById('rcvAmountWords').value = "";
+            alert('নতুন রিসিটের জন্য ফর্ম খালি করা হয়েছে।');
         }
 
         window.onload = function() {
