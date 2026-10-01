@@ -12,9 +12,9 @@
         body {
             font-family: 'SolaimanLipi', sans-serif;
         }
-        /* Desktop dropdown hover */
+        /* Desktop Hover Dropdown */
         @media (min-width: 768px) {
-            .desktop-dropdown:hover .dropdown-menu {
+            .group:hover .dropdown-content {
                 display: block !important;
             }
         }
@@ -35,25 +35,24 @@
         </div>
     </header>
 
-    <!-- Navigation Bar (Updated Large Button Row & High Z-Index) -->
-    <nav class="bg-emerald-900 text-white shadow-xl relative z-[9999] border-b-2 border-emerald-700">
-        <div class="container mx-auto px-4 flex justify-between items-center py-3">
-            <span class="font-bold text-lg md:hidden"><i class="fa-solid fa-bars mr-2"></i> মেনু বার</span>
+    <!-- Navigation Bar (Large Button Row & High Z-Index) -->
+    <nav class="bg-emerald-900 text-white shadow-2xl relative z-[9999] border-b-2 border-emerald-700">
+        <div class="container mx-auto px-4 flex flex-wrap justify-between items-center py-2">
             <!-- Mobile Menu Button (Hamburger) -->
-            <button id="menuToggle" class="md:hidden text-white focus:outline-none bg-emerald-700 hover:bg-emerald-600 px-3 py-2 rounded-lg text-lg">
-                <i class="fa-solid fa-bars"></i> মেনু খুলুন
+            <button id="menuToggle" class="md:hidden text-white focus:outline-none bg-emerald-700 hover:bg-emerald-600 px-4 py-2.5 rounded-lg text-base font-semibold flex items-center">
+                <i class="fa-solid fa-bars mr-2 text-lg"></i> মেনু বার
             </button>
 
-            <!-- Navigation Links (Desktop & Mobile) -->
-            <div id="navMenu" class="hidden md:flex flex-col md:flex-row md:space-x-2 lg:space-x-3 absolute md:relative top-full left-0 w-full md:w-auto bg-emerald-900 md:bg-transparent shadow-2xl md:shadow-none p-4 md:p-0 space-y-2 md:space-y-0">
-                <a href="#home" onclick="showSection('home'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-house mr-1"></i> হোম</a>
+            <!-- Navigation Links -->
+            <div id="navMenu" class="hidden md:flex flex-col md:flex-row md:space-x-1 lg:space-x-2 w-full md:w-auto bg-emerald-900 md:bg-transparent p-4 md:p-0 mt-2 md:mt-0 space-y-2 md:space-y-0">
+                <a href="#home" onclick="showSection('home'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-house mr-1"></i> হোম</a>
                 
                 <!-- পরিচিতি ড্রপডাউন -->
-                <div class="relative desktop-dropdown">
-                    <button onclick="toggleSubMenu(event, 'introDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                <div class="relative group">
+                    <button onclick="toggleDropdown(event, 'introDropdown')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
                         <span>পরিচিতি</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div id="introDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                    <div id="introDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
                         <a href="#committee" onclick="showSection('committee'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">পরিচালনা পরিষদ</a>
                         <a href="#advisors" onclick="showSection('advisors'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">উপদেষ্টা পরিষদ</a>
                         <a href="#members" onclick="showSection('members'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">সদস্য তালিকা</a>
@@ -62,26 +61,26 @@
                     </div>
                 </div>
 
-                <a href="#about-us" onclick="showSection('about-us'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">লক্ষ্য ও উদ্দেশ্য</a>
-                <a href="#dashboard" onclick="showSection('dashboard'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
+                <a href="#about-us" onclick="showSection('about-us'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">লক্ষ্য ও উদ্দেশ্য</a>
+                <a href="#dashboard" onclick="showSection('dashboard'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
 
                 <!-- কার্যক্রম ড্রপডাউন -->
-                <div class="relative desktop-dropdown">
-                    <button onclick="toggleSubMenu(event, 'activitiesDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                <div class="relative group">
+                    <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
                         <span>কার্যক্রম</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div id="activitiesDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                    <div id="activitiesDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
                         <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">চলমান কর্মসূচি</a>
                         <a href="#past-activities" onclick="showSection('past-activities'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">পূর্ববর্তী কর্মসূচি</a>
                     </div>
                 </div>
 
                 <!-- হিসাব-নিকাশ ড্রপডাউন -->
-                <div class="relative desktop-dropdown">
-                    <button onclick="toggleSubMenu(event, 'accountsDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                <div class="relative group">
+                    <button onclick="toggleDropdown(event, 'accountsDropdown')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
                         <span>হিসাব-নিকাশ</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div id="accountsDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-64 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                    <div id="accountsDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-64 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
                         <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">আয় ও ব্যয়ের খাত</a>
                         <a href="#due-tracking" onclick="showSection('due-tracking'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">ডিউ ট্র্যাকিং (সদস্য অনুদান)</a>
                         <a href="#reports" onclick="showSection('reports'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক)</a>
@@ -89,9 +88,9 @@
                     </div>
                 </div>
 
-                <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">ক্যালেন্ডার</a>
-                <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">গ্যালারী</a>
-                <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">যোগাযোগ</a>
+                <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">ক্যালেন্ডার</a>
+                <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">গ্যালারী</a>
+                <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-4 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">যোগাযোগ</a>
             </div>
         </div>
     </nav>
@@ -420,7 +419,7 @@
         <p class="text-xs text-emerald-400 mt-1">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
     </footer>
 
-    <!-- JavaScript for Mobile Menu and Section Switching -->
+    <!-- JavaScript for Menu & Dropdown Toggle -->
     <script>
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
@@ -432,17 +431,40 @@
         function closeMobileMenu() {
             if (window.innerWidth < 768) {
                 navMenu.classList.add('hidden');
+                // সব ড্রপডাউন বন্ধ করে দেওয়া
+                document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
             }
         }
 
-        function toggleSubMenu(event, dropdownId) {
-            if (window.innerWidth < 768) {
-                event.preventDefault();
-                event.stopPropagation();
-                const dropdown = document.getElementById(dropdownId);
-                dropdown.classList.toggle('hidden');
+        function toggleDropdown(event, dropdownId) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const currentDropdown = document.getElementById(dropdownId);
+            const isHidden = currentDropdown.classList.contains('hidden');
+
+            // অন্যান্য খোলা ড্রপডাউনগুলো বন্ধ করা
+            document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
+
+            // বর্তমানটিতে ক্লিক করলে টগল করা
+            if (isHidden) {
+                currentDropdown.classList.remove('hidden');
+            } else {
+                currentDropdown.classList.add('hidden');
             }
         }
+
+        // পেজের বাইরে কোথাও ক্লিক করলে ড্রপডাউন বন্ধ হয়ে যাবে
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('.group')) {
+                document.querySelectorAll('.dropdown-content').forEach(el => {
+                    if (window.innerWidth >= 768) {
+                        // ডেস্কটপে বাইরে ক্লিক করলে হাইড হবে
+                        el.classList.add('hidden');
+                    }
+                });
+            }
+        });
 
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.page-section');
