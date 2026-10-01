@@ -236,7 +236,46 @@
             </div>
         </section>
 
-        <!-- ৮. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত -->
+        <!-- ৮. ডাইনামিক ড্যাশবোর্ড সেকশন -->
+        <section id="dashboard" class="page-section hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-chart-pie mr-2"></i>ফাউন্ডেশন ড্যাশবোর্ড ও পরিসংখ্যান</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white border-l-4 border-emerald-600 p-5 rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-xs font-semibold">পরিচালনা পরিষদ সদস্য</p>
+                    <p id="dashCommitteeCount" class="text-2xl font-bold text-emerald-800 mt-1">০</p>
+                </div>
+                <div class="bg-white border-l-4 border-blue-600 p-5 rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-xs font-semibold">সাধারণ ও আজীবন সদস্য</p>
+                    <p id="dashMembersCount" class="text-2xl font-bold text-blue-800 mt-1">০</p>
+                </div>
+                <div class="bg-white border-l-4 border-yellow-600 p-5 rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-xs font-semibold">দাতা সদস্য</p>
+                    <p id="dashDonorsCount" class="text-2xl font-bold text-yellow-800 mt-1">০</p>
+                </div>
+                <div class="bg-white border-l-4 border-purple-600 p-5 rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-xs font-semibold">সুবিধাভোগী পরিবার</p>
+                    <p id="dashBeneficiariesCount" class="text-2xl font-bold text-purple-800 mt-1">০</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl shadow-sm text-center">
+                    <h3 class="font-semibold text-emerald-800 text-sm">মোট আয়</h3>
+                    <p id="dashTotalIncome" class="text-3xl font-bold text-emerald-600 mt-2">৳ ০</p>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 p-6 rounded-xl shadow-sm text-center">
+                    <h3 class="font-semibold text-rose-800 text-sm">মোট ব্যয়</h3>
+                    <p id="dashTotalExpense" class="text-3xl font-bold text-rose-600 mt-2">৳ ০</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl shadow-sm text-center">
+                    <h3 class="font-semibold text-blue-800 text-sm">ফান্ড ব্যালেন্স</h3>
+                    <p id="dashNetBalance" class="text-3xl font-bold text-blue-600 mt-2">৳ ০</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ৯. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত -->
         <section id="income-expense-sectors" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাতসমূহ</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -266,7 +305,7 @@
             </div>
         </section>
 
-        <!-- ৯. হিসাব-নিকাশ: ডিউ ট্র্যাকিং (বকেয়া হিসাব) -->
+        <!-- ১০. হিসাব-নিকাশ: ডিউ ট্র্যাকিং (বকেয়া হিসাব) -->
         <section id="due-tracking" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">ডিউ ট্র্যাকিং (সদস্য চাঁদা বকেয়া হিসাব)</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
@@ -290,20 +329,12 @@
                             <td class="p-3 text-green-600 font-semibold">৳ ১,০০০</td>
                             <td class="p-3 text-gray-500 font-semibold">৳ ০</td>
                         </tr>
-                        <tr>
-                            <td class="p-3 font-medium">মোঃ শফিকুল ইসলাম</td>
-                            <td class="p-3">সাধারণ সম্পাদক</td>
-                            <td class="p-3">সেপ্টেম্বর ২০২৬</td>
-                            <td class="p-3">৳ ১,০০০</td>
-                            <td class="p-3 text-green-600 font-semibold">৳ ৫০০</td>
-                            <td class="p-3 text-rose-600 font-semibold">৳ ৫০০</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- ১০. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও ড্রপডাউন এন্ট্রি ফর্ম (দানকারীর নামসহ) -->
+        <!-- ১১. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও ড্রপডাউন এন্ট্রি ফর্ম -->
         <section id="reports" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব এবং রিপোর্ট</h2>
             
@@ -323,9 +354,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">খাত নির্বাচন করুন</label>
-                        <select id="transSector" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
-                            <!-- ডায়নামিক্যালি লোড হবে -->
-                        </select>
+                        <select id="transSector" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none"></select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">পরিমাণ (টাকা)</label>
@@ -339,22 +368,6 @@
                         হিসাব সংরক্ষণ করুন
                     </button>
                 </form>
-            </div>
-
-            <!-- হিসাবের সারসংক্ষেপ কার্ড -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow-sm text-center">
-                    <h3 class="font-semibold text-emerald-800 text-sm">মোট আয়</h3>
-                    <p id="totalIncomeDisplay" class="text-2xl font-bold text-emerald-600 mt-1">৳ ০</p>
-                </div>
-                <div class="bg-rose-50 border border-rose-200 p-5 rounded-xl shadow-sm text-center">
-                    <h3 class="font-semibold text-rose-800 text-sm">মোট ব্যয়</h3>
-                    <p id="totalExpenseDisplay" class="text-2xl font-bold text-rose-600 mt-1">৳ ০</p>
-                </div>
-                <div class="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm text-center">
-                    <h3 class="font-semibold text-blue-800 text-sm">নিট উদ্বৃত্ত ব্যালেন্স</h3>
-                    <p id="netBalanceDisplay" class="text-2xl font-bold text-blue-600 mt-1">৳ ০</p>
-                </div>
             </div>
 
             <!-- লেনদেন তালিকা টেবিল -->
@@ -376,7 +389,7 @@
             </div>
         </section>
 
-        <!-- ১১. হিসাব-নিকাশ: ট্র্যাকিংযুক্ত প্রফেশনাল অটো রশিদ জেনারেটর (ডাউনলোড ও প্রিন্ট সুবিধাসহ) -->
+        <!-- ১২. হিসাব-নিকাশ: অটো রশিদ জেনারেটর -->
         <section id="receipts" class="page-section hidden space-y-6">
             <div class="flex justify-between items-center flex-wrap gap-4 no-print">
                 <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় অনুদান ও আয় রশিদ (Receipt)</h2>
@@ -385,7 +398,6 @@
                 </button>
             </div>
 
-            <!-- রশিদ তৈরির ফর্ম -->
             <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto no-print">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4"><i class="fa-solid fa-receipt mr-2"></i>রশিদ তথ্য পূরণ করুন</h3>
                 <form id="receiptForm" onsubmit="previewReceipt(event)" class="space-y-4">
@@ -433,7 +445,6 @@
                 </form>
             </div>
             
-            <!-- প্রিন্টযোগ্য বা ডাউনলোডযোগ্য প্রফেশনাল রশিদ প্রিভিউ -->
             <div id="printableReceipt" class="bg-white rounded-xl shadow-xl p-8 max-w-2xl mx-auto border-2 border-emerald-700 space-y-6">
                 <div class="flex justify-between items-center border-b-2 border-emerald-800 pb-4">
                     <div>
@@ -482,7 +493,6 @@
                 </div>
             </div>
 
-            <!-- প্রিন্ট ও ডাউনলোড বাটন -->
             <div class="text-center space-x-4 no-print pb-6">
                 <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold shadow hover:bg-blue-700 text-sm">
                     <i class="fa-solid fa-print mr-2"></i> প্রিন্ট করুন
@@ -495,7 +505,6 @@
 
         <!-- অন্যান্য সেকশনসমূহ -->
         <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">ফাউন্ডেশনের লক্ষ্য ও উদ্দেশ্য এখানে প্রদর্শিত হবে।</p></section>
-        <section id="dashboard" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ড্যাশবোর্ড</h2><p class="text-gray-600 mt-2">হিসাব-নিকাশ সারসংক্ষেপ।</p></section>
         <section id="running-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি</h2><p class="text-gray-600 mt-2">চলমান প্রজেক্টসমূহ।</p></section>
         <section id="past-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2><p class="text-gray-600 mt-2">সম্পন্ন প্রজেক্টসমূহ।</p></section>
         <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ক্যালেন্ডার</h2><p class="text-gray-600 mt-2">ইভেন্ট তালিকা।</p></section>
@@ -553,7 +562,7 @@
             }
         }
 
-        // LocalStorage Management for All Lists & Accounts
+        // LocalStorage Management
         let allData = JSON.parse(localStorage.getItem('alkhidmahAllData')) || {
             committee: [
                 { name: "মোঃ আব্দুর রহিম", role: "সভাপতি", phone: "০১৭০০০০০০০০" },
@@ -578,29 +587,19 @@
         };
 
         const incomeSectors = [
-            "সদস্যদের মাসিক অনুদান",
-            "দাতা সদস্যের অনুদান",
-            "উপদেষ্টা পরিষদের অনুদান",
-            "সাধারণ দান",
-            "এককালীন অনুদান",
-            "বিশেষ ফান্ডে দান",
-            "অন্যান্য"
+            "সদস্যদের মাসিক অনুদান", "দাতা সদস্যের অনুদান", "উপদেষ্টা পরিষদের অনুদান",
+            "সাধারণ দান", "এককালীন অনুদান", "বিশেষ ফান্ডে দান", "অন্যান্য"
         ];
 
         const expenseSectors = [
-            "শীতবস্ত্র ক্রয় ও বিতরণ খরচ",
-            "শিক্ষা উপকরণ ও শিক্ষাবৃত্তি বিতরণ",
-            "চিকিৎসা সহায়তা খরচ",
-            "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়",
-            "জরুরি ত্রাণ বিতরণ খরচ",
-            "অন্যান্য ব্যয়"
+            "শীতবস্ত্র ক্রয় ও বিতরণ খরচ", "শিক্ষা উপকরণ ও শিক্ষাবৃত্তি বিতরণ",
+            "চিকিৎসা সহায়তা খরচ", "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়", "জরুরি ত্রাণ বিতরণ খরচ", "অন্যান্য ব্যয়"
         ];
 
         function updateSectorDropdown() {
             const type = document.getElementById('transType').value;
             const sectorSelect = document.getElementById('transSector');
             sectorSelect.innerHTML = '';
-            
             const list = type === 'income' ? incomeSectors : expenseSectors;
             list.forEach(sec => {
                 sectorSelect.innerHTML += `<option value="${sec}">${sec}</option>`;
@@ -614,20 +613,40 @@
             renderTableSection('donors', 'donorsTableBody');
             renderTableSection('beneficiaries', 'beneficiariesTableBody');
             renderTransactions();
+            updateDashboardStats();
             updateSectorDropdown();
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('dashCommitteeCount').innerText = (allData.committee || []).length;
+            document.getElementById('dashMembersCount').innerText = (allData.members || []).length;
+            document.getElementById('dashDonorsCount').innerText = (allData.donors || []).length;
+            document.getElementById('dashBeneficiariesCount').innerText = (allData.beneficiaries || []).length;
+
+            let totalIncome = 0;
+            let totalExpense = 0;
+            (allData.transactions || []).forEach(t => {
+                if(t.type === 'income') totalIncome += Number(t.amount);
+                else totalExpense += Number(t.amount);
+            });
+
+            document.getElementById('dashTotalIncome').innerText = `৳ ${totalIncome.toLocaleString()}`;
+            document.getElementById('dashTotalExpense').innerText = `৳ ${totalExpense.toLocaleString()}`;
+            let net = totalIncome - totalExpense;
+            let netElem = document.getElementById('dashNetBalance');
+            netElem.innerText = `৳ ${net.toLocaleString()}`;
+            netElem.className = `text-3xl font-bold mt-2 ${net >= 0 ? 'text-blue-600' : 'text-rose-600'}`;
         }
 
         function renderTableSection(category, tbodyId) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
             tbody.innerHTML = '';
-            
             const items = allData[category];
             if (!items || items.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
-
             items.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
@@ -650,10 +669,7 @@
             const role = document.getElementById('memberRole').value;
             const phone = document.getElementById('memberPhone').value;
 
-            if(!allData[category]) {
-                allData[category] = [];
-            }
-
+            if(!allData[category]) allData[category] = [];
             allData[category].push({ name, role, phone });
             localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
 
@@ -671,7 +687,6 @@
             }
         }
 
-        // লেনদেন (আয়-ব্যয়) ম্যানেজমেন্ট (দানকারীর নামসহ)
         function addTransaction(e) {
             e.preventDefault();
             const type = document.getElementById('transType').value;
@@ -686,6 +701,7 @@
 
             document.getElementById('transactionForm').reset();
             renderTransactions();
+            updateDashboardStats();
             alert('হিসাব সফলভাবে সংরক্ষিত হয়েছে!');
         }
 
@@ -693,18 +709,11 @@
             const tbody = document.getElementById('transactionsTableBody');
             if(!tbody) return;
             tbody.innerHTML = '';
-
-            let totalIncome = 0;
-            let totalExpense = 0;
-
             const txns = allData.transactions || [];
             if(txns.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো লেনদেন নেই</td></tr>`;
             } else {
                 txns.forEach((t, index) => {
-                    if(t.type === 'income') totalIncome += Number(t.amount);
-                    else totalExpense += Number(t.amount);
-
                     tbody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="p-3">${t.date}</td>
@@ -719,13 +728,6 @@
                     `;
                 });
             }
-
-            document.getElementById('totalIncomeDisplay').innerText = `৳ ${totalIncome.toLocaleString()}`;
-            document.getElementById('totalExpenseDisplay').innerText = `৳ ${totalExpense.toLocaleString()}`;
-            const net = totalIncome - totalExpense;
-            const netDisplay = document.getElementById('netBalanceDisplay');
-            netDisplay.innerText = `৳ ${net.toLocaleString()}`;
-            netDisplay.className = `text-2xl font-bold mt-1 ${net >= 0 ? 'text-blue-600' : 'text-rose-600'}`;
         }
 
         function deleteTransaction(index) {
@@ -733,10 +735,10 @@
                 allData.transactions.splice(index, 1);
                 localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
                 renderTransactions();
+                updateDashboardStats();
             }
         }
 
-        // রিসিট ও কথায় রূপান্তর লজিক
         function convertAmountToWords() {
             const amt = document.getElementById('rcvAmount').value;
             document.getElementById('rcvAmountWords').value = amt ? amt + " টাকা মাত্র" : "";
@@ -747,7 +749,6 @@
             e.preventDefault();
             receiptCounter++;
             let serialStr = String(receiptCounter).padStart(3, '0');
-            
             const name = document.getElementById('rcvDonorName').value;
             const designation = document.getElementById('rcvDesignation').value;
             const sector = document.getElementById('rcvSector').value;
@@ -761,19 +762,17 @@
             document.getElementById('viewSector').innerText = sector;
             document.getElementById('viewAmountNum').innerText = `৳ ${Number(amount).toLocaleString()}.০০`;
             document.getElementById('viewAmountWords').innerText = amount + " টাকা মাত্র";
-
             alert('রিসিট সফলভাবে প্রস্তুত হয়েছে!');
         }
 
         function downloadPDF() {
-            alert('প্রিন্ট ডায়ালগ থেকে গন্তব্য (Destination) হিসেবে "Save as PDF" সিলেক্ট করে খুব সহজেই পিডিএফ ডাউনলোড করতে পারবেন।');
+            alert('প্রিন্ট ডায়ালগ থেকে "Save as PDF" সিলেক্ট করে পিডিএফ ডাউনলোড করতে পারবেন।');
             window.print();
         }
 
         function generateNewReceipt() {
             document.getElementById('receiptForm').reset();
             document.getElementById('rcvAmountWords').value = "";
-            alert('নতুন রিসিটের জন্য ফর্ম খালি করা হয়েছে।');
         }
 
         window.onload = function() {
