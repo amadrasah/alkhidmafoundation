@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>আল খিদমাহ্ ফাউন্ডেশন</title>
-    <!-- Tailwind CSS for modern styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,7 +12,9 @@
         body {
             font-family: 'SolaimanLipi', sans-serif;
         }
-        .dropdown:hover .dropdown-menu {
+        /* Dropdown hover & focus support */
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
             display: block;
         }
     </style>
@@ -35,20 +37,20 @@
     <!-- Navigation Bar -->
     <nav class="bg-emerald-800 text-white shadow sticky top-0 z-50">
         <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
-            <div class="flex space-x-1 lg:space-x-4 overflow-x-auto py-2">
+            <div class="flex space-x-1 lg:space-x-3 overflow-x-auto py-2 w-full md:w-auto">
                 <a href="#home" onclick="showSection('home')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap"><i class="fa-solid fa-house mr-1"></i> হোম</a>
                 
                 <!-- পরিচিতি ড্রপডাউন -->
                 <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center">
+                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         পরিচিতি <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-48 py-2 z-50">
-                        <a href="#committee" onclick="showSection('committee')" class="block px-4 py-2 hover:bg-emerald-50">পরিচালনা পরিষদ</a>
-                        <a href="#advisors" onclick="showSection('advisors')" class="block px-4 py-2 hover:bg-emerald-50">উপদেষ্টা পরিষদ</a>
-                        <a href="#members" onclick="showSection('members')" class="block px-4 py-2 hover:bg-emerald-50">সদস্য তালিকা</a>
-                        <a href="#donors" onclick="showSection('donors')" class="block px-4 py-2 hover:bg-emerald-50">দাতা সদস্যদের তালিকা</a>
-                        <a href="#beneficiaries" onclick="showSection('beneficiaries')" class="block px-4 py-2 hover:bg-emerald-50">সুবিধাভোগীদের তালিকা</a>
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0">
+                        <a href="#committee" onclick="showSection('committee')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পরিচালনা পরিষদ</a>
+                        <a href="#advisors" onclick="showSection('advisors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">উপদেষ্টা পরিষদ</a>
+                        <a href="#members" onclick="showSection('members')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">সদস্য তালিকা</a>
+                        <a href="#donors" onclick="showSection('donors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">দাতা সদস্যদের তালিকা</a>
+                        <a href="#beneficiaries" onclick="showSection('beneficiaries')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">সুবিধাভোগীদের তালিকা</a>
                     </div>
                 </div>
 
@@ -57,25 +59,25 @@
 
                 <!-- কার্যক্রম ড্রপডাউন -->
                 <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center">
+                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         কার্যক্রম <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50">
-                        <a href="#running-activities" onclick="showSection('running-activities')" class="block px-4 py-2 hover:bg-emerald-50">চলমান কর্মসূচি</a>
-                        <a href="#past-activities" onclick="showSection('past-activities')" class="block px-4 py-2 hover:bg-emerald-50">পূর্ববর্তী কর্মসূচি</a>
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0">
+                        <a href="#running-activities" onclick="showSection('running-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">চলমান কর্মসূচি</a>
+                        <a href="#past-activities" onclick="showSection('past-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পূর্ববর্তী কর্মসূচি</a>
                     </div>
                 </div>
 
-                <!-- হিসাব-নিকাশ ড্রপডাউন / মেনু -->
+                <!-- হিসাব-নিকাশ ড্রপডাউন -->
                 <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center">
+                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
                         হিসাব-নিকাশ <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-60 py-2 z-50">
-                        <a href="#income-expense" onclick="showSection('income-expense')" class="block px-4 py-2 hover:bg-emerald-50">আয় ও ব্যয়ের খাত</a>
-                        <a href="#due-tracking" onclick="showSection('due-tracking')" class="block px-4 py-2 hover:bg-emerald-50">ডিউ ট্র্যাকিং (অনুদান)</a>
-                        <a href="#reports" onclick="showSection('reports')" class="block px-4 py-2 hover:bg-emerald-50">আয়-ব্যয়ের হিসাব (খাত/মাসিক)</a>
-                        <a href="#receipts" onclick="showSection('receipts')" class="block px-4 py-2 hover:bg-emerald-50 font-bold text-emerald-700">আয় ও ব্যয়ের রশিদ (অটো)</a>
+                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-64 py-2 z-50 left-0">
+                        <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয় ও ব্যয়ের খাত</a>
+                        <a href="#due-tracking" onclick="showSection('due-tracking')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">ডিউ ট্র্যাকিং (সদস্য অনুদান)</a>
+                        <a href="#reports" onclick="showSection('reports')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক)</a>
+                        <a href="#receipts" onclick="showSection('receipts')" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">আয় ও ব্যয়ের রশিদ (অটো)</a>
                     </div>
                 </div>
 
@@ -89,11 +91,12 @@
     <!-- Main Container Content Sections -->
     <main class="container mx-auto px-4 py-6 min-h-[70vh]">
 
-        <!-- হোম সেকশন -->
+        <!-- ১. হোম পেজ -->
         <section id="home" class="space-y-6">
             <div class="bg-white rounded-xl shadow-md p-6 md:p-10 border-t-4 border-emerald-600 text-center">
-                স্বাগতম আল খিদমাহ্ ফাউন্ডেশন-এর অফিশিয়াল ওয়েব পোর্টালে!<br>
-                <span class="text-lg text-emerald-700 font-semibold">"মানুষের জন্য, মানুষের পাশে"</span> এই স্লোগানকে সামনে রেখে আমাদের সমাজকল্যাণমূলক কার্যক্রম পরিচালিত হচ্ছে।
+                <h2 class="text-2xl font-bold text-emerald-800 mb-2">আল খিদমাহ্ ফাউন্ডেশন-এ আপনাকে স্বাগতম</h2>
+                <p class="text-lg text-emerald-700 font-semibold mb-4">"মানুষের জন্য, মানুষের পাশে"</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">আমাদের এই প্ল্যাটফর্মের মাধ্যমে এলাকার অসহায় মানুষের সেবা, শিক্ষাবৃত্তি প্রদান এবং স্বচ্ছ হিসাব-নিকাশ পরিচালনা করা হয়।</p>
             </div>
             <!-- Quick Stats -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -116,7 +119,74 @@
             </div>
         </section>
 
-        <!-- লক্ষ্য ও উদ্দেশ্য -->
+        <!-- ২.১ পরিচালনা পরিষদ -->
+        <section id="committee" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">পরিচালনা পরিষদ</h2>
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b">
+                            <th class="p-3">ক্রঃ নং</th>
+                            <th class="p-3">নাম</th>
+                            <th class="p-3">পদবী</th>
+                            <th class="p-3">মোবাইল নম্বর</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y text-sm">
+                        <tr>
+                            <td class="p-3">০১</td>
+                            <td class="p-3 font-medium">মোঃ আব্দুর রহিম</td>
+                            <td class="p-3">সভাপতি</td>
+                            <td class="p-3">০১৭০০০০০০০০</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">০২</td>
+                            <td class="p-3 font-medium">মোঃ শফিকুল ইসলাম</td>
+                            <td class="p-3">সাধারণ সম্পাদক</td>
+                            <td class="p-3">০১৮০০০০০০০০</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ২.২ উপদেষ্টা পরিষদ -->
+        <section id="advisors" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">উপদেষ্টা পরিষদ</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <p class="text-gray-600 mb-4">ফাউন্ডেশনের সম্মানিত উপদেষ্টাবৃন্দের তালিকা:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>অধ্যাপক ড. মোঃ নজরুল ইসলাম - প্রধান উপদেষ্টা</li>
+                    <li>আলহাজ্ব মোঃ আব্দুল লতিফ - উপদেষ্টা</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ২.৩ সদস্য তালিকা -->
+        <section id="members" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">সাধারণ ও আজীবন সদস্য তালিকা</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <p class="text-gray-600">এখানে ফাউন্ডেশনের সকল সাধারণ ও আজীবন সদস্যদের নাম ও তথ্য প্রদর্শিত হবে।</p>
+            </div>
+        </section>
+
+        <!-- ২.৪ দাতা সদস্যদের তালিকা -->
+        <section id="donors" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">দাতা সদস্যদের তালিকা</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <p class="text-gray-600">যাঁরা নিয়মিত বা এককালীন বড় অংকের অনুদান দিয়ে ফাউন্ডেশনকে সহযোগিতা করেছেন তাঁদের তালিকা।</p>
+            </div>
+        </section>
+
+        <!-- ২.৫ সুবিধাভোগীদের তালিকা -->
+        <section id="beneficiaries" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">সুবিধাভোগীদের তালিকা</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <p class="text-gray-600">সাহায্যপ্রাপ্ত বা অনুদান গ্রহণকারী দুস্থ ও মেধাবী শিক্ষার্থীদের তালিকা।</p>
+            </div>
+        </section>
+
+        <!-- ৩. লক্ষ্য ও উদ্দেশ্য -->
         <section id="about-us" class="hidden space-y-4">
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-emerald-700 mb-3 border-b pb-2">লক্ষ্য ও উদ্দেশ্য</h2>
@@ -129,7 +199,7 @@
             </div>
         </section>
 
-        <!-- ড্যাশবোর্ড -->
+        <!-- ৪. ড্যাশবোর্ড -->
         <section id="dashboard" class="hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">ফাউন্ডেশন ড্যাশবোর্ড ও সারসংক্ষেপ</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -148,7 +218,7 @@
             </div>
         </section>
 
-        <!-- চলমান কর্মসূচি -->
+        <!-- ৫.১ চলমান কর্মসূচি -->
         <section id="running-activities" class="hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি তালিকা</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
@@ -168,18 +238,12 @@
                             <td class="p-3">০১ নভেম্বর ২০২৬</td>
                             <td class="p-3">৩০ নভেম্বর ২০২৬</td>
                         </tr>
-                        <tr>
-                            <td class="p-3 font-medium">ফ্রি মেডিকেল ক্যাম্প</td>
-                            <td class="p-3"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-semibold">চলমান</span></td>
-                            <td class="p-3">১৫ অক্টোবর ২০২৬</td>
-                            <td class="p-3">১৫ অক্টোবর ২০২৬</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- পূর্ববর্তী কর্মসূচি -->
+        <!-- ৫.২ পূর্ববর্তী কর্মসূচি -->
         <section id="past-activities" class="hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
@@ -204,7 +268,32 @@
             </div>
         </section>
 
-        <!-- ডিউ ট্র্যাকিং (সদস্যের অনুদান) -->
+        <!-- ৬.১ আয় ও ব্যয়ের খাত -->
+        <section id="income-expense-sectors" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাতসমূহ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-xl shadow border-t-4 border-emerald-600">
+                    <h3 class="font-bold text-emerald-800 mb-3">আয়ের খাতসমূহ</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                        <li>সদস্যদের মাসিক চাঁদা</li>
+                        <li>আজীবন সদস্য ফি</li>
+                        <li>সাধারণ অনুদান</li>
+                        <li>জরুরি ত্রাণ ফান্ড</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow border-t-4 border-rose-600">
+                    <h3 class="font-bold text-rose-800 mb-3">ব্যয়ের খাতসমূহ</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                        <li>শীতবস্ত্র ক্রয় ও বিতরণ খরচ</li>
+                        <li>শিক্ষা উপকরণ বিতরণ ব্যয়</li>
+                        <li>চিকিৎসা সহায়তা খরচ</li>
+                        <li>অফিস ও অন্যান্য আনুষঙ্গিক খরচ</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ৬.২ ডিউ ট্র্যাকিং (সদস্যের অনুদান) -->
         <section id="due-tracking" class="hidden space-y-4">
             <h2 class="text-xl font-bold text-emerald-700">সদস্য ডিউ ট্র্যাকিং (সদস্যের অনুদান বকেয়া হিসাব)</h2>
             <div class="bg-white rounded-xl shadow overflow-x-auto">
@@ -241,7 +330,18 @@
             </div>
         </section>
 
-        <!-- আয় ও ব্যয়ের রশিদ (অটো সিরিয়াল) -->
+        <!-- ৬.৩ আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক) -->
+        <section id="reports" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব (মাসিক ও বাৎসরিক রিপোর্ট)</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <p class="text-gray-600 mb-4">চলতি বছরের খাতভিত্তিক ও মাসিক স্টেটমেন্ট এখানে দেখা যাবে।</p>
+                <div class="p-4 bg-gray-50 rounded border text-sm text-center text-gray-500">
+                    রিপোর্ট চার্ট বা টেবিল এখানে লোড হবে।
+                </div>
+            </div>
+        </section>
+
+        <!-- ৬.৪ আয় ও ব্যয়ের রশিদ (অটো সিরিয়াল) -->
         <section id="receipts" class="hidden space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় আয় ও ব্যয়ের রশিদ জেনারেটর</h2>
@@ -284,46 +384,24 @@
             </div>
         </section>
 
-        <!-- অন্যান্য সাধারণ পেজ প্লেসহোল্ডার -->
-        <section id="committee" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">পরিচালনা পরিষদ</h2>
-            <p class="text-gray-600">পরিচালনা পরিষদের সদস্যদের তালিকা এখানে যুক্ত হবে।</p>
+        <!-- ৭. ক্যালেন্ডার -->
+        <section id="calendar" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+            <h2 class="text-xl font-bold text-emerald-700">ইভেন্ট ক্যালেন্ডার</h2>
+            <p class="text-gray-600">ফাউন্ডেশনের বিভিন্ন সভার তারিখ এবং কার্যক্রমের সূচি ক্যালেন্ডার আকারে এখানে প্রদর্শিত হবে।</p>
         </section>
-        <section id="advisors" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">উপদেষ্টা পরিষদ</h2>
-            <p class="text-gray-600">উপদেষ্টা পরিষদের সদস্যদের তালিকা এখানে যুক্ত হবে।</p>
+
+        <!-- ৮. গ্যালারী -->
+        <section id="gallery" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+            <h2 class="text-xl font-bold text-emerald-700">ফটো ও ভিডিও গ্যালারী</h2>
+            <p class="text-gray-600">বিভিন্ন কর্মসূচির ছবি ও ভিডিও ক্লিপ এখানে আপলোড করা থাকবে।</p>
         </section>
-        <section id="members" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">সদস্য তালিকা</h2>
-            <p class="text-gray-600">সাধারণ ও আজীবন সদস্যদের তালিকা এখানে প্রদর্শিত হবে।</p>
-        </section>
-        <section id="donors" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">দাতা সদস্যদের তালিকা</h2>
-            <p class="text-gray-600">সম্মানিত দাতা সদস্যদের নামের তালিকা এখানে থাকবে।</p>
-        </section>
-        <section id="beneficiaries" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">সুবিধাভোগীদের তালিকা</h2>
-            <p class="text-gray-600">সাহায্যপ্রাপ্ত বা সুবিধাভোগী পরিবারের তালিকা এখানে সংরক্ষিত হবে।</p>
-        </section>
-        <section id="income-expense" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">আয় ও ব্যয়ের খাত</h2>
-            <p class="text-gray-600">আয়ের খাত এবং ব্যয়ের খাত ম্যানেজ করার ফর্ম ও তালিকা এখানে থাকবে।</p>
-        </section>
-        <section id="reports" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">আয় ও ব্যয়ের হিসাব (খাত ভিত্তিক ও মাসিক)</h2>
-            <p class="text-gray-600">মাসিক ও বাৎসরিক হিসাব রিপোর্ট এখানে টেবিল আকারে দেখা যাবে।</p>
-        </section>
-        <section id="calendar" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">ক্যালেন্ডার</h2>
-            <p class="text-gray-600">ফাউন্ডেশনের বিভিন্ন ইভেন্ট ও কর্মসূচির ক্যালেন্ডার ভিউ।</p>
-        </section>
-        <section id="gallery" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">গ্যালারী</h2>
-            <p class="text-gray-600">কর্মসূচির ছবি ও ভিডিও গ্যালারী।</p>
-        </section>
-        <section id="contact" class="hidden bg-white p-6 rounded-xl shadow">
-            <h2 class="text-xl font-bold text-emerald-700 mb-3">যোগাযোগ</h2>
-            <p class="text-gray-600">ঠিকানা: পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট। ইমেইল ও মোবাইল নম্বর।</p>
+
+        <!-- ৯. যোগাযোগ -->
+        <section id="contact" class="hidden bg-white p-6 rounded-xl shadow space-y-3">
+            <h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2>
+            <p class="text-gray-600"><strong>ঠিকানা:</strong> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p>
+            <p class="text-gray-600"><strong>মোবাইল:</strong> ০১৭০০০০০০০০</p>
+            <p class="text-gray-600"><strong>ইমেইল:</strong> info@alkhidmah.org</p>
         </section>
 
     </main>
@@ -331,13 +409,13 @@
     <!-- Footer -->
     <footer class="bg-emerald-900 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10">
         <p>&copy; ২০২৬ আল খিদমাহ্ ফাউন্ডেশন | সর্বস্বত্ব সংরক্ষিত</p>
-        <p class="text-xs text-emerald-400 mt-1">প্যাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+        <p class="text-xs text-emerald-400 mt-1">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
     </footer>
 
-    <!-- JavaScript for Tab Switching and Auto Serial Generation -->
+    <!-- JavaScript for Dynamic Section Switching -->
     <script>
         function showSection(sectionId) {
-            // Hide all sections
+            // Hide all sections inside main
             const sections = document.querySelectorAll('main > section');
             sections.forEach(sec => sec.classList.add('hidden'));
 
@@ -349,12 +427,12 @@
             }
         }
 
-        let receiptCounter = 2;
+        let receiptCounter = 1;
         function generateNewReceipt() {
             receiptCounter++;
             let serialStr = String(receiptCounter).padStart(3, '0');
             document.getElementById('receiptNo').innerText = `AKF-2026-${serialStr}`;
-            alert('নতুন স্বয়ংক্রিয় সিরিয়াল নম্বর জেনারেট হয়েছে!');
+            alert('নতুন স্বয়ংক্রিয় রশিদ ও সিরিয়াল নম্বর জেনারেট হয়েছে!');
         }
     </script>
 </body>
