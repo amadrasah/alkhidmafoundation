@@ -288,7 +288,6 @@
         <section id="running-activities" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-person-running mr-2"></i>চলমান কর্মসূচি ও প্রজেক্টসমূহ</h2>
             
-            <!-- নতুন চলমান কর্মসূচি এন্ট্রি ফর্ম -->
             <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4">নতুন চলমান কর্মসূচি যুক্ত করুন</h3>
                 <form id="runningActivityForm" onsubmit="addRunningActivity(event)" class="space-y-4">
@@ -350,7 +349,6 @@
                 </form>
             </div>
 
-            <!-- চলমান কার্যক্রম টেবিল -->
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
                 <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">চলমান কর্মসূচীর তালিকা</h3>
                 <table class="w-full text-left border-collapse">
@@ -478,7 +476,6 @@
                 </form>
             </div>
 
-            <!-- লেনদেন তালিকা টেবিল -->
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
                 <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">সকল লেনদেনের বিবরণী</h3>
                 <table class="w-full text-left border-collapse">
@@ -611,11 +608,123 @@
             </div>
         </section>
 
+        <!-- ১৫. ক্যালেন্ডার সেকশন -->
+        <section id="calendar" class="page-section hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-calendar-days mr-2"></i>কার্যক্রম ও ইভেন্ট ক্যালেন্ডার</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- নতুন ইভেন্ট বা মিটিং যোগ করার ফর্ম -->
+                <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md md:col-span-1">
+                    <h3 class="text-lg font-bold text-emerald-800 mb-4">নতুন ইভেন্ট বা মিটিং যুক্ত করুন</h3>
+                    <form id="eventForm" onsubmit="addCalendarEvent(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">ইভেন্ট বা কর্মসূচির শিরোনাম</label>
+                            <input type="text" id="eventTitle" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: কার্যকরী কমিটির মাসিক সভা">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">তারিখ</label>
+                            <input type="date" id="eventDate" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">সময় ও স্থান</label>
+                            <input type="text" id="eventTimeLocation" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: বিকাল ৪:০০ টা, কার্যালয়">
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
+                            ইভেন্ট সংরক্ষণ করুন
+                        </button>
+                    </form>
+                </div>
+
+                <!-- ইভেন্ট লিস্ট ভিউ -->
+                <div class="bg-white rounded-xl shadow p-6 md:col-span-2 overflow-x-auto">
+                    <h3 class="text-lg font-bold text-emerald-800 mb-4 border-b pb-2">আসন্ন ইভেন্ট ও কর্মসূচীর সূচি</h3>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                                <th class="p-3">তারিখ</th>
+                                <th class="p-3">ইভেন্টের নাম</th>
+                                <th class="p-3">সময় ও স্থান</th>
+                                <th class="p-3 text-center">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarEventsTableBody" class="divide-y text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ১৬. গ্যালারী সেকশন -->
+        <section id="gallery" class="page-section hidden space-y-6">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-images mr-2"></i>ফটো ও ভিডিও গ্যালারী</h2>
+            </div>
+
+            <!-- গ্যালারীতে ছবি বা ভিডিও লিঙ্ক যোগ করার ফর্ম -->
+            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+                <h3 class="text-lg font-bold text-emerald-800 mb-4">গ্যালারীতে নতুন ছবি বা মিডিয়া যুক্ত করুন</h3>
+                <form id="galleryForm" onsubmit="addGalleryItem(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ছবির শিরোনাম / বিবরণ</label>
+                        <input type="text" id="galleryTitle" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: শীতবস্ত্র বিতরণ ২০২৬">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ছবির লিংক (Image URL)</label>
+                        <input type="url" id="galleryUrl" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="ছবির অনলাইন লিংক দিন (যেমন: Imgur বা GDrive লিংক)">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
+                        গ্যালারীতে প্রকাশ করুন
+                    </button>
+                </form>
+            </div>
+
+            <!-- ছবি প্রদর্শনের গ্রিড -->
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-4"></div>
+        </section>
+
+        <!-- ১৭. যোগাযোগ সেকশন -->
+        <section id="contact" class="page-section hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-address-book mr-2"></i>যোগাযোগ ও অফিসের ঠিকানা</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- ঠিকানা ও তথ্য কার্ড -->
+                <div class="bg-white p-8 rounded-xl shadow space-y-4 border-t-4 border-emerald-600">
+                    <h3 class="text-xl font-bold text-emerald-800">আল খিদমাহ্ ফাউন্ডেশন</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">মানুষের কল্যাণে নিবেদিত একটি স্বেচ্ছাসেবী সংগঠন। আমাদের কার্যক্রমে অংশ নিতে বা অনুদান পাঠাতে সরাসরি যোগাযোগ করুন।</p>
+                    
+                    <div class="space-y-3 pt-2 text-sm text-gray-700">
+                        <p><i class="fa-solid fa-location-dot text-emerald-700 mr-2"></i> <strong>ঠিকানা:</strong> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                        <p><i class="fa-solid fa-phone text-emerald-700 mr-2"></i> <strong>হটলাইন / মোবাইল:</strong> ০১৭০০০০০০০০, ০১৮০০০০০০০০</p>
+                        <p><i class="fa-solid fa-envelope text-emerald-700 mr-2"></i> <strong>ইমেইল:</strong> info@alkhidmahfoundation.org</p>
+                        <p><i class="fa-solid fa-globe text-emerald-700 mr-2"></i> <strong>ফেইসবুক পেইজ:</strong> facebook.com/alkhidmahfoundation</p>
+                    </div>
+                </div>
+
+                <!-- বার্তা পাঠানোর ফর্ম -->
+                <div class="bg-white p-8 rounded-xl shadow space-y-4 border-t-4 border-blue-600">
+                    <h3 class="text-xl font-bold text-emerald-800">আমাদের সরাসরি বার্তা পাঠান</h3>
+                    <form onsubmit="submitContactMessage(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">আপনার নাম</label>
+                            <input type="text" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="নাম লিখুন">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
+                            <input type="text" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="মোবাইল নম্বর লিখুন">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">আপনার বার্তা বা মতামত</label>
+                            <textarea rows="3" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="আপনার বার্তা লিখুন..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
+                            বার্তা প্রেরণ করুন
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- অন্যান্য সেকশনসমূহ -->
         <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">ফাউন্ডেশনের লক্ষ্য ও উদ্দেশ্য এখানে প্রদর্শিত হবে।</p></section>
-        <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ক্যালেন্ডার</h2><p class="text-gray-600 mt-2">ইভেন্ট তালিকা।</p></section>
-        <section id="gallery" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">গ্যালারী</h2><p class="text-gray-600 mt-2">ছবি ও ভিডিও।</p></section>
-        <section id="contact" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2><p class="text-gray-600 mt-2">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p></section>
 
     </main>
 
@@ -695,6 +804,14 @@
             transactions: [
                 { date: "2026-10-01", donor: "মোঃ রফিকুল ইসলাম", sector: "সদস্যদের মাসিক অনুদান", type: "income", amount: 5000 },
                 { date: "2026-10-02", donor: "আল খিদমাহ ফাউন্ডেশন", sector: "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়", type: "expense", amount: 1000 }
+            ],
+            calendarEvents: [
+                { title: "কার্যকরী কমিটির মাসিক সভা", date: "2026-10-10", timeLocation: "বিকাল ৪:০০ টা, দলগ্রাম কার্যালয়" },
+                { title: "শিক্ষা উপকরণ বিতরণ কর্মসূচি", date: "2026-10-20", timeLocation: "সকাল ১০:০০ টা, পাটেয়ারীটারী স্কুল" }
+            ],
+            galleryImages: [
+                { title: "ঈদ সামগ্রী বিতরণ কার্যক্রম ২০২৬", url: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb9?w=600" },
+                { title: "ফাউন্ডেশনের মাসিক সভা", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600" }
             ]
         };
 
@@ -740,6 +857,8 @@
             renderPastActivitiesTable();
             renderDueTracking();
             renderTransactions();
+            renderCalendarEvents();
+            renderGallery();
             updateDashboardStats();
             updateSectorDropdown();
         }
@@ -1091,6 +1210,107 @@
         function generateNewReceipt() {
             document.getElementById('receiptForm').reset();
             document.getElementById('rcvAmountWords').value = "";
+        }
+
+        // ক্যালেন্ডার সংক্রান্ত ফাংশনসমূহ
+        function addCalendarEvent(e) {
+            e.preventDefault();
+            const title = document.getElementById('eventTitle').value;
+            const date = document.getElementById('eventDate').value;
+            const timeLocation = document.getElementById('eventTimeLocation').value;
+
+            if(!allData.calendarEvents) allData.calendarEvents = [];
+            allData.calendarEvents.push({ title, date, timeLocation });
+            localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+
+            document.getElementById('eventForm').reset();
+            renderCalendarEvents();
+            alert('নতুন ইভেন্ট বা সূচি সফলভাবে যুক্ত হয়েছে!');
+        }
+
+        function renderCalendarEvents() {
+            const tbody = document.getElementById('calendarEventsTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            const events = allData.calendarEvents || [];
+            if(events.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400 text-sm">কোনো ইভেন্ট বা সূচি নেই</td></tr>`;
+                return;
+            }
+            events.forEach((ev, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-semibold text-emerald-700">${ev.date}</td>
+                        <td class="p-3 font-medium">${ev.title}</td>
+                        <td class="p-3 text-sm text-gray-600">${ev.timeLocation}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="deleteCalendarEvent(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function deleteCalendarEvent(index) {
+            if(confirm('এই ইভেন্টটি মুছে ফেলতে চান?')) {
+                allData.calendarEvents.splice(index, 1);
+                localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+                renderCalendarEvents();
+            }
+        }
+
+        // গ্যালারী সংক্রান্ত ফাংশনসমূহ
+        function addGalleryItem(e) {
+            e.preventDefault();
+            const title = document.getElementById('galleryTitle').value;
+            const url = document.getElementById('galleryUrl').value;
+
+            if(!allData.galleryImages) allData.galleryImages = [];
+            allData.galleryImages.push({ title, url });
+            localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+
+            document.getElementById('galleryForm').reset();
+            renderGallery();
+            alert('গ্যালারীতে ছবি সফলভাবে যুক্ত হয়েছে!');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            const images = allData.galleryImages || [];
+            if(images.length === 0) {
+                grid.innerHTML = `<p class="text-gray-400 text-sm col-span-3 text-center">গ্যালারীতে কোনো ছবি নেই</p>`;
+                return;
+            }
+            images.forEach((img, index) => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-xl shadow overflow-hidden border border-emerald-100 group">
+                        <div class="h-48 overflow-hidden bg-gray-100 relative">
+                            <img src="${img.url}" alt="${img.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="p-4 flex justify-between items-center">
+                            <h4 class="font-semibold text-sm text-emerald-800">${img.title}</h4>
+                            <button onclick="deleteGalleryItem(${index})" class="text-rose-600 hover:text-rose-800 text-xs font-semibold"><i class="fa-solid fa-trash"></i> ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function deleteGalleryItem(index) {
+            if(confirm('এই ছবিটি গ্যালারী থেকে মুছে ফেলতে চান?')) {
+                allData.galleryImages.splice(index, 1);
+                localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+                renderGallery();
+            }
+        }
+
+        // যোগাযোগ বার্তা সংক্রান্ত
+        function submitContactMessage(e) {
+            e.preventDefault();
+            alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। ফাউন্ডেশনের পক্ষ থেকে শীঘ্রই আপনার সাথে যোগাযোগ করা হবে।');
+            e.target.reset();
         }
 
         window.onload = function() {
