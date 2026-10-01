@@ -30,8 +30,14 @@
                 <h1 class="text-2xl md:text-3xl font-bold">আল খিদমাহ্ ফাউন্ডেশন</h1>
                 <p class="text-emerald-200 text-sm mt-1">মানুষের জন্য, মানুষের পাশে</p>
             </div>
-            <div class="mt-3 md:mt-0 text-sm bg-emerald-800 px-4 py-2 rounded-lg border border-emerald-600">
-                <p><i class="fa-solid fa-location-dot mr-1"></i> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+            <div class="mt-3 md:mt-0 flex items-center space-x-3">
+                <div class="text-sm bg-emerald-800 px-4 py-2 rounded-lg border border-emerald-600">
+                    <p><i class="fa-solid fa-location-dot mr-1"></i> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                </div>
+                <!-- অ্যাডমিন মোড টগল বাটন -->
+                <button onclick="toggleAdminMode()" id="adminModeBtn" class="bg-emerald-800 hover:bg-emerald-900 text-yellow-300 text-xs px-3 py-2 rounded-lg border border-emerald-600 font-semibold transition">
+                    <i class="fa-solid fa-lock mr-1"></i> এডমিন লগইন
+                </button>
             </div>
         </div>
     </header>
@@ -87,11 +93,11 @@
                     </div>
                 </div>
 
-                <a href="#management-form" onclick="showSection('management-form'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm text-yellow-300"><i class="fa-solid fa-user-plus mr-1"></i> সদস্য ফরম</a>
+                <a href="#management-form" onclick="showSection('management-form'); closeMobileMenu();" id="navMemberForm" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold hidden text-sm text-yellow-300"><i class="fa-solid fa-user-plus mr-1"></i> সদস্য ফরম</a>
                 <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">ক্যালেন্ডার</a>
                 <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">গ্যালারী</a>
                 <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">যোগাযোগ</a>
-                <a href="#inbox" onclick="showSection('inbox'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm text-emerald-200"><i class="fa-solid fa-inbox mr-1"></i> ইনবক্স</a>
+                <a href="#inbox" onclick="showSection('inbox'); closeMobileMenu();" id="navInbox" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold hidden text-sm text-emerald-200"><i class="fa-solid fa-inbox mr-1"></i> ইনবক্স</a>
             </div>
         </div>
     </nav>
@@ -108,8 +114,8 @@
             </div>
         </section>
 
-        <!-- ২. নতুন সদস্য বা তথ্য যুক্ত করার ফর্ম পেজ -->
-        <section id="management-form" class="page-section hidden space-y-6">
+        <!-- ২. নতুন সদস্য বা তথ্য যুক্ত করার ফর্ম পেজ (শুধু এডমিনের জন্য দৃশ্যমান) -->
+        <section id="management-form" class="page-section hidden space-y-6 admin-only">
             <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
                 <h2 class="text-xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-user-plus mr-2"></i>তথ্য বা নতুন সদস্য যুক্ত করার ফর্ম</h2>
                 <form id="globalMemberForm" onsubmit="addUniversalMember(event)" class="space-y-4">
@@ -158,7 +164,7 @@
                             <th class="p-3">পদবী</th>
                             <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="committeeTableBody" class="divide-y text-sm"></tbody>
@@ -178,7 +184,7 @@
                             <th class="p-3">পদবী</th>
                             <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="advisorsTableBody" class="divide-y text-sm"></tbody>
@@ -198,7 +204,7 @@
                             <th class="p-3">পদবী</th>
                             <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="membersTableBody" class="divide-y text-sm"></tbody>
@@ -218,7 +224,7 @@
                             <th class="p-3">পদবী / বিবরণ</th>
                             <th class="p-3">মাসিক অনুদান</th>
                             <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="donorsTableBody" class="divide-y text-sm"></tbody>
@@ -238,7 +244,7 @@
                             <th class="p-3">সাহায্যের বিবরণ</th>
                             <th class="p-3">সহায়তার পরিমাণ</th>
                             <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="beneficiariesTableBody" class="divide-y text-sm"></tbody>
@@ -315,7 +321,7 @@
         <section id="running-activities" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-person-running mr-2"></i>চলমান কর্মসূচি ও প্রজেক্টসমূহ</h2>
             
-            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+            <div id="runningActivityFormCard" class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto admin-only hidden">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4">নতুন চলমান কর্মসূচি যুক্ত করুন</h3>
                 <form id="runningActivityForm" onsubmit="addRunningActivity(event)" class="space-y-4">
                     <div>
@@ -387,7 +393,7 @@
                             <th class="p-3">এলাকা</th>
                             <th class="p-3">সম্ভাব্য ব্যয়</th>
                             <th class="p-3">সম্ভাব্য খাত</th>
-                            <th class="p-3 text-center">স্ট্যাটাস / অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">স্ট্যাটাস / অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="runningActivitiesTableBody" class="divide-y text-sm"></tbody>
@@ -409,7 +415,7 @@
                             <th class="p-3">বাস্তবায়িত এলাকা</th>
                             <th class="p-3">প্রকৃত ব্যয়</th>
                             <th class="p-3">ব্যয়ের খাত</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="pastActivitiesTableBody" class="divide-y text-sm"></tbody>
@@ -471,7 +477,7 @@
         <section id="reports" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব এবং রিপোর্ট</h2>
             
-            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto admin-only hidden">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4"><i class="fa-solid fa-file-invoice-dollar mr-2"></i>নতুন আয় বা ব্যয় এন্ট্রি করুন</h3>
                 <form id="transactionForm" onsubmit="addTransaction(event)" class="space-y-4">
                     <div>
@@ -513,7 +519,7 @@
                             <th class="p-3">খাত</th>
                             <th class="p-3">ধরণ</th>
                             <th class="p-3">পরিমাণ</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
+                            <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody id="transactionsTableBody" class="divide-y text-sm"></tbody>
@@ -640,7 +646,7 @@
             <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-calendar-days mr-2"></i>কার্যক্রম ও ইভেন্ট ক্যালেন্ডার</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md md:col-span-1">
+                <div id="eventFormCard" class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md md:col-span-1 admin-only hidden">
                     <h3 class="text-lg font-bold text-emerald-800 mb-4">নতুন ইভেন্ট বা মিটিং যুক্ত করুন</h3>
                     <form id="eventForm" onsubmit="addCalendarEvent(event)" class="space-y-4">
                         <div>
@@ -661,7 +667,7 @@
                     </form>
                 </div>
 
-                <div class="bg-white rounded-xl shadow p-6 md:col-span-2 overflow-x-auto">
+                <div id="calendarTableContainer" class="bg-white rounded-xl shadow p-6 md:col-span-3 overflow-x-auto">
                     <h3 class="text-lg font-bold text-emerald-800 mb-4 border-b pb-2">আসন্ন ইভেন্ট ও কর্মসূচীর সূচি</h3>
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -669,7 +675,7 @@
                                 <th class="p-3">তারিখ</th>
                                 <th class="p-3">ইভেন্টের নাম</th>
                                 <th class="p-3">সময় ও স্থান</th>
-                                <th class="p-3 text-center">অ্যাকশন</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody id="calendarEventsTableBody" class="divide-y text-sm"></tbody>
@@ -684,7 +690,7 @@
                 <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-images mr-2"></i>ফটো ও ভিডিও গ্যালারী</h2>
             </div>
 
-            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+            <div id="galleryFormCard" class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto admin-only hidden">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4">গ্যালারীতে নতুন ছবি বা মিডিয়া যুক্ত করুন</h3>
                 <form id="galleryForm" onsubmit="addGalleryItem(event)" class="space-y-4">
                     <div>
@@ -745,8 +751,8 @@
             </div>
         </section>
 
-        <!-- ১৯. ইনবক্স / প্রাপ্ত বার্তা সেকশন -->
-        <section id="inbox" class="page-section hidden space-y-6">
+        <!-- ১৯. ইনবক্স / প্রাপ্ত বার্তা সেকশন (শুধুমাত্র এডমিনের জন্য দৃশ্যমান) -->
+        <section id="inbox" class="page-section hidden space-y-6 admin-only">
             <div class="flex justify-between items-center flex-wrap gap-4">
                 <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-inbox mr-2"></i>ইনবক্স (প্রাপ্ত বার্তা ও মতামত)</h2>
             </div>
@@ -775,6 +781,65 @@
 
     <!-- JavaScript -->
     <script>
+        let isAdmin = localStorage.getItem('alkhidmahAdmin') === 'true';
+
+        function toggleAdminMode() {
+            if (isAdmin) {
+                if(confirm('এডমিন মোড থেকে বের হতে চান?')) {
+                    localStorage.setItem('alkhidmahAdmin', 'false');
+                    isAdmin = false;
+                    applyAdminModeUI();
+                    alert('এডমিন মোড থেকে লগআউট করা হয়েছে।');
+                    showSection('home');
+                }
+            } else {
+                let pass = prompt("এডমিন পাসওয়ার্ড প্রদান করুন:");
+                if (pass === '1234') { // ডিফল্ট পাসওয়ার্ড 1234
+                    localStorage.setItem('alkhidmahAdmin', 'true');
+                    isAdmin = true;
+                    applyAdminModeUI();
+                    alert('সফলভাবে এডমিন মোডে প্রবেশ করেছেন!');
+                } else if(pass !== null) {
+                    alert('ভুল পাসওয়ার্ড!');
+                }
+            }
+        }
+
+        function applyAdminModeUI() {
+            const adminElements = document.querySelectorAll('.admin-only');
+            const adminActionCols = document.querySelectorAll('.admin-action-col');
+            const navMemberForm = document.getElementById('navMemberForm');
+            const navInbox = document.getElementById('navInbox');
+            const adminBtn = document.getElementById('adminModeBtn');
+            const calContainer = document.getElementById('calendarTableContainer');
+            const calFormCard = document.getElementById('eventFormCard');
+
+            if (isAdmin) {
+                adminElements.forEach(el => el.classList.remove('hidden'));
+                adminActionCols.forEach(el => el.classList.remove('hidden'));
+                if(navMemberForm) navMemberForm.classList.remove('hidden');
+                if(navInbox) navInbox.classList.remove('hidden');
+                if(adminBtn) {
+                    adminBtn.innerHTML = '<i class="fa-solid fa-unlock mr-1"></i> এডমিন লগআউট';
+                    adminBtn.className = "bg-rose-800 hover:bg-rose-900 text-white text-xs px-3 py-2 rounded-lg border border-rose-600 font-semibold transition";
+                }
+                if(calContainer) calContainer.className = "bg-white rounded-xl shadow p-6 md:col-span-2 overflow-x-auto";
+                if(calFormCard) calFormCard.classList.remove('hidden');
+            } else {
+                adminElements.forEach(el => el.classList.add('hidden'));
+                adminActionCols.forEach(el => el.classList.add('hidden'));
+                if(navMemberForm) navMemberForm.classList.add('hidden');
+                if(navInbox) navInbox.classList.add('hidden');
+                if(adminBtn) {
+                    adminBtn.innerHTML = '<i class="fa-solid fa-lock mr-1"></i> এডমিন লগইন';
+                    adminBtn.className = "bg-emerald-800 hover:bg-emerald-900 text-yellow-300 text-xs px-3 py-2 rounded-lg border border-emerald-600 font-semibold transition";
+                }
+                if(calContainer) calContainer.className = "bg-white rounded-xl shadow p-6 md:col-span-3 overflow-x-auto";
+                if(calFormCard) calFormCard.classList.add('hidden');
+            }
+            renderAllTables();
+        }
+
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
 
@@ -934,11 +999,12 @@
             tbody.innerHTML = '';
             const items = allData[category];
             if (!items || items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
+                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('${category}', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -946,9 +1012,7 @@
                         <td class="p-3">${item.role}</td>
                         <td class="p-3 font-semibold text-emerald-700">${amt}</td>
                         <td class="p-3">${item.phone}</td>
-                        <td class="p-3 text-center">
-                            <button onclick="deleteItem('${category}', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
-                        </td>
+                        ${actionTd}
                     </tr>
                 `;
             });
@@ -960,11 +1024,12 @@
             tbody.innerHTML = '';
             const items = allData.beneficiaries;
             if (!items || items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
+                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('beneficiaries', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -972,9 +1037,7 @@
                         <td class="p-3">${item.role}</td>
                         <td class="p-3 font-semibold text-purple-700">${amt}</td>
                         <td class="p-3">${item.phone}</td>
-                        <td class="p-3 text-center">
-                            <button onclick="deleteItem('beneficiaries', ${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
-                        </td>
+                        ${actionTd}
                     </tr>
                 `;
             });
@@ -1009,10 +1072,15 @@
             tbody.innerHTML = '';
             const items = allData.runningActivities || [];
             if(items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400 text-sm">কোনো চলমান কর্মসূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 7 : 6}" class="p-4 text-center text-gray-400 text-sm">কোনো চলমান কর্মসূচি নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
+                let actionTd = isAdmin ? `
+                    <td class="p-3 text-center space-x-1">
+                        <button onclick="completeRunningActivity(${index})" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-xs font-semibold hover:bg-emerald-700">সমাপ্ত করুন</button>
+                        <button onclick="deleteRunningActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button>
+                    </td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3 font-medium text-emerald-800">${item.name}</td>
@@ -1021,10 +1089,7 @@
                         <td class="p-3">${item.area}</td>
                         <td class="p-3 font-semibold text-blue-700">৳ ${Number(item.estCost).toLocaleString()}</td>
                         <td class="p-3 text-xs">${item.costSector}</td>
-                        <td class="p-3 text-center space-x-1">
-                            <button onclick="completeRunningActivity(${index})" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-xs font-semibold hover:bg-emerald-700">সমাপ্ত করুন</button>
-                            <button onclick="deleteRunningActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button>
-                        </td>
+                        ${actionTd}
                     </tr>
                 `;
             });
@@ -1062,11 +1127,12 @@
             tbody.innerHTML = '';
             const items = allData.pastActivities || [];
             if(items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-gray-400 text-sm">কোনো পূর্ববর্তী কর্মসূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 8 : 7}" class="p-4 text-center text-gray-400 text-sm">কোনো পূর্ববর্তী কর্মসূচি নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let cost = item.actualCost ? `৳ ${Number(item.actualCost).toLocaleString()}` : '৳ ০';
+                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deletePastActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -1076,9 +1142,7 @@
                         <td class="p-3">${item.area}</td>
                         <td class="p-3 font-semibold text-emerald-700">${cost}</td>
                         <td class="p-3 text-xs">${item.costSector}</td>
-                        <td class="p-3 text-center">
-                            <button onclick="deletePastActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
-                        </td>
+                        ${actionTd}
                     </tr>
                 `;
             });
@@ -1191,9 +1255,10 @@
             tbody.innerHTML = '';
             const txns = allData.transactions || [];
             if(txns.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-sm">কোনো লেনদেন নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো লেনদেন নেই</td></tr>`;
             } else {
                 txns.forEach((t, index) => {
+                    let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteTransaction(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button></td>` : '';
                     tbody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="p-3">${t.date}</td>
@@ -1201,9 +1266,7 @@
                             <td class="p-3">${t.sector}</td>
                             <td class="p-3"><span class="px-2 py-1 rounded text-xs font-semibold ${t.type === 'income' ? 'bg-green-100 text-green-700' : 'bg-rose-100 text-rose-700'}">${t.type === 'income' ? 'আয়' : 'ব্যয়'}</span></td>
                             <td class="p-3 font-semibold ${t.type === 'income' ? 'text-green-600' : 'text-rose-600'}">৳ ${Number(t.amount).toLocaleString()}</td>
-                            <td class="p-3 text-center">
-                                <button onclick="deleteTransaction(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button>
-                            </td>
+                            ${actionTd}
                         </tr>
                     `;
                 });
@@ -1277,18 +1340,17 @@
             tbody.innerHTML = '';
             const events = allData.calendarEvents || [];
             if(events.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400 text-sm">কোনো ইভেন্ট বা সূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 4 : 3}" class="p-4 text-center text-gray-400 text-sm">কোনো ইভেন্ট বা সূচি নেই</td></tr>`;
                 return;
             }
             events.forEach((ev, index) => {
+                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteCalendarEvent(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3 font-semibold text-emerald-700">${ev.date}</td>
                         <td class="p-3 font-medium">${ev.title}</td>
                         <td class="p-3 text-sm text-gray-600">${ev.timeLocation}</td>
-                        <td class="p-3 text-center">
-                            <button onclick="deleteCalendarEvent(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
-                        </td>
+                        ${actionTd}
                     </tr>
                 `;
             });
@@ -1326,6 +1388,7 @@
                 return;
             }
             images.forEach((img, index) => {
+                let deleteBtn = isAdmin ? `<button onclick="deleteGalleryItem(${index})" class="text-rose-600 hover:text-rose-800 text-xs font-semibold"><i class="fa-solid fa-trash"></i> ডিলিট</button>` : '';
                 grid.innerHTML += `
                     <div class="bg-white rounded-xl shadow overflow-hidden border border-emerald-100 group">
                         <div class="h-48 overflow-hidden bg-gray-100 relative">
@@ -1333,7 +1396,7 @@
                         </div>
                         <div class="p-4 flex justify-between items-center">
                             <h4 class="font-semibold text-sm text-emerald-800">${img.title}</h4>
-                            <button onclick="deleteGalleryItem(${index})" class="text-rose-600 hover:text-rose-800 text-xs font-semibold"><i class="fa-solid fa-trash"></i> ডিলিট</button>
+                            ${deleteBtn}
                         </div>
                     </div>
                 `;
@@ -1351,12 +1414,14 @@
         function submitContactMessage(e) {
             e.preventDefault();
             const name = document.getElementById('contactSenderName').value;
-            const phone = document.getElementById('contactSenderPhone').value;
+            const phone = document.getElementById('contactSenderPhone/').value; // safe guard
+            // standard input fix
+            const phoneVal = document.getElementById('contactSenderPhone').value;
             const message = document.getElementById('contactSenderMsg').value;
             const date = new Date().toLocaleDateString('bn-BD') + " " + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
             if(!allData.messages) allData.messages = [];
-            allData.messages.unshift({ date, name, phone, message });
+            allData.messages.unshift({ date, name, phone: phoneVal, message });
             localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
 
             alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে এবং ইনবক্সে জমা হয়েছে!');
@@ -1397,7 +1462,7 @@
         }
 
         window.onload = function() {
-            renderAllTables();
+            applyAdminModeUI();
             showSection('home');
         };
     </script>
