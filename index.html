@@ -91,6 +91,7 @@
                 <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">ক্যালেন্ডার</a>
                 <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">গ্যালারী</a>
                 <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">যোগাযোগ</a>
+                <a href="#inbox" onclick="showSection('inbox'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm text-emerald-200"><i class="fa-solid fa-inbox mr-1"></i> ইনবক্স</a>
             </div>
         </div>
     </nav>
@@ -693,9 +694,10 @@
                     
                     <div class="space-y-3 pt-2 text-sm text-gray-700">
                         <p><i class="fa-solid fa-location-dot text-emerald-700 mr-2"></i> <strong>ঠিকানা:</strong> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
-                        <p><i class="fa-solid fa-phone text-emerald-700 mr-2"></i> <strong>হটলাইন / মোবাইল:</strong> ০১৭০০০০০০০০, ০১৮০০০০০০০০</p>
-                        <p><i class="fa-solid fa-envelope text-emerald-700 mr-2"></i> <strong>ইমেইল:</strong> info@alkhidmahfoundation.org</p>
-                        <p><i class="fa-solid fa-globe text-emerald-700 mr-2"></i> <strong>ফেইসবুক পেইজ:</strong> facebook.com/alkhidmahfoundation</p>
+                        <p><i class="fa-solid fa-phone text-emerald-700 mr-2"></i> <strong>হটলাইন / মোবাইল:</strong> <a href="tel:01700000000" class="text-emerald-700 hover:underline">০১৭০০০০০০০০</a>, <a href="tel:01800000000" class="text-emerald-700 hover:underline">০১৮০০০০০০০০</a></p>
+                        <p><i class="fa-brands fa-whatsapp text-emerald-600 mr-2 text-base"></i> <strong>হোয়াটসঅ্যাপ:</strong> <a href="https://wa.me/8801700000000" target="_blank" class="text-emerald-700 font-semibold hover:underline">০১৭০০০০০০০০ (মেসেজ দিন)</a></p>
+                        <p><i class="fa-solid fa-envelope text-emerald-700 mr-2"></i> <strong>ইমেইল:</strong> <a href="mailto:info@alkhidmahfoundation.org" class="text-emerald-700 hover:underline">info@alkhidmahfoundation.org</a></p>
+                        <p><i class="fa-brands fa-facebook text-blue-600 mr-2 text-base"></i> <strong>ফেইসবুক পেইজ:</strong> <a href="https://facebook.com/alkhidmahfoundation" target="_blank" class="text-blue-600 hover:underline font-semibold">facebook.com/alkhidmahfoundation</a></p>
                     </div>
                 </div>
 
@@ -705,21 +707,42 @@
                     <form onsubmit="submitContactMessage(event)" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">আপনার নাম</label>
-                            <input type="text" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="নাম লিখুন">
+                            <input type="text" id="contactSenderName" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="নাম লিখুন">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
-                            <input type="text" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="মোবাইল নম্বর লিখুন">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল / হোয়াটসঅ্যাপ নম্বর</label>
+                            <input type="text" id="contactSenderPhone" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="মোবাইল নম্বর লিখুন">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">আপনার বার্তা বা মতামত</label>
-                            <textarea rows="3" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="আপনার বার্তা লিখুন..."></textarea>
+                            <textarea id="contactSenderMsg" rows="3" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="আপনার বার্তা লিখুন..."></textarea>
                         </div>
                         <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
                             বার্তা প্রেরণ করুন
                         </button>
                     </form>
                 </div>
+            </div>
+        </section>
+
+        <!-- ১৮. ইনবক্স / প্রাপ্ত বার্তা সেকশন -->
+        <section id="inbox" class="page-section hidden space-y-6">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-inbox mr-2"></i>ইনবক্স (প্রাপ্ত বার্তা ও মতামত)</h2>
+            </div>
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                            <th class="p-3">তারিখ ও সময়</th>
+                            <th class="p-3">প্রেরকের নাম</th>
+                            <th class="p-3">মোবাইল নম্বর</th>
+                            <th class="p-3">বার্তা / মতামত</th>
+                            <th class="p-3 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inboxTableBody" class="divide-y text-sm"></tbody>
+                </table>
             </div>
         </section>
 
@@ -812,6 +835,9 @@
             galleryImages: [
                 { title: "ঈদ সামগ্রী বিতরণ কার্যক্রম ২০২৬", url: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb9?w=600" },
                 { title: "ফাউন্ডেশনের মাসিক সভা", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600" }
+            ],
+            messages: [
+                { date: "01/10/2026", name: "আব্দুল্লাহ আল মামুন", phone: "০১৭০০০০০০০০", message: "ফাউন্ডেশনের কার্যক্রম সম্পর্কে জানতে চাই।" }
             ]
         };
 
@@ -859,6 +885,7 @@
             renderTransactions();
             renderCalendarEvents();
             renderGallery();
+            renderInbox();
             updateDashboardStats();
             updateSectorDropdown();
         }
@@ -1306,11 +1333,53 @@
             }
         }
 
-        // যোগাযোগ বার্তা সংক্রান্ত
+        // যোগাযোগ বার্তা ও ইনবক্স সংক্রান্ত
         function submitContactMessage(e) {
             e.preventDefault();
-            alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। ফাউন্ডেশনের পক্ষ থেকে শীঘ্রই আপনার সাথে যোগাযোগ করা হবে।');
+            const name = document.getElementById('contactSenderName').value;
+            const phone = document.getElementById('contactSenderPhone').value;
+            const message = document.getElementById('contactSenderMsg').value;
+            const date = new Date().toLocaleDateString('bn-BD') + " " + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            if(!allData.messages) allData.messages = [];
+            allData.messages.unshift({ date, name, phone, message });
+            localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+
+            alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে এবং ইনবক্সে জমা হয়েছে!');
             e.target.reset();
+            renderInbox();
+        }
+
+        function renderInbox() {
+            const tbody = document.getElementById('inboxTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            const msgs = allData.messages || [];
+            if(msgs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-sm">ইনবক্সে কোনো বার্তা নেই</td></tr>`;
+                return;
+            }
+            msgs.forEach((m, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 text-xs text-gray-500">${m.date}</td>
+                        <td class="p-3 font-medium text-emerald-800">${m.name}</td>
+                        <td class="p-3"><a href="tel:${m.phone}" class="text-blue-600 hover:underline">${m.phone}</a></td>
+                        <td class="p-3 text-gray-700">${m.message}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="deleteMessage(${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function deleteMessage(index) {
+            if(confirm('এই বার্তাটি ইনবক্স থেকে মুছে ফেলতে চান?')) {
+                allData.messages.splice(index, 1);
+                localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+                renderInbox();
+            }
         }
 
         window.onload = function() {
