@@ -12,18 +12,19 @@
         body {
             font-family: 'SolaimanLipi', sans-serif;
         }
-        /* Dropdown hover & focus support */
-        .dropdown:hover .dropdown-menu,
-        .dropdown:focus-within .dropdown-menu {
-            display: block;
+        /* Desktop dropdown hover */
+        @media (min-width: 768px) {
+            .desktop-dropdown:hover .dropdown-menu {
+                display: block !important;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Top Header / Banner -->
-    <header class="bg-emerald-700 text-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+    <header class="bg-emerald-700 text-white shadow-md relative z-10">
+        <div class="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold">আল খিদমাহ্ ফাউন্ডেশন</h1>
                 <p class="text-emerald-200 text-sm mt-1">মানুষের জন্য, মানুষের পাশে</p>
@@ -34,62 +35,69 @@
         </div>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-emerald-800 text-white shadow sticky top-0 z-50">
-        <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
-            <div class="flex space-x-1 lg:space-x-3 overflow-x-auto py-2 w-full md:w-auto">
-                <a href="#home" onclick="showSection('home')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap"><i class="fa-solid fa-house mr-1"></i> হোম</a>
+    <!-- Navigation Bar (Updated Large Button Row & High Z-Index) -->
+    <nav class="bg-emerald-900 text-white shadow-xl relative z-[9999] border-b-2 border-emerald-700">
+        <div class="container mx-auto px-4 flex justify-between items-center py-3">
+            <span class="font-bold text-lg md:hidden"><i class="fa-solid fa-bars mr-2"></i> মেনু বার</span>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="menuToggle" class="md:hidden text-white focus:outline-none bg-emerald-700 hover:bg-emerald-600 px-3 py-2 rounded-lg text-lg">
+                <i class="fa-solid fa-bars"></i> মেনু খুলুন
+            </button>
+
+            <!-- Navigation Links (Desktop & Mobile) -->
+            <div id="navMenu" class="hidden md:flex flex-col md:flex-row md:space-x-2 lg:space-x-3 absolute md:relative top-full left-0 w-full md:w-auto bg-emerald-900 md:bg-transparent shadow-2xl md:shadow-none p-4 md:p-0 space-y-2 md:space-y-0">
+                <a href="#home" onclick="showSection('home'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-house mr-1"></i> হোম</a>
                 
                 <!-- পরিচিতি ড্রপডাউন -->
-                <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
-                        পরিচিতি <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
+                <div class="relative desktop-dropdown">
+                    <button onclick="toggleSubMenu(event, 'introDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                        <span>পরিচিতি</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0 border border-gray-100">
-                        <a href="#committee" onclick="showSection('committee')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পরিচালনা পরিষদ</a>
-                        <a href="#advisors" onclick="showSection('advisors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">উপদেষ্টা পরিষদ</a>
-                        <a href="#members" onclick="showSection('members')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">সদস্য তালিকা</a>
-                        <a href="#donors" onclick="showSection('donors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">দাতা সদস্যদের তালিকা</a>
-                        <a href="#beneficiaries" onclick="showSection('beneficiaries')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">সুবিধাভোগীদের তালিকা</a>
+                    <div id="introDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                        <a href="#committee" onclick="showSection('committee'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">পরিচালনা পরিষদ</a>
+                        <a href="#advisors" onclick="showSection('advisors'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">উপদেষ্টা পরিষদ</a>
+                        <a href="#members" onclick="showSection('members'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">সদস্য তালিকা</a>
+                        <a href="#donors" onclick="showSection('donors'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">দাতা সদস্যদের তালিকা</a>
+                        <a href="#beneficiaries" onclick="showSection('beneficiaries'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">সুবিধাভোগীদের তালিকা</a>
                     </div>
                 </div>
 
-                <a href="#about-us" onclick="showSection('about-us')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap">লক্ষ্য ও উদ্দেশ্য</a>
-                <a href="#dashboard" onclick="showSection('dashboard')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
+                <a href="#about-us" onclick="showSection('about-us'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">লক্ষ্য ও উদ্দেশ্য</a>
+                <a href="#dashboard" onclick="showSection('dashboard'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
 
                 <!-- কার্যক্রম ড্রপডাউন -->
-                <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
-                        কার্যক্রম <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
+                <div class="relative desktop-dropdown">
+                    <button onclick="toggleSubMenu(event, 'activitiesDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                        <span>কার্যক্রম</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-52 py-2 z-50 left-0 border border-gray-100">
-                        <a href="#running-activities" onclick="showSection('running-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">চলমান কর্মসূচি</a>
-                        <a href="#past-activities" onclick="showSection('past-activities')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">পূর্ববর্তী কর্মসূচি</a>
+                    <div id="activitiesDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                        <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">চলমান কর্মসূচি</a>
+                        <a href="#past-activities" onclick="showSection('past-activities'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">পূর্ববর্তী কর্মসূচি</a>
                     </div>
                 </div>
 
                 <!-- হিসাব-নিকাশ ড্রপডাউন -->
-                <div class="relative dropdown">
-                    <button class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap flex items-center w-full">
-                        হিসাব-নিকাশ <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
+                <div class="relative desktop-dropdown">
+                    <button onclick="toggleSubMenu(event, 'accountsDropdown')" class="w-full text-left px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base flex justify-between items-center md:inline-flex md:w-auto">
+                        <span>হিসাব-নিকাশ</span> <i class="fa-solid fa-angle-down ml-1 text-sm"></i>
                     </button>
-                    <div class="dropdown-menu absolute hidden bg-white text-gray-800 shadow-lg rounded mt-0 w-64 py-2 z-50 left-0 border border-gray-100">
-                        <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয় ও ব্যয়ের খাত</a>
-                        <a href="#due-tracking" onclick="showSection('due-tracking')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">ডিউ ট্র্যাকিং (সদস্য অনুদান)</a>
-                        <a href="#reports" onclick="showSection('reports')" class="block px-4 py-2 hover:bg-emerald-50 text-sm">আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক)</a>
-                        <a href="#receipts" onclick="showSection('receipts')" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">আয় ও ব্যয়ের রশিদ (অটো)</a>
+                    <div id="accountsDropdown" class="hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-64 py-2 z-[99999] left-0 border border-gray-200 pl-4 md:pl-0">
+                        <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">আয় ও ব্যয়ের খাত</a>
+                        <a href="#due-tracking" onclick="showSection('due-tracking'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">ডিউ ট্র্যাকিং (সদস্য অনুদান)</a>
+                        <a href="#reports" onclick="showSection('reports'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-medium">আয়-ব্যয়ের হিসাব (মাসিক ও বাৎসরিক)</a>
+                        <a href="#receipts" onclick="showSection('receipts'); closeMobileMenu();" class="block px-4 py-2.5 hover:bg-emerald-50 text-sm font-bold text-emerald-700">আয় ও ব্যয়ের রশিদ (অটো)</a>
                     </div>
                 </div>
 
-                <a href="#calendar" onclick="showSection('calendar')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap">ক্যালেন্ডার</a>
-                <a href="#gallery" onclick="showSection('gallery')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap">গ্যালারী</a>
-                <a href="#contact" onclick="showSection('contact')" class="px-3 py-2 rounded hover:bg-emerald-700 transition font-medium whitespace-nowrap">যোগাযোগ</a>
+                <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">ক্যালেন্ডার</a>
+                <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">গ্যালারী</a>
+                <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-4 py-3 md:py-2.5 rounded-lg hover:bg-emerald-700 transition font-semibold text-base block">যোগাযোগ</a>
             </div>
         </div>
     </nav>
 
     <!-- Main Container Content Sections -->
-    <main class="container mx-auto px-4 py-6 min-h-[70vh]">
+    <main class="container mx-auto px-4 py-8 min-h-[70vh] relative z-0">
 
         <!-- ১. হোম পেজ -->
         <section id="home" class="page-section space-y-6">
@@ -407,19 +415,39 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-emerald-900 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10">
+    <footer class="bg-emerald-950 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10 relative z-0">
         <p>&copy; ২০২৬ আল খিদমাহ্ ফাউন্ডেশন | সর্বস্বত্ব সংরক্ষিত</p>
         <p class="text-xs text-emerald-400 mt-1">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
     </footer>
 
-    <!-- JavaScript for Accurate Section Switching -->
+    <!-- JavaScript for Mobile Menu and Section Switching -->
     <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            if (window.innerWidth < 768) {
+                navMenu.classList.add('hidden');
+            }
+        }
+
+        function toggleSubMenu(event, dropdownId) {
+            if (window.innerWidth < 768) {
+                event.preventDefault();
+                event.stopPropagation();
+                const dropdown = document.getElementById(dropdownId);
+                dropdown.classList.toggle('hidden');
+            }
+        }
+
         function showSection(sectionId) {
-            // সকল পেজ সেকশন থেকে 'hidden' ক্লাস যুক্ত করে লুকিয়ে ফেলা
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.add('hidden'));
 
-            // শুধুমাত্র কাঙ্ক্ষিত সেকশন থেকে 'hidden' ক্লাস সরিয়ে দৃশ্যমান করা
             const target = document.getElementById(sectionId);
             if(target) {
                 target.classList.remove('hidden');
