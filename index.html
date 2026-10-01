@@ -46,7 +46,7 @@
                         <span>পরিচিতি</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
                     <div id="introDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border">
-                        <a href="#committee" onclick="showSection('committee'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">সদস্য ও পরিষদ ম্যানেজমেন্ট (ফর্ম)</a>
+                        <a href="#committee" onclick="showSection('committee'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">পরিচালনা পরিষদ</a>
                         <a href="#advisors" onclick="showSection('advisors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">উপদেষ্টা পরিষদ</a>
                         <a href="#members" onclick="showSection('members'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">সদস্য তালিকা</a>
                         <a href="#donors" onclick="showSection('donors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">দাতা সদস্যদের তালিকা</a>
@@ -54,35 +54,9 @@
                     </div>
                 </div>
 
+                <a href="#management-form" onclick="showSection('management-form'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm text-yellow-300"><i class="fa-solid fa-user-plus mr-1"></i> নতুন সদস্য যুক্ত করুন (ফর্ম)</a>
                 <a href="#about-us" onclick="showSection('about-us'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">লক্ষ্য ও উদ্দেশ্য</a>
                 <a href="#dashboard" onclick="showSection('dashboard'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
-
-                <!-- কার্যক্রম ড্রপডাউন -->
-                <div class="relative group">
-                    <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
-                        <span>কার্যক্রম</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="activitiesDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-48 py-2 z-[99999] left-0 border">
-                        <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">চলমান কর্মসূচি</a>
-                        <a href="#past-activities" onclick="showSection('past-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">পূর্ববর্তী কর্মসূচি</a>
-                    </div>
-                </div>
-
-                <!-- হিসাব-নিকাশ ড্রপডাউন -->
-                <div class="relative group">
-                    <button onclick="toggleDropdown(event, 'accountsDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
-                        <span>হিসাব-নিকাশ</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="accountsDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border">
-                        <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">আয় ও ব্যয়ের খাত</a>
-                        <a href="#due-tracking" onclick="showSection('due-tracking'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">ডিউ ট্র্যাকিং (অনুদান)</a>
-                        <a href="#reports" onclick="showSection('reports'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">আয়-ব্যয়ের হিসাব</a>
-                        <a href="#receipts" onclick="showSection('receipts'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">রশিদ (অটো)</a>
-                    </div>
-                </div>
-
-                <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">ক্যালেন্ডার</a>
-                <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">গ্যালারী</a>
                 <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">যোগাযোগ</a>
             </div>
         </div>
@@ -100,10 +74,10 @@
             </div>
         </section>
 
-        <!-- ২. সদস্য ও পরিষদ ম্যানেজমেন্ট (ফরম এবং ডাইনামিক টেবিল) -->
-        <section id="committee" class="page-section hidden space-y-8">
-            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 shadow-md max-w-2xl mx-auto">
-                <h2 class="text-xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-user-plus mr-2"></i>নতুন সদস্য বা পরিষদ যুক্ত করুন</h2>
+        <!-- ২. নতুন সদস্য বা তথ্য যুক্ত করার ফর্ম পেজ -->
+        <section id="management-form" class="page-section hidden space-y-6">
+            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+                <h2 class="text-xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-user-plus mr-2"></i>তথ্য বা নতুন সদস্য যুক্ত করার ফর্ম</h2>
                 <form id="globalMemberForm" onsubmit="addUniversalMember(event)" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">কোন তালিকায় যুক্ত করতে চান?</label>
@@ -111,15 +85,17 @@
                             <option value="committee">পরিচালনা পরিষদ</option>
                             <option value="advisors">উপদেষ্টা পরিষদ</option>
                             <option value="members">সাধারণ সদস্য তালিকা</option>
+                            <option value="donors">দাতা সদস্য তালিকা</option>
+                            <option value="beneficiaries">সুবিধাভোগী তালিকা</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">সদস্যের নাম</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">নাম</label>
                         <input type="text" id="memberName" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="পূর্ণ নাম লিখুন">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">পদবী বা পরিচয়</label>
-                        <input type="text" id="memberRole" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="পদবি লিখুন">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">পদবী / বিবরণ</label>
+                        <input type="text" id="memberRole" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: সভাপতি / সাধারণ সদস্য / অনুদান গ্রহীতা">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
@@ -130,10 +106,12 @@
                     </button>
                 </form>
             </div>
+        </section>
 
-            <!-- টেবিল ১: পরিচালনা পরিষদ -->
+        <!-- ৩. পরিচালনা পরিষদ পেজ -->
+        <section id="committee" class="page-section hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">পরিচালনা পরিষদ</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
-                <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">পরিচালনা পরিষদ তালিকা</h3>
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
@@ -147,10 +125,12 @@
                     <tbody id="committeeTableBody" class="divide-y text-sm"></tbody>
                 </table>
             </div>
+        </section>
 
-            <!-- টেবিল ২: উপদেষ্টা পরিষদ -->
+        <!-- ৪. উপদেষ্টা পরিষদ পেজ -->
+        <section id="advisors" class="page-section hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">উপদেষ্টা পরিষদ</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
-                <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">উপদেষ্টা পরিষদ তালিকা</h3>
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
@@ -164,10 +144,12 @@
                     <tbody id="advisorsTableBody" class="divide-y text-sm"></tbody>
                 </table>
             </div>
+        </section>
 
-            <!-- টেবিল ৩: সাধারণ সদস্য তালিকা -->
+        <!-- ৫. সাধারণ সদস্য তালিকা পেজ -->
+        <section id="members" class="page-section hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">সাধারণ ও আজীবন সদস্য তালিকা</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
-                <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">সাধারণ সদস্য তালিকা</h3>
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
@@ -183,21 +165,47 @@
             </div>
         </section>
 
+        <!-- ৬. দাতা সদস্য তালিকা পেজ -->
+        <section id="donors" class="page-section hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">দাতা সদস্যদের তালিকা</h2>
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                            <th class="p-3">ক্রঃ নং</th>
+                            <th class="p-3">নাম</th>
+                            <th class="p-3">পদবী / বিবরণ</th>
+                            <th class="p-3">মোবাইল নম্বর</th>
+                            <th class="p-3 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donorsTableBody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ৭. সুবিধাভোগী তালিকা পেজ -->
+        <section id="beneficiaries" class="page-section hidden space-y-4">
+            <h2 class="text-xl font-bold text-emerald-700">সুবিধাভোগীদের তালিকা</h2>
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                            <th class="p-3">ক্রঃ নং</th>
+                            <th class="p-3">নাম</th>
+                            <th class="p-3">সাহায্যের বিবরণ</th>
+                            <th class="p-3">মোবাইল নম্বর</th>
+                            <th class="p-3 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="beneficiariesTableBody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- অন্যান্য সাধারণ সেকশনসমূহ -->
-        <section id="advisors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">উপদেষ্টা পরিষদ</h2><p class="text-gray-600 mt-2">উপরের ম্যানেজমেন্ট ফরম থেকে তথ্য যোগ করুন।</p></section>
-        <section id="members" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">সদস্য তালিকা</h2><p class="text-gray-600 mt-2">উপরের ম্যানেজমেন্ট ফরম থেকে তথ্য যোগ করুন।</p></section>
-        <section id="donors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">দাতা সদস্য</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="beneficiaries" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">সুবিধাভোগী</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">ফাউন্ডেশনের লক্ষ্য ও উদ্দেশ্য।</p></section>
+        <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">ফাউন্ডেশনের লক্ষ্য ও উদ্দেশ্য এখানে প্রদর্শিত হবে।</p></section>
         <section id="dashboard" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ড্যাশবোর্ড</h2><p class="text-gray-600 mt-2">হিসাব-নিকাশ সারসংক্ষেপ।</p></section>
-        <section id="running-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি</h2><p class="text-gray-600 mt-2">চলমান প্রজেক্টসমূহ।</p></section>
-        <section id="past-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2><p class="text-gray-600 mt-2">সম্পন্ন প্রজেক্টসমূহ।</p></section>
-        <section id="income-expense-sectors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাত</h2><p class="text-gray-600 mt-2">খাতসমূহ।</p></section>
-        <section id="due-tracking" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ডিউ ট্র্যাকিং</h2><p class="text-gray-600 mt-2">বকেয়া হিসাব।</p></section>
-        <section id="reports" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">হিসাব রিপোর্ট</h2><p class="text-gray-600 mt-2">মাসিক বিবরণী।</p></section>
-        <section id="receipts" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">অটো রশিদ</h2><p class="text-gray-600 mt-2">রশিদ জেনারেটর।</p></section>
-        <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ক্যালেন্ডার</h2><p class="text-gray-600 mt-2">ইভেন্ট তালিকা।</p></section>
-        <section id="gallery" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">গ্যালারী</h2><p class="text-gray-600 mt-2">ছবি ও ভিডিও।</p></section>
         <section id="contact" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2><p class="text-gray-600 mt-2">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p></section>
 
     </main>
@@ -212,15 +220,14 @@
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
 
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             navMenu.classList.toggle('hidden');
         });
 
         function closeMobileMenu() {
-            if (window.innerWidth < 768) {
-                navMenu.classList.add('hidden');
-                document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
-            }
+            navMenu.classList.add('hidden');
+            document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
         }
 
         function toggleDropdown(event, dropdownId) {
@@ -236,6 +243,13 @@
             }
         }
 
+        // স্ক্রিনের যেকোনো জায়গায় ক্লিক করলে ড্রপডাউন বা মোবাইল মেনু বন্ধ হয়ে যাবে
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('nav')) {
+                closeMobileMenu();
+            }
+        });
+
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.add('hidden'));
@@ -246,7 +260,7 @@
             }
         }
 
-        // LocalStorage Management
+        // LocalStorage Management for All Lists
         let allData = JSON.parse(localStorage.getItem('alkhidmahAllData')) || {
             committee: [
                 { name: "মোঃ আব্দুর রহিম", role: "সভাপতি", phone: "০১৭০০০০০০০০" },
@@ -257,6 +271,12 @@
             ],
             members: [
                 { name: "মোঃ রফিকুল ইসলাম", role: "সাধারণ সদস্য", phone: "০১৫০০০০০০০০" }
+            ],
+            donors: [
+                { name: "আলহাজ্ব আব্দুল লতিফ", role: "আজীবন দাতা", phone: "০১৭১১০০০০০০" }
+            ],
+            beneficiaries: [
+                { name: "মোছাঃ ফাতেমা খাতুন", role: "শিক্ষা সহায়তা", phone: "০১৮১১০০০০০০" }
             ]
         };
 
@@ -264,6 +284,8 @@
             renderTableSection('committee', 'committeeTableBody');
             renderTableSection('advisors', 'advisorsTableBody');
             renderTableSection('members', 'membersTableBody');
+            renderTableSection('donors', 'donorsTableBody');
+            renderTableSection('beneficiaries', 'beneficiariesTableBody');
         }
 
         function renderTableSection(category, tbodyId) {
@@ -305,6 +327,9 @@
             document.getElementById('globalMemberForm').reset();
             renderAllTables();
             alert('সফলভাবে সংশ্লিষ্ট তালিকায় যুক্ত হয়েছে!');
+            
+            // যুক্ত করার পর সরাসরি সেই পেজে নিয়ে যাওয়া যাতে ভিজিটর দেখতে পায়
+            showSection(category);
         }
 
         function deleteItem(category, index) {
@@ -317,6 +342,7 @@
 
         window.onload = function() {
             renderAllTables();
+            showSection('home');
         };
     </script>
 </body>
