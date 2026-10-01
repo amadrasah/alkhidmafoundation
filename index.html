@@ -1,169 +1,87 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আল খিদমাহ্ ফাউন্ডেশন</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- কাস্টম সিএসএস ফাইল লিঙ্ক -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-50 text-gray-800">
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
 
-    <!-- Top Header -->
-    <header class="bg-emerald-700 text-white shadow-md relative z-10">
-        <div class="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold">আল খিদমাহ্ ফাউন্ডেশন</h1>
-                <p class="text-emerald-200 text-sm mt-1">মানুষের জন্য, মানুষের পাশে</p>
-            </div>
-            <div class="mt-3 md:mt-0 text-sm bg-emerald-800 px-4 py-2 rounded-lg border border-emerald-600">
-                <p><i class="fa-solid fa-location-dot mr-1"></i> পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
-            </div>
-        </div>
-    </header>
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('hidden');
+});
 
-    <!-- Navigation Bar -->
-    <nav class="bg-emerald-900 text-white shadow-2xl relative z-[9999] border-b-2 border-emerald-700">
-        <div class="container mx-auto px-4 flex flex-wrap justify-between items-center py-2">
-            <button id="menuToggle" class="md:hidden text-white bg-emerald-700 px-4 py-2 rounded-lg font-semibold">
-                <i class="fa-solid fa-bars mr-2"></i> মেনু বার
-            </button>
+function closeMobileMenu() {
+    if (window.innerWidth < 768) {
+        navMenu.classList.add('hidden');
+        document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
+    }
+}
 
-            <div id="navMenu" class="hidden md:flex flex-col md:flex-row md:space-x-1 w-full md:w-auto bg-emerald-900 md:bg-transparent p-4 md:p-0 mt-2 md:mt-0 space-y-2 md:space-y-0">
-                <a href="#home" onclick="showSection('home'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm"><i class="fa-solid fa-house mr-1"></i> হোম</a>
-                
-                <!-- পরিচিতি ড্রপডাউন -->
-                <div class="relative group">
-                    <button onclick="toggleDropdown(event, 'introDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
-                        <span>পরিচিতি</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="introDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-52 py-2 z-[99999] left-0 border">
-                        <a href="#committee" onclick="showSection('committee'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">পরিচালনা পরিষদ (ও ফর্ম)</a>
-                        <a href="#advisors" onclick="showSection('advisors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">উপদেষ্টা পরিষদ</a>
-                        <a href="#members" onclick="showSection('members'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">সদস্য তালিকা</a>
-                        <a href="#donors" onclick="showSection('donors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">দাতা সদস্যদের তালিকা</a>
-                        <a href="#beneficiaries" onclick="showSection('beneficiaries'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">সুবিধাভোগীদের তালিকা</a>
-                    </div>
-                </div>
+function toggleDropdown(event, dropdownId) {
+    event.preventDefault();
+    event.stopPropagation();
+    const currentDropdown = document.getElementById(dropdownId);
+    const isHidden = currentDropdown.classList.contains('hidden');
+    document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
+    if (isHidden) {
+        currentDropdown.classList.remove('hidden');
+    } else {
+        currentDropdown.classList.add('hidden');
+    }
+}
 
-                <a href="#about-us" onclick="showSection('about-us'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">লক্ষ্য ও উদ্দেশ্য</a>
-                <a href="#dashboard" onclick="showSection('dashboard'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm"><i class="fa-solid fa-chart-pie mr-1"></i> ড্যাশবোর্ড</a>
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(sec => sec.classList.add('hidden'));
+    const target = document.getElementById(sectionId);
+    if(target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' --> });
+    }
+}
 
-                <!-- কার্যক্রম ড্রপডাউন -->
-                <div class="relative group">
-                    <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
-                        <span>কার্যক্রম</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="activitiesDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-48 py-2 z-[99999] left-0 border">
-                        <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">চলমান কর্মসূচি</a>
-                        <a href="#past-activities" onclick="showSection('past-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">পূর্ববর্তী কর্মসূচি</a>
-                    </div>
-                </div>
+// LocalStorage Data Management for Committee
+let members = JSON.parse(localStorage.getItem('alkhidmahMembers')) || [
+    { name: "মোঃ আব্দুর রহিম", role: "সভাপতি", phone: "০১৭০০০০০০০০" },
+    { name: "মোঃ শফিকুল ইসলাম", role: "সাধারণ সম্পাদক", phone: "০১৮০০০০০০০০" }
+];
 
-                <!-- হিসাব-নিকাশ ড্রপডাউন -->
-                <div class="relative group">
-                    <button onclick="toggleDropdown(event, 'accountsDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
-                        <span>হিসাব-নিকাশ</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="accountsDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border">
-                        <a href="#income-expense-sectors" onclick="showSection('income-expense-sectors'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">আয় ও ব্যয়ের খাত</a>
-                        <a href="#due-tracking" onclick="showSection('due-tracking'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">ডিউ ট্র্যাকিং (অনুদান)</a>
-                        <a href="#reports" onclick="showSection('reports'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">আয়-ব্যয়ের হিসাব</a>
-                        <a href="#receipts" onclick="showSection('receipts'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">রশিদ (অটো)</a>
-                    </div>
-                </div>
+function renderTable() {
+    const tbody = document.getElementById('tableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    members.forEach((m, index) => {
+        tbody.innerHTML += `
+            <tr class="hover:bg-gray-50">
+                <td class="p-3">${index + 1}</td>
+                <td class="p-3 font-medium">${m.name}</td>
+                <td class="p-3">${m.role}</td>
+                <td class="p-3">${m.phone}</td>
+                <td class="p-3 text-center">
+                    <button onclick="deleteMember(${index})" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
+                </td>
+            </tr>
+        `;
+    });
+}
 
-                <a href="#calendar" onclick="showSection('calendar'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">ক্যালেন্ডার</a>
-                <a href="#gallery" onclick="showSection('gallery'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">গ্যালারী</a>
-                <a href="#contact" onclick="showSection('contact'); closeMobileMenu();" class="px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold block text-sm">যোগাযোগ</a>
-            </div>
-        </div>
-    </nav>
+function addMember(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const role = document.getElementById('role').value;
+    const phone = document.getElementById('phone').value;
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 min-h-[70vh]">
+    members.push({ name, role, phone });
+    localStorage.setItem('alkhidmahMembers', JSON.stringify(members));
 
-        <!-- ১. হোম পেজ -->
-        <section id="home" class="page-section space-y-6">
-            <div class="bg-white rounded-xl shadow-md p-6 md:p-10 border-t-4 border-emerald-600 text-center">
-                <h2 class="text-2xl font-bold text-emerald-800 mb-2">আল খিদমাহ্ ফাউন্ডেশন-এ আপনাকে স্বাগতম</h2>
-                <p class="text-lg text-emerald-700 font-semibold mb-4">"মানুষের জন্য, মানুষের পাশে"</p>
-                <p class="text-gray-600 max-w-2xl mx-auto">আমাদের এই প্ল্যাটফর্মের মাধ্যমে এলাকার অসহায় মানুষের সেবা ও স্বচ্ছ হিসাব-নিকাশ পরিচালনা করা হয়।</p>
-            </div>
-        </section>
+    document.getElementById('committeeForm').reset();
+    renderTable();
+    alert('সদস্য সফলভাবে যুক্ত হয়েছে!');
+}
 
-        <!-- ২. পরিচালনা পরিষদ ও সদস্য ফরম সেকশন -->
-        <section id="committee" class="page-section hidden space-y-6">
-            <h2 class="text-xl font-bold text-emerald-700">পরিচালনা পরিষদ ও সদস্য ব্যবস্থাপনা</h2>
-            
-            <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-emerald-600 max-w-xl">
-                <h3 class="text-lg font-bold text-emerald-800 mb-3"><i class="fa-solid fa-user-plus mr-2"></i>নতুন সদস্য যুক্ত করুন</h3>
-                <form id="committeeForm" onsubmit="addMember(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">সদস্যের নাম</label>
-                        <input type="text" id="name" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="পূর্ণ নাম লিখুন">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">পদবী</label>
-                        <input type="text" id="role" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="যেমন: সভাপতি, সাধারণ সম্পাদক">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
-                        <input type="text" id="phone" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="মোবাইল নম্বর লিখুন">
-                    </div>
-                    <button type="submit" class="bg-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
-                        তালিকাভুক্ত করুন
-                    </button>
-                </form>
-            </div>
+function deleteMember(index) {
+    if(confirm('আপনি কি এই সদস্যকে তালিকা থেকে মুছে ফেলতে চান?')) {
+        members.splice(index, 1);
+        localStorage.setItem('alkhidmahMembers', JSON.stringify(members));
+        renderTable();
+    }
+}
 
-            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
-                <h3 class="text-lg font-bold text-emerald-800 mb-3">পরিচালনা পরিষদ সদস্যবৃন্দ</h3>
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
-                            <th class="p-3">ক্রঃ নং</th>
-                            <th class="p-3">নাম</th>
-                            <th class="p-3">পদবী</th>
-                            <th class="p-3">মোবাইল নম্বর</th>
-                            <th class="p-3 text-center">অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody" class="divide-y text-sm">
-                        <!-- ডাইনামিক ডেটা লোড হবে -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- অন্যান্য সাধারণ পেজ প্লেসহোল্ডার -->
-        <section id="advisors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">উপদেষ্টা পরিষদ</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="members" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">সদস্য তালিকা</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="donors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">দাতা সদস্য</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="beneficiaries" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">সুবিধাভোগী</h2><p class="text-gray-600 mt-2">তালিকা শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">বিবরণ শীঘ্রই যুক্ত হবে।</p></section>
-        <section id="dashboard" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ড্যাশবোর্ড</h2><p class="text-gray-600 mt-2">হিসাব-নিকাশ সারসংক্ষেপ।</p></section>
-        <section id="running-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি</h2><p class="text-gray-600 mt-2">চলমান প্রজেক্টসমূহ।</p></section>
-        <section id="past-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2><p class="text-gray-600 mt-2">সম্পন্ন প্রজেক্টসমূহ।</p></section>
-        <section id="income-expense-sectors" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাত</h2><p class="text-gray-600 mt-2">খাতসমূহ।</p></section>
-        <section id="due-tracking" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ডিউ ট্র্যাকিং</h2><p class="text-gray-600 mt-2">বকেয়া হিসাব।</p></section>
-        <section id="reports" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">হিসাব রিপোর্ট</h2><p class="text-gray-600 mt-2">মাসিক ও বাৎসরিক বিবরণী।</p></section>
-        <section id="receipts" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">অটো রশিদ</h2><p class="text-gray-600 mt-2">রশিদ জেনারেটর।</p></section>
-        <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ক্যালেন্ডার</h2><p class="text-gray-600 mt-2">ইভেন্ট তালিকা।</p></section>
-        <section id="gallery" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">গ্যালারী</h2><p class="text-gray-600 mt-2">ছবি ও ভিডিও।</p></section>
-        <section id="contact" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2><p class="text-gray-600 mt-2">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p></section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-emerald-950 text-emerald-200 py-6 text-center text-sm border-t border-emerald-800 mt-10">
-        <p>&copy; ২০২৬ আল খিদমাহ্ ফাউন্ডেশন | সর্বস্বত্ব সংরক্ষিত</p>
-    </footer>
-
-    <!-- এক্সটার্নাল জাভাস্ক্রিপ্ট ফাইল লিঙ্ক -->
-    <script src="script.js"></script>
-</body>
-</html>
+window.onload = function() {
+    renderTable();
+};
