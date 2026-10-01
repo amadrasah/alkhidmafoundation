@@ -68,8 +68,8 @@
                     <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="w-full text-left px-3 py-2.5 rounded-lg hover:bg-emerald-700 font-semibold flex justify-between items-center md:inline-flex md:w-auto text-sm">
                         <span>কার্যক্রম</span> <i class="fa-solid fa-angle-down ml-1 text-xs"></i>
                     </button>
-                    <div id="activitiesDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-48 py-2 z-[99999] left-0 border">
-                        <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">চলমান কর্মসূচি</a>
+                    <div id="activitiesDropdown" class="dropdown-content hidden md:absolute bg-white text-gray-800 shadow-2xl rounded-lg mt-1 w-56 py-2 z-[99999] left-0 border">
+                        <a href="#running-activities" onclick="showSection('running-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-bold text-emerald-700">চলমান কর্মসূচি</a>
                         <a href="#past-activities" onclick="showSection('past-activities'); closeMobileMenu();" class="block px-4 py-2 hover:bg-emerald-50 text-sm font-medium">পূর্ববর্তী কর্মসূচি</a>
                     </div>
                 </div>
@@ -284,7 +284,115 @@
             </div>
         </section>
 
-        <!-- ৯. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত -->
+        <!-- ৯. কার্যক্রম: চলমান কর্মসূচি -->
+        <section id="running-activities" class="page-section hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-person-running mr-2"></i>চলমান কর্মসূচি ও প্রজেক্টসমূহ</h2>
+            
+            <!-- নতুন চলমান কর্মসূচি এন্ট্রি ফর্ম -->
+            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
+                <h3 class="text-lg font-bold text-emerald-800 mb-4">নতুন চলমান কর্মসূচি যুক্ত করুন</h3>
+                <form id="runningActivityForm" onsubmit="addRunningActivity(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">কার্যক্রমের ধরণ</label>
+                        <select id="runActCategory" onchange="checkCustomRunningActivity()" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                            <option value="শিক্ষা উপকরণ বিতরণ">শিক্ষা উপকরণ বিতরণ</option>
+                            <option value="শিক্ষা বৃত্তি প্রদান">শিক্ষা বৃত্তি প্রদান</option>
+                            <option value="শীতবস্ত্র বিতরণ">শীতবস্ত্র বিতরণ</option>
+                            <option value="ঈদ সামগ্রী বিতরণ">ঈদ সামগ্রী বিতরণ</option>
+                            <option value="চিকিৎসা সহায়তা">চিকিৎসা সহায়তা</option>
+                            <option value="শিক্ষামূলক কর্মসূচি">শিক্ষামূলক কর্মসূচি</option>
+                            <option value="মেডিকেল ক্যাম্প">মেডিকেল ক্যাম্প</option>
+                            <option value="এককালীন সহযোগিতা">এককালীন সহযোগিতা</option>
+                            <option value="ধর্মীয় অনুষ্ঠান আয়োজন">ধর্মীয় অনুষ্ঠান আয়োজন</option>
+                            <option value="দারিদ্র বিমোচন প্রকল্প">দারিদ্র বিমোচন প্রকল্প</option>
+                            <option value="অন্যান্য">অন্যান্য (নতুন ফিল্ড লিখুন)</option>
+                        </select>
+                    </div>
+                    <div id="customRunningFieldDiv" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">অন্যান্য কার্যক্রমের নাম লিখুন</label>
+                        <input type="text" id="customRunningName" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="কাজের নাম লিখুন">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">শুরুর তারিখ</label>
+                            <input type="date" id="runActStartDate" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">শেষের তারিখ</label>
+                            <input type="date" id="runActEndDate" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">সুবিধাভোগীর নাম</label>
+                        <input type="text" id="runActBeneficiary" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="ব্যক্তি বা এলাকার নাম লিখুন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">প্রকল্প বাস্তবায়নের এলাকা</label>
+                        <input type="text" id="runActArea" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="এলাকা বা গ্রামের নাম লিখুন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">সম্ভাব্য ব্যয় (টাকা)</label>
+                        <input type="number" id="runActEstCost" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 outline-none" placeholder="টাকার পরিমাণ লিখুন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ব্যয় মেটানোর সম্ভাব্য খাত</label>
+                        <select id="runActCostSector" class="w-full border rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-emerald-600 outline-none">
+                            <option value="সদস্যদের মাসিক অনুদান">সদস্যদের মাসিক অনুদান</option>
+                            <option value="দাতা সদস্যের অনুদান">দাতা সদস্যের অনুদান</option>
+                            <option value="বিশেষ ফান্ডে দান">বিশেষ ফান্ডে দান</option>
+                            <option value="সাধারণ দান">সাধারণ দান</option>
+                            <option value="অন্যান্য">অন্যান্য</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 transition shadow text-sm">
+                        চলমান তালিকায় যুক্ত করুন
+                    </button>
+                </form>
+            </div>
+
+            <!-- চলমান কার্যক্রম টেবিল -->
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <h3 class="text-lg font-bold text-emerald-800 mb-3 border-b pb-2">চলমান কর্মসূচীর তালিকা</h3>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                            <th class="p-3">কার্যক্রম</th>
+                            <th class="p-3">সময়কাল</th>
+                            <th class="p-3">সুবিধাভোগী</th>
+                            <th class="p-3">এলাকা</th>
+                            <th class="p-3">সম্ভাব্য ব্যয়</th>
+                            <th class="p-3">সম্ভাব্য খাত</th>
+                            <th class="p-3 text-center">স্ট্যাটাস / অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="runningActivitiesTableBody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ১০. কার্যক্রম: পূর্ববর্তী কর্মসূচি -->
+        <section id="past-activities" class="page-section hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-700"><i class="fa-solid fa-clock-rotate-left mr-2"></i>পূর্ববর্তী ও সমাপ্ত কর্মসূচি</h2>
+            <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-emerald-100 text-emerald-900 border-b text-sm">
+                            <th class="p-3">ক্রঃ নং</th>
+                            <th class="p-3">কার্যক্রম</th>
+                            <th class="p-3">সময়কাল</th>
+                            <th class="p-3">সুবিধাভোগী</th>
+                            <th class="p-3">বাস্তবায়িত এলাকা</th>
+                            <th class="p-3">প্রকৃত ব্যয়</th>
+                            <th class="p-3">ব্যয়ের খাত</th>
+                            <th class="p-3 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pastActivitiesTableBody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ১১. হিসাব-নিকাশ: আয় ও ব্যয়ের খাত -->
         <section id="income-expense-sectors" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের খাতসমূহ</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -314,7 +422,7 @@
             </div>
         </section>
 
-        <!-- ১০. হিসাব-নিকাশ: ডিউ ট্র্যাকিং (বকেয়া হিসাব) -->
+        <!-- ১২. হিসাব-নিকাশ: ডিউ ট্র্যাকিং (বকেয়া হিসাব) -->
         <section id="due-tracking" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">ডিউ ট্র্যাকিং (সদস্য চাঁদা বকেয়া হিসাব)</h2>
             <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
@@ -334,7 +442,7 @@
             </div>
         </section>
 
-        <!-- ১১. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও ড্রপডাউন এন্ট্রি ফর্ম -->
+        <!-- ১৩. হিসাব-নিকাশ: আয়-ব্যয়ের রিপোর্ট ও ড্রপডাউন এন্ট্রি ফর্ম -->
         <section id="reports" class="page-section hidden space-y-6">
             <h2 class="text-xl font-bold text-emerald-700">আয় ও ব্যয়ের হিসাব এবং রিপোর্ট</h2>
             
@@ -389,7 +497,7 @@
             </div>
         </section>
 
-        <!-- ১২. হিসাব-নিকাশ: অটো রশিদ জেনারেটর -->
+        <!-- ১৪. হিসাব-নিকাশ: অটো রশিদ জেনারেটর -->
         <section id="receipts" class="page-section hidden space-y-6">
             <div class="flex justify-between items-center flex-wrap gap-4 no-print">
                 <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় অনুদান ও আয় রশিদ (Receipt)</h2>
@@ -505,8 +613,6 @@
 
         <!-- অন্যান্য সেকশনসমূহ -->
         <section id="about-us" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">লক্ষ্য ও উদ্দেশ্য</h2><p class="text-gray-600 mt-2">ফাউন্ডেশনের লক্ষ্য ও উদ্দেশ্য এখানে প্রদর্শিত হবে।</p></section>
-        <section id="running-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">চলমান কর্মসূচি</h2><p class="text-gray-600 mt-2">চলমান প্রজেক্টসমূহ।</p></section>
-        <section id="past-activities" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">পূর্ববর্তী কর্মসূচি</h2><p class="text-gray-600 mt-2">সম্পন্ন প্রজেক্টসমূহ।</p></section>
         <section id="calendar" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">ক্যালেন্ডার</h2><p class="text-gray-600 mt-2">ইভেন্ট তালিকা।</p></section>
         <section id="gallery" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">গ্যালারী</h2><p class="text-gray-600 mt-2">ছবি ও ভিডিও।</p></section>
         <section id="contact" class="page-section hidden bg-white p-6 rounded-xl shadow"><h2 class="text-xl font-bold text-emerald-700">যোগাযোগ</h2><p class="text-gray-600 mt-2">পাটেয়ারীটারী, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট।</p></section>
@@ -580,6 +686,12 @@
             beneficiaries: [
                 { name: "মোছাঃ ফাতেমা খাতুন", role: "শিক্ষা সহায়তা", amount: 1500, phone: "০১৮১১০০০০০০" }
             ],
+            runningActivities: [
+                { name: "শীতবস্ত্র বিতরণ", startDate: "2026-11-01", endDate: "2026-11-30", beneficiary: "অসহায় ও দরিদ্র শীতার্ত মানুষ", area: "দলগ্রাম ইউনিয়ন", estCost: 25000, costSector: "সদস্যদের মাসিক অনুদান" }
+            ],
+            pastActivities: [
+                { name: "ঈদ সামগ্রী বিতরণ", startDate: "2026-04-01", endDate: "2026-04-10", beneficiary: "১০০টি দুস্থ পরিবার", area: "কালীগঞ্জ উপজেলা", actualCost: 45000, costSector: "বিশেষ ফান্ডে দান" }
+            ],
             transactions: [
                 { date: "2026-10-01", donor: "মোঃ রফিকুল ইসলাম", sector: "সদস্যদের মাসিক অনুদান", type: "income", amount: 5000 },
                 { date: "2026-10-02", donor: "আল খিদমাহ ফাউন্ডেশন", sector: "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়", type: "expense", amount: 1000 }
@@ -606,12 +718,26 @@
             });
         }
 
+        function checkCustomRunningActivity() {
+            const cat = document.getElementById('runActCategory').value;
+            const customDiv = document.getElementById('customRunningFieldDiv');
+            if(cat === 'অন্যান্য') {
+                customDiv.classList.remove('hidden');
+                document.getElementById('customRunningName').required = true;
+            } else {
+                customDiv.classList.add('hidden');
+                document.getElementById('customRunningName').required = false;
+            }
+        }
+
         function renderAllTables() {
             renderTableSection('committee', 'committeeTableBody');
             renderTableSection('advisors', 'advisorsTableBody');
             renderTableSection('members', 'membersTableBody');
             renderTableSection('donors', 'donorsTableBody');
             renderBeneficiariesTable();
+            renderRunningActivitiesTable();
+            renderPastActivitiesTable();
             renderDueTracking();
             renderTransactions();
             updateDashboardStats();
@@ -691,12 +817,123 @@
             });
         }
 
+        function addRunningActivity(e) {
+            e.preventDefault();
+            let cat = document.getElementById('runActCategory').value;
+            if(cat === 'অন্যান্য') {
+                cat = document.getElementById('customRunningName').value;
+            }
+            const startDate = document.getElementById('runActStartDate').value;
+            const endDate = document.getElementById('runActEndDate').value;
+            const beneficiary = document.getElementById('runActBeneficiary').value;
+            const area = document.getElementById('runActArea').value;
+            const estCost = parseFloat(document.getElementById('runActEstCost').value) || 0;
+            const costSector = document.getElementById('runActCostSector').value;
+
+            if(!allData.runningActivities) allData.runningActivities = [];
+            allData.runningActivities.push({ name: cat, startDate, endDate, beneficiary, area, estCost, costSector });
+            localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+
+            document.getElementById('runningActivityForm').reset();
+            document.getElementById('customRunningFieldDiv').classList.add('hidden');
+            renderRunningActivitiesTable();
+            alert('চলমান কর্মসূচি সফলভাবে যুক্ত হয়েছে!');
+        }
+
+        function renderRunningActivitiesTable() {
+            const tbody = document.getElementById('runningActivitiesTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            const items = allData.runningActivities || [];
+            if(items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400 text-sm">কোনো চলমান কর্মসূচি নেই</td></tr>`;
+                return;
+            }
+            items.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-medium text-emerald-800">${item.name}</td>
+                        <td class="p-3 text-xs">${item.startDate} হতে<br>${item.endDate}</td>
+                        <td class="p-3">${item.beneficiary}</td>
+                        <td class="p-3">${item.area}</td>
+                        <td class="p-3 font-semibold text-blue-700">৳ ${Number(item.estCost).toLocaleString()}</td>
+                        <td class="p-3 text-xs">${item.costSector}</td>
+                        <td class="p-3 text-center space-x-1">
+                            <button onclick="completeRunningActivity(${index})" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-xs font-semibold hover:bg-emerald-700">সমাপ্ত করুন</button>
+                            <button onclick="deleteRunningActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function completeRunningActivity(index) {
+            let actualCostInput = prompt("এই কর্মসূচির প্রকৃত বা চূড়ান্ত ব্যয় কত হয়েছে (টাকা লিখুন):", allData.runningActivities[index].estCost);
+            if(actualCostInput === null) return;
+            let actualCost = parseFloat(actualCostInput) || 0;
+
+            let act = allData.runningActivities.splice(index, 1)[0];
+            act.actualCost = actualCost;
+            delete act.estCost;
+
+            if(!allData.pastActivities) allData.pastActivities = [];
+            allData.pastActivities.push(act);
+
+            localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+            renderRunningActivitiesTable();
+            renderPastActivitiesTable();
+            alert('কর্মসূচিটি সফলভাবে সমাপ্ত করে পূর্ববর্তী কর্মসূচি তালিকায় স্থানান্তরিত করা হয়েছে!');
+        }
+
+        function deleteRunningActivity(index) {
+            if(confirm('এই চলমান কর্মসূচিটি মুছে ফেলতে চান?')) {
+                allData.runningActivities.splice(index, 1);
+                localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+                renderRunningActivitiesTable();
+            }
+        }
+
+        function renderPastActivitiesTable() {
+            const tbody = document.getElementById('pastActivitiesTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            const items = allData.pastActivities || [];
+            if(items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-gray-400 text-sm">কোনো পূর্ববর্তী কর্মসূচি নেই</td></tr>`;
+                return;
+            }
+            items.forEach((item, index) => {
+                let cost = item.actualCost ? `৳ ${Number(item.actualCost).toLocaleString()}` : '৳ ০';
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3">${index + 1}</td>
+                        <td class="p-3 font-medium text-emerald-800">${item.name}</td>
+                        <td class="p-3 text-xs">${item.startDate} হতে<br>${item.endDate}</td>
+                        <td class="p-3">${item.beneficiary}</td>
+                        <td class="p-3">${item.area}</td>
+                        <td class="p-3 font-semibold text-emerald-700">${cost}</td>
+                        <td class="p-3 text-xs">${item.costSector}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="deletePastActivity(${index})" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function deletePastActivity(index) {
+            if(confirm('এই পূর্ববর্তী কর্মসূচিটি তালিকা থেকে মুছে ফেলতে চান?')) {
+                allData.pastActivities.splice(index, 1);
+                localStorage.setItem('alkhidmahAllData', JSON.stringify(allData));
+                renderPastActivitiesTable();
+            }
+        }
+
         function renderDueTracking() {
             const tbody = document.getElementById('dueTrackingTableBody');
             if(!tbody) return;
             tbody.innerHTML = '';
             
-            // সব ক্যাটাগরি থেকে সদস্য সংগ্রহ করা যাদের মাসিক অনুদান নির্ধারিত আছে
             let trackedMembers = [];
             ['committee', 'advisors', 'members', 'donors'].forEach(cat => {
                 if(allData[cat]) {
@@ -713,11 +950,9 @@
                 return;
             }
 
-            // চলতি মাসের নাম
             const currentMonthName = "অক্টোবর ২০২৬";
 
             trackedMembers.forEach((m) => {
-                // লেনদেন থেকে চেক করা এই সদস্য চলতি মাসে কত টাকা জমা দিয়েছে
                 let paidAmount = 0;
                 (allData.transactions || []).forEach(t => {
                     if(t.type === 'income' && t.donor === m.name) {
