@@ -1,3 +1,755 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আল খিদমাহ ফাউন্ডেশন - দলগ্রাম</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (SolaimanLipi / Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Navbar / Header -->
+    <nav class="bg-emerald-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Brand / Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('home')">
+                    <div class="bg-emerald-800 p-2 rounded-lg border border-emerald-600">
+                        <i class="fa-solid fa-hands-holding-child text-yellow-300 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg md:text-xl tracking-wide">আল খিদমাহ ফাউন্ডেশন</h1>
+                        <p class="text-xs text-emerald-200">দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="showSection('home')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition">হোম</button>
+                    
+                    <!-- Dropdown: পরিচিতি -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown(event, 'aboutDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
+                            পরিচিতি <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="aboutDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                            <button onclick="showSection('committee'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">কার্যকরী কমিটি</button>
+                            <button onclick="showSection('advisors'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">উপদেষ্টা পরিষদ</button>
+                            <button onclick="showSection('members'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">সাধারণ সদস্যবৃন্দ</button>
+                            <button onclick="showSection('donors'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">আজীবন দাতা সদস্য</button>
+                            <button onclick="showSection('beneficiaries'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">সহায়তা প্রাপ্তগণ</button>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown: কার্যক্রম -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
+                            কার্যক্রম <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="activitiesDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                            <button onclick="showSection('runningActivities'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">চলমান কর্মসূচি</button>
+                            <button onclick="showSection('pastActivities'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">পূর্ববর্তী কর্মসূচি</button>
+                            <button onclick="showSection('dueTracking'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">বকেয়া ট্র্যাকিং</button>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown: হিসাব নিকাশ -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown(event, 'financeDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
+                            হিসাব-নিকাশ <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="financeDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                            <button onclick="showSection('transactions'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">আয়-ব্যয়ের হিসাব</button>
+                            <button onclick="showSection('receiptBook'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">রিসিট জেনারেটর</button>
+                        </div>
+                    </div>
+
+                    <button onclick="showSection('calendar')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition">ক্যালেন্ডার ও সূচি</button>
+                    <button onclick="showSection('gallery')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition">গ্যালারী</button>
+                    <button onclick="showSection('contact')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition">যোগাযোগ</button>
+
+                    <!-- Admin Only Navigation Links -->
+                    <button id="navMemberForm" onclick="showSection('memberFormSection')" class="hidden px-3 py-2 rounded-lg text-sm font-medium bg-emerald-800 hover:bg-emerald-700 transition text-yellow-300">নতুন সদস্য ফরম</button>
+                    <button id="navInbox" onclick="showSection('inboxSection')" class="hidden px-3 py-2 rounded-lg text-sm font-medium bg-emerald-800 hover:bg-emerald-700 transition text-yellow-300">ইনবক্স</button>
+                </div>
+
+                <!-- Right Side Admin Mode Button -->
+                <div class="flex items-center space-x-3">
+                    <button id="adminModeBtn" onclick="toggleAdminMode()" class="bg-emerald-800 hover:bg-emerald-900 text-yellow-300 text-xs px-3 py-2 rounded-lg border border-emerald-600 font-semibold transition flex items-center shadow-sm">
+                        <i class="fa-solid fa-lock mr-1"></i> এডমিন লগইন
+                    </button>
+
+                    <!-- Mobile Menu Toggle Button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="menuToggle" class="text-white hover:text-yellow-300 focus:outline-none p-2">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="navMenu" class="hidden md:hidden bg-emerald-950 px-4 pt-2 pb-4 space-y-1 border-t border-emerald-800">
+            <button onclick="showSection('home'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">হোম</button>
+            <button onclick="showSection('committee'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">কার্যকরী কমিটি</button>
+            <button onclick="showSection('advisors'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">উপদেষ্টা পরিষদ</button>
+            <button onclick="showSection('members'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">সাধারণ সদস্যবৃন্দ</button>
+            <button onclick="showSection('donors'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">আজীবন দাতা সদস্য</button>
+            <button onclick="showSection('beneficiaries'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">সহায়তা প্রাপ্তগণ</button>
+            <button onclick="showSection('runningActivities'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">চলমান কর্মসূচি</button>
+            <button onclick="showSection('pastActivities'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">পূর্ববর্তী কর্মসূচি</button>
+            <button onclick="showSection('dueTracking'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">বকেয়া ট্র্যাকিং</button>
+            <button onclick="showSection('transactions'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">আয়-ব্যয়ের হিসাব</button>
+            <button onclick="showSection('receiptBook'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">রিসিট জেনারেটর</button>
+            <button onclick="showSection('calendar'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">ক্যালেন্ডার ও সূচি</button>
+            <button onclick="showSection('gallery'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">গ্যালারী</button>
+            <button onclick="showSection('contact'); closeMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800">যোগাযোগ</button>
+            <button id="mobileNavMemberForm" onclick="showSection('memberFormSection'); closeMobileMenu();" class="hidden block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-emerald-900 text-yellow-300">নতুন সদস্য ফরম</button>
+            <button id="mobileNavInbox" onclick="showSection('inboxSection'); closeMobileMenu();" class="hidden block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-emerald-900 text-yellow-300">ইনবক্স</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home" class="page-section space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-2xl p-8 md:p-12 shadow-lg flex flex-col md:flex-row items-center justify-between">
+                <div class="space-y-4 max-w-2xl text-center md:text-left">
+                    সেবামূলক ও সামাজিক কল্যাণ সংস্থা
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">আল খিদমাহ ফাউন্ডেশন</h2>
+                    <p class="text-emerald-100 text-base md:text-lg">মানবতার সেবায় নিবেদিত প্রাণ। দলগ্রাম ইউনিয়নের অসহায়, দুস্থ ও প্রবাসীর কল্যাণে আমরা সর্বদা সচেষ্ট।</p>
+                    <div class="pt-4 flex flex-wrap justify-center md:justify-start gap-3">
+                        <button onclick="showSection('runningActivities')" class="bg-yellow-400 text-emerald-950 font-bold px-6 py-3 rounded-xl shadow hover:bg-yellow-300 transition">চলমান কর্মসূচি দেখুন</button>
+                        <button onclick="showSection('receiptBook')" class="bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-emerald-600 border border-emerald-600 transition">ডোনেশন রিসিট</button>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20 text-center">
+                    <i class="fa-solid fa-hand-holding-heart text-yellow-300 text-5xl mb-3"></i>
+                    <h3 class="font-bold text-xl">আপনার দান, অসহায় মানুষের হাসি</h3>
+                    <p class="text-xs text-emerald-200 mt-1">স্বচ্ছ ও জবাবদিহিতা মূলক সাহায্য বিতরণ ব্যবস্থা</p>
+                </div>
+            </div>
+
+            <!-- Quick Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="bg-white p-6 rounded-xl shadow border-l-4 border-emerald-600">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">কার্যকরী সদস্য</p>
+                    <h4 id="dashCommitteeCount" class="text-3xl font-bold text-emerald-900 mt-1">০</h4>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border-l-4 border-teal-600">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">সাধারণ সদস্য</p>
+                    <h4 id="dashMembersCount" class="text-3xl font-bold text-teal-900 mt-1">০</h4>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border-l-4 border-amber-600">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">আজীবন দাতা</p>
+                    <h4 id="dashDonorsCount" class="text-3xl font-bold text-amber-900 mt-1">০</h4>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border-l-4 border-purple-600">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">সহায়তা প্রাপ্ত</p>
+                    <h4 id="dashBeneficiariesCount" class="text-3xl font-bold text-purple-900 mt-1">০</h4>
+                </div>
+            </div>
+
+            <!-- Financial Summary Card -->
+            <div class="bg-white rounded-2xl shadow p-6 md:p-8 border border-slate-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                    <i class="fa-solid fa-wallet text-emerald-700 mr-2"></i> সার্বিক আর্থিক সারসংক্ষেপ
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+                        <span class="text-sm font-semibold text-emerald-800">মোট সংগৃহীত তহবিল (আয়)</span>
+                        <h4 id="dashTotalIncome" class="text-3xl font-bold text-emerald-700 mt-2">৳ ০</h4>
+                    </div>
+                    <div class="bg-rose-50 p-6 rounded-xl border border-rose-100">
+                        <span class="text-sm font-semibold text-rose-800">মোট খরচ ও বিতরণ</span>
+                        <h4 id="dashTotalExpense" class="text-3xl font-bold text-rose-700 mt-2">৳ ০</h4>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                        <span class="text-sm font-semibold text-blue-800">বর্তমান স্থিতি (ব্যালেন্স)</span>
+                        <h4 id="dashNetBalance" class="text-3xl font-bold text-blue-700 mt-2">৳ ০</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. COMMITTEE SECTION -->
+        <section id="committee" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-users text-emerald-700 mr-2"></i> কার্যকরী কমিটি
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">পদবী</th>
+                                <th class="p-3">মাসিক চাঁদা</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th id="committeeActionHeader" class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="committeeTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ADVISORS SECTION -->
+        <section id="advisors" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-user-tie text-emerald-700 mr-2"></i> উপদেষ্টা পরিষদ
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">ভূমিকা / পরিচয়</th>
+                                <th class="p-3">মাসিক অনুদান</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="advisorsTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MEMBERS SECTION -->
+        <section id="members" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-address-book text-emerald-700 mr-2"></i> সাধারণ সদস্যবৃন্দ
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">পদবী</th>
+                                <th class="p-3">মাসিক চাঁদা</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. DONORS SECTION -->
+        <section id="donors" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-hand-holding-dollar text-emerald-700 mr-2"></i> আজীবন দাতা সদস্য
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">ধরন / পরিচয়</th>
+                                <th class="p-3">অনুদਾਨ পরিমাণ</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donorsTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. BENEFICIARIES SECTION -->
+        <section id="beneficiaries" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-gift text-emerald-700 mr-2"></i> সহায়তা প্রাপ্তগণ
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">সহায়তার ধরণ</th>
+                                <th class="p-3">পরিমাণ / মূল্যায়ন</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="beneficiariesTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. RUNNING ACTIVITIES SECTION -->
+        <section id="runningActivities" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-person-running text-emerald-700 mr-2"></i> চলমান কর্মসূচি
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">কর্মসূচির নাম</th>
+                                <th class="p-3">সময়কাল</th>
+                                <th class="p-3">উপকারভোগী</th>
+                                <th class="p-3">এলাকা</th>
+                                <th class="p-3">প্রাক্কলিত ব্যয়</th>
+                                <th class="p-3">খরচের খাত</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="runningActivitiesTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Add Running Activity Card -->
+            <div id="eventFormCard" class="hidden admin-only bg-white rounded-xl shadow p-6 border border-emerald-100">
+                <h4 class="text-lg font-bold text-emerald-900 mb-4">নতুন চলমান কর্মসূচি যোগ করুন</h4>
+                <form id="runningActivityForm" onsubmit="addRunningActivity(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">কর্মসূচির ক্যাটাগরি</label>
+                        <select id="runActCategory" onchange="checkCustomRunningActivity()" class="w-full border rounded-lg p-2.5 text-sm" required>
+                            <option value="শীতবস্ত্র বিতরণ">শীতবস্ত্র বিতরণ</option>
+                            <option value="ঈদ সামগ্রী বিতরণ">ঈদ সামগ্রী বিতরণ</option>
+                            <option value="শিক্ষা উপকরণ বিতরণ">শিক্ষা উপকরণ বিতরণ</option>
+                            <option value="চিকিৎসা সহায়তা">চিকিৎসা সহায়তা</option>
+                            <option value="অন্যান্য">অন্যান্য (নিজের নাম লিখুন)</option>
+                        </select>
+                    </div>
+                    <div id="customRunningFieldDiv" class="hidden">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">কাস্টম কর্মসূচির নাম</label>
+                        <input type="text" id="customRunningName" class="w-full border rounded-lg p-2.5 text-sm" placeholder="যেমন: ইফতার বিতরণ">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">শুরুর তারিখ</label>
+                        <input type="date" id="runActStartDate" class="w-full border rounded-lg p-2.5 text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">শেষের তারিখ</label>
+                        <input type="date" id="runActEndDate" class="w-full border rounded-lg p-2.5 text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">উপকারভোগী</label>
+                        <input type="text" id="runActBeneficiary" class="w-full border rounded-lg p-2.5 text-sm" placeholder="যেমন: ১০০টি দুস্থ পরিবার" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">এলাকা</label>
+                        <input type="text" id="runActArea" class="w-full border rounded-lg p-2.5 text-sm" placeholder="যেমন: দলগ্রাম ইউনিয়ন" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">প্রাক্কলিত খরচ (টাকা)</label>
+                        <input type="number" id="runActEstCost" class="w-full border rounded-lg p-2.5 text-sm" placeholder="২৫০০০" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">খরচের খাত</label>
+                        <input type="text" id="runActCostSector" class="w-full border rounded-lg p-2.5 text-sm" placeholder="সদস্যদের মাসিক অনুদান" required>
+                    </div>
+                    <div class="md:col-span-3 flex justify-end">
+                        <button type="submit" class="bg-emerald-800 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">কর্মসূচি যুক্ত করুন</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 8. PAST ACTIVITIES SECTION -->
+        <section id="pastActivities" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-clock-rotate-left text-emerald-700 mr-2"></i> পূর্ববর্তী কর্মসূচি (সম্পন্ন)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">ক্রঃ</th>
+                                <th class="p-3">কর্মসূচির নাম</th>
+                                <th class="p-3">সময়কাল</th>
+                                <th class="p-3">উপকারভোগী</th>
+                                <th class="p-3">এলাকা</th>
+                                <th class="p-3">প্রকৃত ব্যয়</th>
+                                <th class="p-3">খরচের খাত</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pastActivitiesTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. DUE TRACKING SECTION -->
+        <section id="dueTracking" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-clipboard-check text-emerald-700 mr-2"></i> মাসিক চাঁদা ও বকেয়া ট্র্যাকিং
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">সদস্যের নাম</th>
+                                <th class="p-3">পদবী / ভূমিকা</th>
+                                <th class="p-3">মাস</th>
+                                <th class="p-3">নির্ধারিত চাঁদা</th>
+                                <th class="p-3">পরিশোধিত</th>
+                                <th class="p-3">বকেয়া</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dueTrackingTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. TRANSACTIONS SECTION -->
+        <section id="transactions" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-calculator text-emerald-700 mr-2"></i> আয় ও ব্যয়ের হিসাব
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">তারিখ</th>
+                                <th class="p-3">দাতা / বিবরণ</th>
+                                <th class="p-3">খাত</th>
+                                <th class="p-3">ধরن</th>
+                                <th class="p-3">পরিমাণ</th>
+                                <th class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Add Transaction Card -->
+            <div class="admin-only hidden bg-white rounded-xl shadow p-6 border border-emerald-100">
+                <h4 class="text-lg font-bold text-emerald-900 mb-4">নতুন আয় বা ব্যয় যুক্ত করুন</h4>
+                <form id="transactionForm" onsubmit="addTransaction(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">লেনদেনের ধরন</label>
+                        <select id="transType" onchange="updateSectorDropdown()" class="w-full border rounded-lg p-2.5 text-sm" required>
+                            <option value="income">আয় (Income)</option>
+                            <option value="expense">ব্যয় (Expense)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">দাতা বা প্রদেয় নাম</label>
+                        <input type="text" id="transDonorName" class="w-full border rounded-lg p-2.5 text-sm" placeholder="যেমন: মোঃ রফিকুল ইসলাম" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">খাত</label>
+                        <select id="transSector" class="w-full border rounded-lg p-2.5 text-sm" required></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">পরিমাণ (টাকা)</label>
+                        <input type="number" id="transAmount" class="w-full border rounded-lg p-2.5 text-sm" placeholder="৫০০০" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">তারিখ</label>
+                        <input type="date" id="transDate" class="w-full border rounded-lg p-2.5 text-sm" required>
+                    </div>
+                    <div class="md:col-span-5 flex justify-end">
+                        <button type="submit" class="bg-emerald-800 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">হিসাব সংরক্ষণ করুন</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 11. RECEIPT GENERATOR SECTION -->
+        <section id="receiptBook" class="page-section hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input Form -->
+                <div class="bg-white rounded-xl shadow p-6 border border-slate-100">
+                    <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center">
+                        <i class="fa-solid fa-receipt text-emerald-700 mr-2"></i> ডোনেশন রিসিট তৈরি করুন
+                    </h3>
+                    <form id="receiptForm" onsubmit="previewReceipt(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">দাতার নাম</label>
+                            <input type="text" id="rcvDonorName" class="w-full border rounded-lg p-2.5 text-sm" placeholder="আলহাজ্ব আব্দুল লতিফ" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">পদবী / পরিচয়</label>
+                            <input type="text" id="rcvDesignation" class="w-full border rounded-lg p-2.5 text-sm" placeholder="আজীবন দাতা সদস্য">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">বাবদ / খাত</label>
+                            <input type="text" id="rcvSector" class="w-full border rounded-lg p-2.5 text-sm" placeholder="মাসিক অনুদান / সাধারণ দান" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">টাকার পরিমাণ (সংখ্যায়)</label>
+                            <input type="number" id="rcvAmount" oninput="convertAmountToWords()" class="w-full border rounded-lg p-2.5 text-sm" placeholder="৫০০০" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">টাকার পরিমাণ (কথায়)</label>
+                            <input type="text" id="rcvAmountWords" class="w-full border rounded-lg p-2.5 text-sm bg-gray-50" readonly placeholder="স্বয়ংক্রয়ভাবে পূরণ হবে">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">তারিখ</label>
+                            <input type="date" id="rcvDate" class="w-full border rounded-lg p-2.5 text-sm">
+                        </div>
+                        <div class="flex space-x-3 pt-2">
+                            <button type="submit" class="flex-1 bg-emerald-800 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">রিসিট প্রিভিউ দেখুন</button>
+                            <button type="button" onclick="generateNewReceipt()" class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-300 transition">নতুন রিসিট</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Printable Receipt Preview -->
+                <div class="bg-white rounded-xl shadow p-6 border border-slate-100 flex flex-col justify-between">
+                    <div id="printableReceiptArea" class="border-2 border-emerald-900 rounded-xl p-6 relative bg-white space-y-4">
+                        <!-- Receipt Header -->
+                        <div class="text-center border-b pb-4 border-emerald-200">
+                            <h2 class="text-xl font-extrabold text-emerald-900">আল খিদমাহ ফাউন্ডেশন</h2>
+                            <p class="text-xs text-gray-600">দলগ্রাম, কালীগঞ্জ, লালমনিরহাট</p>
+                            <p class="text-[11px] text-emerald-700 font-semibold mt-1">রসিদ বই / মানি রিসিট</p>
+                        </div>
+
+                        <div class="flex justify-between text-xs font-semibold">
+                            <span>রসিদ নং: <span id="viewReceiptNo" class="font-bold text-emerald-900">AKF-2026-001</span></span>
+                            <span>তারিখ: <span id="viewReceiptDate" class="font-bold text-emerald-900">--/--/----</span></span>
+                        </div>
+
+                        <div class="space-y-2 text-sm pt-2">
+                            <p class="border-b border-dashed pb-1"><strong>দাতার নাম:</strong> <span id="viewDonorName" class="text-gray-800">--------------------------</span></p>
+                            <p class="border-b border-dashed pb-1"><strong>পরিচয়/পদবী:</strong> <span id="viewDesignation" class="text-gray-800">--------------------------</span></p>
+                            <p class="border-b border-dashed pb-1"><strong>খাত / বাবদ:</strong> <span id="viewSector" class="text-gray-800">--------------------------</span></p>
+                            <p class="border-b border-dashed pb-1"><strong>টাকার পরিমাণ (সংখ্যায়):</strong> <span id="viewAmountNum" class="font-bold text-emerald-800">৳ ০.০০</span></p>
+                            <p class="border-b border-dashed pb-1"><strong>কথায়:</strong> <span id="viewAmountWords" class="text-gray-800">--------------------------</span></p>
+                        </div>
+
+                        <div class="flex justify-between pt-12 text-xs font-semibold text-center">
+                            <div>
+                                <div class="border-t border-gray-400 w-32 pt-1">প্রদানকারীর স্বাক্ষর</div>
+                            </div>
+                            <div>
+                                <div class="border-t border-gray-400 w-32 pt-1">গ্রহীতা / ক্যাশিয়ার</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <button onclick="downloadPDF()" class="w-full bg-teal-800 text-white py-3 rounded-xl text-sm font-semibold hover:bg-teal-900 transition flex items-center justify-center shadow">
+                            <i class="fa-solid fa-print mr-2"></i> প্রিন্ট বা পিডিএফ (PDF) ডাউনলোড করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. CALENDAR SECTION -->
+        <section id="calendar" class="page-section hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Event List Table -->
+                <div id="calendarTableContainer" class="bg-white rounded-xl shadow p-6 md:col-span-3 overflow-x-auto">
+                    <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                        <i class="fa-solid fa-calendar-days text-emerald-700 mr-2"></i> আসন্ন ইভেন্ট ও সভার সূচি
+                    </h3>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">তারিখ</th>
+                                <th class="p-3">ইভেন্টের শিরোনাম</th>
+                                <th class="p-3">সময় ও স্থান</th>
+                                <th id="calendarActionHeader" class="p-3 text-center admin-action-col hidden">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarEventsTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+
+                <!-- Admin Add Event Card -->
+                <div id="eventFormCard" class="hidden admin-only bg-white rounded-xl shadow p-6 md:col-span-1 border border-emerald-100">
+                    <h4 class="text-lg font-bold text-emerald-900 mb-4">নতুন ইভেন্ট যুক্ত করুন</h4>
+                    <form id="eventForm" onsubmit="addCalendarEvent(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">ইভেন্টের শিরোনাম</label>
+                            <input type="text" id="eventTitle" class="w-full border rounded-lg p-2.5 text-sm" placeholder="মাসিক কার্যকরী সভা" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">তারিখ</label>
+                            <input type="date" id="eventDate" class="w-full border rounded-lg p-2.5 text-sm" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">সময় ও স্থান</label>
+                            <input type="text" id="eventTimeLocation" class="w-full border rounded-lg p-2.5 text-sm" placeholder="বিকাল ৪:০ডি, দলগ্রাম কার্যালয়" required>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-800 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">ইভেন্ট যুক্ত করুন</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. GALLERY SECTION -->
+        <section id="gallery" class="page-section hidden space-y-6">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-images text-emerald-700 mr-2"></i> ফটো গ্যালারী
+                </h3>
+                <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Admin Add Gallery Photo Card -->
+            <div class="admin-only hidden bg-white rounded-xl shadow p-6 border border-emerald-100">
+                <h4 class="text-lg font-bold text-emerald-900 mb-4">গ্যালারীতে নতুন ছবি যুক্ত করুন</h4>
+                <form id="galleryForm" onsubmit="addGalleryItem(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">ছবির শিরোনাম</label>
+                        <input type="text" id="galleryTitle" class="w-full border rounded-lg p-2.5 text-sm" placeholder="ঈদ সামগ্রী বিতরণ কার্যক্রম ২০২৬" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">ছবির লিংক (URL)</label>
+                        <input type="url" id="galleryUrl" class="w-full border rounded-lg p-2.5 text-sm" placeholder="https://images.unsplash.com/..." required>
+                    </div>
+                    <div class="md:col-span-2 flex justify-end">
+                        <button type="submit" class="bg-emerald-800 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">ছবি আপলোড করুন</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 14. CONTACT SECTION -->
+        <section id="contact" class="page-section hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Contact Info -->
+                <div class="bg-white rounded-xl shadow p-6 space-y-4">
+                    <h3 class="text-xl font-bold text-emerald-900 mb-2 flex items-center">
+                        <i class="fa-solid fa-address-card text-emerald-700 mr-2"></i> যোগাযোগ করুন
+                    </h3>
+                    <p class="text-sm text-gray-600">যেকোনো তথ্যের জন্য বা অনুদান পাঠাতে আমাদের সাথে যোগাযোগ করতে পারেন।</p>
+                    <div class="space-y-3 pt-2 text-sm">
+                        <p class="flex items-center"><i class="fa-solid fa-location-dot text-emerald-700 w-6"></i> দলগ্রাম ইউনিয়ন, কালীগঞ্জ উপজেলা, লালমনিরহাট</p>
+                        <p class="flex items-center"><i class="fa-solid fa-phone text-emerald-700 w-6"></i> ০১৭০০০০০০০০, ০১৮০০০০০০০০</p>
+                        <p class="flex items-center"><i class="fa-solid fa-envelope text-emerald-700 w-6"></i> alkhidmahfoundation@gmail.com</p>
+                    </div>
+                </div>
+
+                <!-- Public Message Form -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                        <i class="fa-solid fa-paper-plane text-emerald-700 mr-2"></i> আমাদের বার্তা পাঠান
+                    </h3>
+                    <form onsubmit="submitContactMessage(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">আপনার নাম</label>
+                            <input type="text" id="contactSenderName" class="w-full border rounded-lg p-2.5 text-sm" placeholder="আব্দুল্লাহ আল মামুন" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">মোবাইল নম্বর</label>
+                            <input type="text" id="contactSenderPhone" class="w-full border rounded-lg p-2.5 text-sm" placeholder="০১৭০০০০০০০০" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">আপনার বার্তা বা জিজ্ঞাসা</label>
+                            <textarea id="contactSenderMsg" rows="3" class="w-full border rounded-lg p-2.5 text-sm" placeholder="ফাউন্ডেশনের কার্যক্রম সম্পর্কে জানতে চাই..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-800 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">বার্তা প্রেরণ করুন</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 15. ADMIN ONLY: ADD NEW MEMBER/USER FORM SECTION -->
+        <section id="memberFormSection" class="page-section hidden space-y-6">
+            <div class="admin-only bg-white rounded-xl shadow p-6 max-w-2xl mx-auto border border-emerald-100">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-user-plus text-emerald-700 mr-2"></i> নতুন সদস্য বা ব্যক্তি যুক্ত করুন
+                </h3>
+                <form id="globalMemberForm" onsubmit="addUniversalMember(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">কোন তালিকায় যুক্ত করতে চান?</label>
+                        <select id="categorySelect" class="w-full border rounded-lg p-2.5 text-sm" required>
+                            <option value="committee">কার্যকরী কমিটি</option>
+                            <option value="advisors">উপদেষ্টা পরিষদ</option>
+                            <option value="members">সাধারণ সদস্যবৃন্দ</option>
+                            <option value="donors">আজীবন দাতা সদস্য</option>
+                            <option value="beneficiaries">সহায়তা প্রাপ্তগণ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">পূর্ণ নাম</label>
+                        <input type="text" id="memberName" class="w-full border rounded-lg p-2.5 text-sm" placeholder="মোঃ আব্দুল করিম" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">পদবী / ভূমিকা / বিবরণ</label>
+                        <input type="text" id="memberRole" class="w-full border rounded-lg p-2.5 text-sm" placeholder="কোষাধ্যক্ষ / সাধারণ সদস্য" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">নির্ধারিত মাসিক চাঁদা / অনুদান (টাকা)</label>
+                        <input type="number" id="memberMonthlyAmount" class="w-full border rounded-lg p-2.5 text-sm" value="0" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">মোবাইল নম্বর</label>
+                        <input type="text" id="memberPhone" class="w-full border rounded-lg p-2.5 text-sm" placeholder="০১৭০০০০০০০০" required>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-800 text-white py-3 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition">সফলভাবে যুক্ত করুন</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 16. ADMIN ONLY: INBOX MESSAGES SECTION -->
+        <section id="inboxSection" class="page-section hidden space-y-6">
+            <div class="admin-only bg-white rounded-xl shadow p-6">
+                <h3 class="text-xl font-bold text-emerald-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-inbox text-emerald-700 mr-2"></i> ইনবক্স বার্তা (পাবলিক মেসেজ)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-900 text-white text-sm">
+                                <th class="p-3">তারিখ</th>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">মোবাইল</th>
+                                <th class="p-3">বার্তা</th>
+                                <th class="p-3 text-center">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inboxTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-950 text-emerald-200 py-6 mt-12 border-t border-emerald-900">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs md:text-sm space-y-2">
+            <p>&copy; ২০২৬ আল খিদমাহ ফাউন্ডেশন, দলগ্রাম, কালীগঞ্জ, লালমনিরহাট। সর্বস্বত্ব সংরক্ষিত।</p>
+            <p class="text-emerald-400">মানবতার কল্যাণে আমরা প্রতিশ্রুতিবদ্ধ।</p>
+        </div>
+    </footer>
+
     <!-- JavaScript -->
     <script>
         window.isAdmin = window.isAdmin || (localStorage.getItem('alkhidmahAdmin') === 'true');
@@ -32,6 +784,8 @@
             const adminActionCols = document.querySelectorAll('.admin-action-col');
             const navMemberForm = document.getElementById('navMemberForm');
             const navInbox = document.getElementById('navInbox');
+            const mobileNavMemberForm = document.getElementById('mobileNavMemberForm');
+            const mobileNavInbox = document.getElementById('mobileNavInbox');
             const adminBtn = document.getElementById('adminModeBtn');
             const calContainer = document.getElementById('calendarTableContainer');
             const calFormCard = document.getElementById('eventFormCard');
@@ -41,9 +795,11 @@
                 adminActionCols.forEach(el => el.classList.remove('hidden'));
                 if(navMemberForm) navMemberForm.classList.remove('hidden');
                 if(navInbox) navInbox.classList.remove('hidden');
+                if(mobileNavMemberForm) mobileNavMemberForm.classList.remove('hidden');
+                if(mobileNavInbox) mobileNavInbox.classList.remove('hidden');
                 if(adminBtn) {
                     adminBtn.innerHTML = '<i class="fa-solid fa-unlock mr-1"></i> এডমিন লগআউট';
-                    adminBtn.className = "bg-rose-800 hover:bg-rose-900 text-white text-xs px-3 py-2 rounded-lg border border-rose-600 font-semibold transition";
+                    adminBtn.className = "bg-rose-800 hover:bg-rose-900 text-white text-xs px-3 py-2 rounded-lg border border-rose-600 font-semibold transition flex items-center shadow-sm";
                 }
                 if(calContainer) calContainer.className = "bg-white rounded-xl shadow p-6 md:col-span-2 overflow-x-auto";
                 if(calFormCard) calFormCard.classList.remove('hidden');
@@ -52,9 +808,11 @@
                 adminActionCols.forEach(el => el.classList.add('hidden'));
                 if(navMemberForm) navMemberForm.classList.add('hidden');
                 if(navInbox) navInbox.classList.add('hidden');
+                if(mobileNavMemberForm) mobileNavMemberForm.classList.add('hidden');
+                if(mobileNavInbox) mobileNavInbox.classList.add('hidden');
                 if(adminBtn) {
                     adminBtn.innerHTML = '<i class="fa-solid fa-lock mr-1"></i> এডমিন লগইন';
-                    adminBtn.className = "bg-emerald-800 hover:bg-emerald-900 text-yellow-300 text-xs px-3 py-2 rounded-lg border border-emerald-600 font-semibold transition";
+                    adminBtn.className = "bg-emerald-800 hover:bg-emerald-900 text-yellow-300 text-xs px-3 py-2 rounded-lg border border-emerald-600 font-semibold transition flex items-center shadow-sm";
                 }
                 if(calContainer) calContainer.className = "bg-white rounded-xl shadow p-6 md:col-span-3 overflow-x-auto";
                 if(calFormCard) calFormCard.classList.add('hidden');
@@ -704,3 +1462,5 @@
             showSection('home');
         };
     </script>
+</body>
+</html>
