@@ -114,7 +114,7 @@
             </div>
         </section>
 
-        <!-- ২. নতুন সদস্য বা তথ্য যুক্ত করার ফর্ম পেজ (শুধু এডমিনের জন্য দৃশ্যমান) -->
+        <!-- ২. নতুন সদস্য বা তথ্য যুক্ত করার ফর্ম পেজ -->
         <section id="management-form" class="page-section hidden space-y-6 admin-only">
             <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto">
                 <h2 class="text-xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-user-plus mr-2"></i>তথ্য বা নতুন সদস্য যুক্ত করার ফর্ম</h2>
@@ -527,16 +527,18 @@
             </div>
         </section>
 
-        <!-- ১৫. হিসাব-নিকাশ: অটো রশিদ জেনারেটর -->
+        <!-- ১৫. হিসাব-নিকাশ: অটো রশিদ জেনারেটর (লক করা) -->
         <section id="receipts" class="page-section hidden space-y-6">
             <div class="flex justify-between items-center flex-wrap gap-4 no-print">
                 <h2 class="text-xl font-bold text-emerald-700">স্বয়ংক্রিয় অনুদান ও আয় রশিদ (Receipt)</h2>
-                <button onclick="generateNewReceipt()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg shadow hover:bg-emerald-700 text-sm font-medium">
+                <!-- নতুন রশিদ তৈরির বাটন শুধু এডমিন দেখবে -->
+                <button onclick="generateNewReceipt()" id="newReceiptBtn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg shadow hover:bg-emerald-700 text-sm font-medium admin-only hidden">
                     <i class="fa-solid fa-plus mr-1"></i> নতুন রশিদ তৈরি করুন
                 </button>
             </div>
 
-            <div class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto no-print">
+            <!-- রশিদ ফর্ম কার্ড (শুধু এডমিন দেখবে) -->
+            <div id="receiptFormCard" class="bg-white border border-emerald-200 rounded-xl p-6 shadow-md max-w-xl mx-auto no-print admin-only hidden">
                 <h3 class="text-lg font-bold text-emerald-800 mb-4"><i class="fa-solid fa-receipt mr-2"></i>রশিদ তথ্য পূরণ করুন</h3>
                 <form id="receiptForm" onsubmit="previewReceipt(event)" class="space-y-4">
                     <div>
@@ -1414,8 +1416,6 @@
         function submitContactMessage(e) {
             e.preventDefault();
             const name = document.getElementById('contactSenderName').value;
-            const phone = document.getElementById('contactSenderPhone/').value; // safe guard
-            // standard input fix
             const phoneVal = document.getElementById('contactSenderPhone').value;
             const message = document.getElementById('contactSenderMsg').value;
             const date = new Date().toLocaleDateString('bn-BD') + " " + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
