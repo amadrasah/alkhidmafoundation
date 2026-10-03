@@ -8,13 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Hind Siliguri) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Firebase App (Core) & Firestore CDN (Compat Version) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
     <style>
         body {
             font-family: 'Hind Siliguri', sans-serif;
@@ -755,9 +751,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript & Firebase Realtime Synchronization -->
-    <script>
-        // Your web app's Firebase configuration
+    <!-- Firebase SDK & JavaScript Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCuLl0AzJ62R3IQYDxwrtF2bYOyoO4OnZo",
             authDomain: "alkhidmafoundation-37d94.firebaseapp.com",
@@ -768,19 +766,17 @@
             measurementId: "G-S62QL2P6N9"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        window.isAdmin = window.isAdmin || (localStorage.getItem('alkhidmahAdmin') === 'true');
-        let isAdmin = window.isAdmin;
+        window.db = db;
+        window.isAdmin = localStorage.getItem('alkhidmahAdmin') === 'true';
 
-        function toggleAdminMode() {
-            if (isAdmin) {
+        window.toggleAdminMode = function() {
+            if (window.isAdmin) {
                 if(confirm('এডমিন মোড থেকে বের হতে চান?')) {
                     localStorage.setItem('alkhidmahAdmin', 'false');
                     window.isAdmin = false;
-                    isAdmin = false;
                     applyAdminModeUI();
                     alert('এডমিন মোড থেকে লগআউট করা হয়েছে।');
                     showSection('home');
@@ -790,16 +786,15 @@
                 if (pass === '1234') { 
                     localStorage.setItem('alkhidmahAdmin', 'true');
                     window.isAdmin = true;
-                    isAdmin = true;
                     applyAdminModeUI();
                     alert('সফলভাবে এডমিন মোডে প্রবেশ করেছেন!');
                 } else if(pass !== null) {
                     alert('ভুল পাসওয়ার্ড!');
                 }
             }
-        }
+        };
 
-        function applyAdminModeUI() {
+        window.applyAdminModeUI = function() {
             const adminElements = document.querySelectorAll('.admin-only');
             const adminActionCols = document.querySelectorAll('.admin-action-col');
             const navMemberForm = document.getElementById('navMemberForm');
@@ -810,7 +805,7 @@
             const calContainer = document.getElementById('calendarTableContainer');
             const calFormCard = document.getElementById('eventFormCard');
 
-            if (isAdmin) {
+            if (window.isAdmin) {
                 adminElements.forEach(el => el.classList.remove('hidden'));
                 adminActionCols.forEach(el => el.classList.remove('hidden'));
                 if(navMemberForm) navMemberForm.classList.remove('hidden');
@@ -837,7 +832,7 @@
                 if(calContainer) calContainer.className = "bg-white rounded-xl shadow p-6 md:col-span-3 overflow-x-auto";
                 if(calFormCard) calFormCard.classList.add('hidden');
             }
-        }
+        };
 
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
@@ -849,12 +844,12 @@
             });
         }
 
-        function closeMobileMenu() {
+        window.closeMobileMenu = function() {
             if(navMenu) navMenu.classList.add('hidden');
             document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
-        }
+        };
 
-        function toggleDropdown(event, dropdownId) {
+        window.toggleDropdown = function(event, dropdownId) {
             event.preventDefault();
             event.stopPropagation();
             const currentDropdown = document.getElementById(dropdownId);
@@ -866,15 +861,15 @@
             } else {
                 currentDropdown.classList.add('hidden');
             }
-        }
+        };
 
         window.addEventListener('click', function(e) {
             if (!e.target.closest('nav')) {
-                closeMobileMenu();
+                window.closeMobileMenu();
             }
         });
 
-        function showSection(sectionId) {
+        window.showSection = function(sectionId) {
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.add('hidden'));
             const target = document.getElementById(sectionId);
@@ -882,21 +877,12 @@
                 target.classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        }
+        };
 
-        // গ্লোবাল অবজেক্ট যা ফায়ারবেস ডেটা ধারণ করবে
         let allData = {
-            committee: [],
-            advisors: [],
-            members: [],
-            donors: [],
-            beneficiaries: [],
-            runningActivities: [],
-            pastActivities: [],
-            transactions: [],
-            calendarEvents: [],
-            galleryImages: [],
-            messages: []
+            committee: [], advisors: [], members: [], donors: [], beneficiaries: [],
+            runningActivities: [], pastActivities: [], transactions: [],
+            calendarEvents: [], galleryImages: [], messages: []
         };
 
         const incomeSectors = [
@@ -909,7 +895,7 @@
             "চিকিৎসা সহায়তা খরচ", "অফিস ও অন্যান্য আনুষঙ্গিক ব্যয়", "জরুরি ত্রাণ বিতরণ খরচ", "অন্যান্য ব্যয়"
         ];
 
-        function updateSectorDropdown() {
+        window.updateSectorDropdown = function() {
             const typeElem = document.getElementById('transType');
             const sectorSelect = document.getElementById('transSector');
             if(!typeElem || !sectorSelect) return;
@@ -919,9 +905,9 @@
             list.forEach(sec => {
                 sectorSelect.innerHTML += `<option value="${sec}">${sec}</option>`;
             });
-        }
+        };
 
-        function checkCustomRunningActivity() {
+        window.checkCustomRunningActivity = function() {
             const catElem = document.getElementById('runActCategory');
             const customDiv = document.getElementById('customRunningFieldDiv');
             const customNameElem = document.getElementById('customRunningName');
@@ -934,21 +920,20 @@
                 customDiv.classList.add('hidden');
                 if(customNameElem) customNameElem.required = false;
             }
-        }
+        };
 
-        // ফায়ারবেস থেকে রিয়েলটাইম ডেটা ফেচ (Realtime Listener) করার ফাংশন
         function fetchAllDataRealtime() {
-            const collections = [
+            const collectionsList = [
                 'committee', 'advisors', 'members', 'donors', 'beneficiaries', 
                 'runningActivities', 'pastActivities', 'transactions', 
                 'calendarEvents', 'galleryImages', 'messages'
             ];
 
-            collections.forEach(colName => {
-                db.collection(colName).onSnapshot((snapshot) => {
+            collectionsList.forEach(colName => {
+                onSnapshot(collection(db, colName), (snapshot) => {
                     allData[colName] = [];
-                    snapshot.forEach((doc) => {
-                        allData[colName].push({ id: doc.id, ...doc.data() });
+                    snapshot.forEach((docSnap) => {
+                        allData[colName].push({ id: docSnap.id, ...docSnap.data() });
                     });
                     renderAllTables();
                 }, (error) => {
@@ -971,7 +956,7 @@
             renderGallery();
             renderInbox();
             updateDashboardStats();
-            updateSectorDropdown();
+            window.updateSectorDropdown();
         }
 
         function updateDashboardStats() {
@@ -1012,12 +997,12 @@
             tbody.innerHTML = '';
             const items = allData[category];
             if (!items || items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
-                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('${category}', '${item.id}')" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
+                let actionTd = window.isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('${category}', '${item.id}')" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -1037,12 +1022,12 @@
             tbody.innerHTML = '';
             const items = allData.beneficiaries;
             if (!items || items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো তথ্য নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let amt = item.amount ? `৳ ${Number(item.amount).toLocaleString()}` : '৳ ০';
-                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('beneficiaries', '${item.id}')" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
+                let actionTd = window.isAdmin ? `<td class="p-3 text-center"><button onclick="deleteItem('beneficiaries', '${item.id}')" class="bg-rose-100 text-rose-700 px-2.5 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -1056,7 +1041,7 @@
             });
         }
 
-        function addRunningActivity(e) {
+        window.addRunningActivity = async function(e) {
             e.preventDefault();
             let cat = document.getElementById('runActCategory').value;
             if(cat === 'অন্যান্য') {
@@ -1069,13 +1054,13 @@
             const estCost = parseFloat(document.getElementById('runActEstCost').value) || 0;
             const costSector = document.getElementById('runActCostSector').value;
 
-            db.collection('runningActivities').add({ name: cat, startDate, endDate, beneficiary, area, estCost, costSector })
-            .then(() => {
+            try {
+                await addDoc(collection(db, 'runningActivities'), { name: cat, startDate, endDate, beneficiary, area, estCost, costSector });
                 document.getElementById('runningActivityForm').reset();
                 document.getElementById('customRunningFieldDiv').classList.add('hidden');
                 alert('চলমান কর্মসূচি সফলভাবে যুক্ত হয়েছে!');
-            }).catch(err => console.error(err));
-        }
+            } catch(err) { console.error(err); }
+        };
 
         function renderRunningActivitiesTable() {
             const tbody = document.getElementById('runningActivitiesTableBody');
@@ -1083,11 +1068,11 @@
             tbody.innerHTML = '';
             const items = allData.runningActivities || [];
             if(items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 7 : 6}" class="p-4 text-center text-gray-400 text-sm">কোনো চলমান কর্মসূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 7 : 6}" class="p-4 text-center text-gray-400 text-sm">কোনো চলমান কর্মসূচি নেই</td></tr>`;
                 return;
             }
-            items.forEach((item, index) => {
-                let actionTd = isAdmin ? `
+            items.forEach((item) => {
+                let actionTd = window.isAdmin ? `
                     <td class="p-3 text-center space-x-1">
                         <button onclick="completeRunningActivity('${item.id}', ${item.estCost})" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-xs font-semibold hover:bg-emerald-700">সমাপ্ত করুন</button>
                         <button onclick="deleteRunningActivity('${item.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button>
@@ -1106,31 +1091,30 @@
             });
         }
 
-        function completeRunningActivity(id, estCost) {
+        window.completeRunningActivity = async function(id, estCost) {
             let actualCostInput = prompt("এই কর্মসূচির প্রকৃত বা চূড়ান্ত ব্যয় কত হয়েছে (টাকা লিখুন):", estCost);
             if(actualCostInput === null) return;
             let actualCost = parseFloat(actualCostInput) || 0;
 
-            db.collection('runningActivities').doc(id).get().then((doc) => {
-                if(doc.exists) {
-                    let data = doc.data();
+            try {
+                const docSnap = await getDoc(doc(db, 'runningActivities', id));
+                if(docSnap.exists()) {
+                    let data = docSnap.data();
                     data.actualCost = actualCost;
                     delete data.estCost;
 
-                    db.collection('pastActivities').add(data).then(() => {
-                        db.collection('runningActivities').doc(id).delete().then(() => {
-                            alert('কর্মসূচিটি সফলভাবে সমাপ্ত করে পূর্ববর্তী কর্মসূচি তালিকায় স্থানান্তরিত করা হয়েছে!');
-                        });
-                    });
+                    await addDoc(collection(db, 'pastActivities'), data);
+                    await deleteDoc(doc(db, 'runningActivities', id));
+                    alert('কর্মসূচিটি সফলভাবে সমাপ্ত করে পূর্ববর্তী কর্মসূচি তালিকায় স্থানান্তরিত করা হয়েছে!');
                 }
-            });
-        }
+            } catch(err) { console.error(err); }
+        };
 
-        function deleteRunningActivity(id) {
+        window.deleteRunningActivity = async function(id) {
             if(confirm('এই চলমান কর্মসূচিটি মুছে ফেলতে চান?')) {
-                db.collection('runningActivities').doc(id).delete();
+                await deleteDoc(doc(db, 'runningActivities', id));
             }
-        }
+        };
 
         function renderPastActivitiesTable() {
             const tbody = document.getElementById('pastActivitiesTableBody');
@@ -1138,12 +1122,12 @@
             tbody.innerHTML = '';
             const items = allData.pastActivities || [];
             if(items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 8 : 7}" class="p-4 text-center text-gray-400 text-sm">কোনো পূর্ববর্তী কর্মসূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 8 : 7}" class="p-4 text-center text-gray-400 text-sm">কোনো পূর্ববর্তী কর্মসূচি নেই</td></tr>`;
                 return;
             }
             items.forEach((item, index) => {
                 let cost = item.actualCost ? `৳ ${Number(item.actualCost).toLocaleString()}` : '৳ ০';
-                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deletePastActivity('${item.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
+                let actionTd = window.isAdmin ? `<td class="p-3 text-center"><button onclick="deletePastActivity('${item.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3">${index + 1}</td>
@@ -1159,11 +1143,11 @@
             });
         }
 
-        function deletePastActivity(id) {
+        window.deletePastActivity = async function(id) {
             if(confirm('এই পূর্ববর্তী কর্মসূচিটি তালিকা থেকে মুছে ফেলতে চান?')) {
-                db.collection('pastActivities').doc(id).delete();
+                await deleteDoc(doc(db, 'pastActivities', id));
             }
-        }
+        };
 
         function renderDueTracking() {
             const tbody = document.getElementById('dueTrackingTableBody');
@@ -1212,7 +1196,7 @@
             });
         }
 
-        function addUniversalMember(e) {
+        window.addUniversalMember = async function(e) {
             e.preventDefault();
             const category = document.getElementById('categorySelect').value;
             const name = document.getElementById('memberName').value;
@@ -1220,22 +1204,22 @@
             const amount = parseFloat(document.getElementById('memberMonthlyAmount').value) || 0;
             const phone = document.getElementById('memberPhone').value;
 
-            db.collection(category).add({ name, role, amount, phone })
-            .then(() => {
+            try {
+                await addDoc(collection(db, category), { name, role, amount, phone });
                 document.getElementById('globalMemberForm').reset();
                 document.getElementById('memberMonthlyAmount').value = "0";
                 alert('সফলভাবে সংশ্লিষ্ট তালিকায় যুক্ত হয়েছে!');
-                showSection(category);
-            }).catch(err => console.error(err));
-        }
+                window.showSection(category);
+            } catch(err) { console.error(err); }
+        };
 
-        function deleteItem(category, id) {
+        window.deleteItem = async function(category, id) {
             if(confirm('আপনি কি এই সদস্যকে তালিকা থেকে মুছে ফেলতে চান?')) {
-                db.collection(category).doc(id).delete();
+                await deleteDoc(doc(db, category, id));
             }
-        }
+        };
 
-        function addTransaction(e) {
+        window.addTransaction = async function(e) {
             e.preventDefault();
             const type = document.getElementById('transType').value;
             const donor = document.getElementById('transDonorName').value;
@@ -1243,12 +1227,12 @@
             const amount = parseFloat(document.getElementById('transAmount').value);
             const date = document.getElementById('transDate').value;
 
-            db.collection('transactions').add({ date, donor, sector, type, amount })
-            .then(() => {
+            try {
+                await addDoc(collection(db, 'transactions'), { date, donor, sector, type, amount });
                 document.getElementById('transactionForm').reset();
                 alert('হিসাব সফলভাবে সংরক্ষিত হয়েছে!');
-            }).catch(err => console.error(err));
-        }
+            } catch(err) { console.error(err); }
+        };
 
         function renderTransactions() {
             const tbody = document.getElementById('transactionsTableBody');
@@ -1256,10 +1240,10 @@
             tbody.innerHTML = '';
             const txns = allData.transactions || [];
             if(txns.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো লেনদেন নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 6 : 5}" class="p-4 text-center text-gray-400 text-sm">কোনো লেনদেন নেই</td></tr>`;
             } else {
-                txns.forEach((t, index) => {
-                    let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteTransaction('${t.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button></td>` : '';
+                txns.forEach((t) => {
+                    let actionTd = window.isAdmin ? `<td class="p-3 text-center"><button onclick="deleteTransaction('${t.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">ডিলিট</button></td>` : '';
                     tbody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="p-3">${t.date}</td>
@@ -1274,22 +1258,22 @@
             }
         }
 
-        function deleteTransaction(id) {
+        window.deleteTransaction = async function(id) {
             if(confirm('এই হিসাবটি মুছে ফেলতে চান?')) {
-                db.collection('transactions').doc(id).delete();
+                await deleteDoc(doc(db, 'transactions', id));
             }
-        }
+        };
 
-        function convertAmountToWords() {
+        window.convertAmountToWords = function() {
             const amtElem = document.getElementById('rcvAmount');
             const wordsElem = document.getElementById('rcvAmountWords');
             if(!amtElem || !wordsElem) return;
             const amt = amtElem.value;
             wordsElem.value = amt ? amt + " টাকা মাত্র" : "";
-        }
+        };
 
         let receiptCounter = 1;
-        function previewReceipt(e) {
+        window.previewReceipt = function(e) {
             e.preventDefault();
             receiptCounter++;
             let serialStr = String(receiptCounter).padStart(3, '0');
@@ -1307,30 +1291,30 @@
             document.getElementById('viewAmountNum').innerText = `৳ ${Number(amount).toLocaleString()}.০০`;
             document.getElementById('viewAmountWords').innerText = amount + " টাকা মাত্র";
             alert('রিসিট সফলভাবে প্রস্তুত হয়েছে!');
-        }
+        };
 
-        function downloadPDF() {
+        window.downloadPDF = function() {
             alert('প্রিন্ট ডায়ালগ থেকে "Save as PDF" সিলেক্ট করে পিডিএফ ডাউনলোড করতে পারবেন।');
             window.print();
-        }
+        };
 
-        function generateNewReceipt() {
+        window.generateNewReceipt = function() {
             document.getElementById('receiptForm').reset();
             document.getElementById('rcvAmountWords').value = "";
-        }
+        };
 
-        function addCalendarEvent(e) {
+        window.addCalendarEvent = async function(e) {
             e.preventDefault();
             const title = document.getElementById('eventTitle').value;
             const date = document.getElementById('eventDate').value;
             const timeLocation = document.getElementById('eventTimeLocation').value;
 
-            db.collection('calendarEvents').add({ title, date, timeLocation })
-            .then(() => {
+            try {
+                await addDoc(collection(db, 'calendarEvents'), { title, date, timeLocation });
                 document.getElementById('eventForm').reset();
                 alert('নতুন ইভেন্ট বা সূচি সফলভাবে যুক্ত হয়েছে!');
-            }).catch(err => console.error(err));
-        }
+            } catch(err) { console.error(err); }
+        };
 
         function renderCalendarEvents() {
             const tbody = document.getElementById('calendarEventsTableBody');
@@ -1338,11 +1322,11 @@
             tbody.innerHTML = '';
             const events = allData.calendarEvents || [];
             if(events.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${isAdmin ? 4 : 3}" class="p-4 text-center text-gray-400 text-sm">কোনো ইভেন্ট বা সূচি নেই</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${window.isAdmin ? 4 : 3}" class="p-4 text-center text-gray-400 text-sm">কোনো ইভেন্ট বা সূচি নেই</td></tr>`;
                 return;
             }
-            events.forEach((ev, index) => {
-                let actionTd = isAdmin ? `<td class="p-3 text-center"><button onclick="deleteCalendarEvent('${ev.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
+            events.forEach((ev) => {
+                let actionTd = window.isAdmin ? `<td class="p-3 text-center"><button onclick="deleteCalendarEvent('${ev.id}')" class="bg-rose-100 text-rose-700 px-2 py-1 rounded text-xs font-semibold hover:bg-rose-200">মুছে ফেলুন</button></td>` : '';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50">
                         <td class="p-3 font-semibold text-emerald-700">${ev.date}</td>
@@ -1354,23 +1338,23 @@
             });
         }
 
-        function deleteCalendarEvent(id) {
+        window.deleteCalendarEvent = async function(id) {
             if(confirm('এই ইভেন্টটি মুছে ফেলতে চান?')) {
-                db.collection('calendarEvents').doc(id).delete();
+                await deleteDoc(doc(db, 'calendarEvents', id));
             }
-        }
+        };
 
-        function addGalleryItem(e) {
+        window.addGalleryItem = async function(e) {
             e.preventDefault();
             const title = document.getElementById('galleryTitle').value;
             const url = document.getElementById('galleryUrl').value;
 
-            db.collection('galleryImages').add({ title, url })
-            .then(() => {
+            try {
+                await addDoc(collection(db, 'galleryImages'), { title, url });
                 document.getElementById('galleryForm').reset();
                 alert('নতুন ছবি গ্যালারীতে যুক্ত হয়েছে!');
-            }).catch(err => console.error(err));
-        }
+            } catch(err) { console.error(err); }
+        };
 
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
@@ -1381,8 +1365,8 @@
                 grid.innerHTML = `<p class="text-gray-400 text-sm col-span-3 text-center">কোনো ছবি নেই</p>`;
                 return;
             }
-            images.forEach((img, index) => {
-                let deleteBtn = isAdmin ? `<button onclick="deleteGalleryItem('${img.id}')" class="absolute top-2 right-2 bg-rose-600 text-white text-xs px-2 py-1 rounded shadow">ডিলিট</button>` : '';
+            images.forEach((img) => {
+                let deleteBtn = window.isAdmin ? `<button onclick="deleteGalleryItem('${img.id}')" class="absolute top-2 right-2 bg-rose-600 text-white text-xs px-2 py-1 rounded shadow">ডিলিট</button>` : '';
                 grid.innerHTML += `
                     <div class="bg-white rounded-xl shadow overflow-hidden relative group">
                         <img src="${img.url}" alt="${img.title}" class="w-full h-48 object-cover">
@@ -1395,25 +1379,25 @@
             });
         }
 
-        function deleteGalleryItem(id) {
+        window.deleteGalleryItem = async function(id) {
             if(confirm('এই ছবিটি গ্যালারী থেকে মুছে ফেলতে চান?')) {
-                db.collection('galleryImages').doc(id).delete();
+                await deleteDoc(doc(db, 'galleryImages', id));
             }
-        }
+        };
 
-        function submitContactMessage(e) {
+        window.submitContactMessage = async function(e) {
             e.preventDefault();
             const name = document.getElementById('contactSenderName').value;
             const phone = document.getElementById('contactSenderPhone').value;
             const message = document.getElementById('contactSenderMsg').value;
             const date = new Date().toLocaleDateString('bn-BD');
 
-            db.collection('messages').add({ date, name, phone, message })
-            .then(() => {
+            try {
+                await addDoc(collection(db, 'messages'), { date, name, phone, message });
                 e.target.reset();
                 alert('আপনার বার্তাটি সফলভাবে প্রেরিত হয়েছে! ধন্যবাদ।');
-            }).catch(err => console.error(err));
-        }
+            } catch(err) { console.error(err); }
+        };
 
         function renderInbox() {
             const tbody = document.getElementById('inboxTableBody');
@@ -1424,7 +1408,7 @@
                 tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-sm">কোনো বার্তা নেই</td></tr>`;
                 return;
             }
-            msgs.forEach((m, index) => {
+            msgs.forEach((m) => {
                 tbody.innerHTML += `
                     <tr class="important-row hover:bg-gray-50">
                         <td class="p-3 text-xs text-gray-500">${m.date}</td>
@@ -1439,16 +1423,16 @@
             });
         }
 
-        function deleteInboxMessage(id) {
+        window.deleteInboxMessage = async function(id) {
             if(confirm('এই বার্তাটি ইনবক্স থেকে মুছে ফেলতে চান?')) {
-                db.collection('messages').doc(id).delete();
+                await deleteDoc(doc(db, 'messages', id));
             }
-        }
+        };
 
         window.onload = function() {
-            applyAdminModeUI();
-            fetchAllDataRealtime(); // ফায়ারবেস থেকে লাইভ ডাটা লোড শুরু হবে
-            showSection('home');
+            window.applyAdminModeUI();
+            fetchAllDataRealtime();
+            window.showSection('home');
         };
     </script>
 </body>
