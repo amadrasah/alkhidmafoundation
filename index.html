@@ -8,10 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (SolaimanLipi / Inter) -->
+    <!-- Google Fonts (Hind Siliguri) -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Firebase App (Core) & Firestore CDN -->
+    <!-- Firebase App (Core) & Firestore CDN (Compat Version) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -48,7 +48,7 @@
                         <button onclick="toggleDropdown(event, 'aboutDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
                             পরিচিতি <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
                         </button>
-                        <div id="aboutDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                        <div id="aboutDropdown" class="hidden dropdown-content absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
                             <button onclick="showSection('committee'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">কার্যকরী কমিটি</button>
                             <button onclick="showSection('advisors'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">উপদেষ্টা পরিষদ</button>
                             <button onclick="showSection('members'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">সাধারণ সদস্যবৃন্দ</button>
@@ -62,7 +62,7 @@
                         <button onclick="toggleDropdown(event, 'activitiesDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
                             কার্যক্রম <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
                         </button>
-                        <div id="activitiesDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                        <div id="activitiesDropdown" class="hidden dropdown-content absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
                             <button onclick="showSection('runningActivities'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">চলমান কর্মসূচি</button>
                             <button onclick="showSection('pastActivities'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">পূর্ববর্তী কর্মসূচি</button>
                             <button onclick="showSection('dueTracking'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">বকেয়া ট্র্যাকিং</button>
@@ -74,7 +74,7 @@
                         <button onclick="toggleDropdown(event, 'financeDropdown')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-800 transition flex items-center">
                             হিসাব-নিকাশ <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
                         </button>
-                        <div id="financeDropdown" class="hidden absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
+                        <div id="financeDropdown" class="hidden dropdown-content absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 z-50 border border-slate-100">
                             <button onclick="showSection('transactions'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">আয়-ব্যয়ের হিসাব</button>
                             <button onclick="showSection('receiptBook'); closeMobileMenu();" class="w-full text-left px-4 py-2 text-sm hover:bg-emerald-50 hover:text-emerald-800">রিসিট জেনারেটর</button>
                         </div>
@@ -134,10 +134,9 @@
             <!-- Hero Banner -->
             <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-2xl p-8 md:p-12 shadow-lg flex flex-col md:flex-row items-center justify-between">
                 <div class="space-y-4 max-w-2xl text-center md:text-left">
-                    সেবামূলক ও সামাজিক কল্যাণ সংস্থা
+                    <span class="bg-emerald-700/60 text-yellow-300 text-xs px-3 py-1 rounded-full uppercase font-semibold">সেবামূলক ও সামাজিক কল্যাণ সংস্থা</span>
                     <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">আল খিদমাহ ফাউন্ডেশন</h2>
-                    <p class="text-emerald-100 text-base md:text-lg">মানু‌ষের জন‌্য, মানু‌ষের পাশে।</p>
-                    <p class="text-emerald-100 text-base md:text-lg">মানবতার সেবায় নিবেদিত। দলগ্রাম ইউনিয়নের অসহায়, দুস্থ ও প্রবাসীর কল্যাণে আমরা সর্বদা সচেষ্ট।</p>
+                    <p class="text-emerald-100 text-base md:text-lg">মানুষের জন্য, মানুষের পাশে। মানবতার সেবায় নিবেদিত। দলগ্রাম ইউনিয়নের অসহায়, দুস্থ ও প্রবাসীর কল্যাণে আমরা সর্বদা সচেষ্ট।</p>
                     <div class="pt-4 flex flex-wrap justify-center md:justify-start gap-3">
                         <button onclick="showSection('runningActivities')" class="bg-yellow-400 text-emerald-950 font-bold px-6 py-3 rounded-xl shadow hover:bg-yellow-300 transition">চলমান কর্মসূচি দেখুন</button>
                         <button onclick="showSection('receiptBook')" class="bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-emerald-600 border border-emerald-600 transition">ডোনেশন রিসিট</button>
@@ -146,7 +145,7 @@
                 <div class="mt-8 md:mt-0 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20 text-center">
                     <i class="fa-solid fa-hand-holding-heart text-yellow-300 text-5xl mb-3"></i>
                     <h3 class="font-bold text-xl">আপনার দান, অসহায় মানুষের হাসি</h3>
-                    <p class="text-xs text-emerald-200 mt-1">স্বচ্ছ ও জবাবদিহিতা মূলক সাহায্য বিতরণ ব্যবস্থা</p>
+                    <p class="text-xs text-emerald-200 mt-1">স্বচ্ছ ও জবাবদিহিতামূলক সাহায্য বিতরণ ব্যবস্থা</p>
                 </div>
             </div>
 
@@ -758,17 +757,18 @@
 
     <!-- JavaScript & Firebase Realtime Synchronization -->
     <script>
-        // ফায়ারবেস কনফিগারেশন (আপনার ফায়ারবেস কনসোল থেকে প্রজেক্ট তৈরি করে এখানে আপনার সঠিক তথ্য বসাবেন)
+        // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyCuLl0AzJ62R3IQYDxwrtF2bYOyoO4OnZo",
+            authDomain: "alkhidmafoundation-37d94.firebaseapp.com",
+            projectId: "alkhidmafoundation-37d94",
+            storageBucket: "alkhidmafoundation-37d94.firebasestorage.app",
+            messagingSenderId: "318811443239",
+            appId: "1:318811443239:web:bef78584a0fa807c8bfe02",
+            measurementId: "G-S62QL2P6N9"
         };
 
-        // ফায়ারবেস ইনিশিয়ালাইজেশন
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
@@ -951,6 +951,8 @@
                         allData[colName].push({ id: doc.id, ...doc.data() });
                     });
                     renderAllTables();
+                }, (error) => {
+                    console.error(`${colName} লোড করতে সমস্যা হয়েছে: `, error);
                 });
             });
         }
